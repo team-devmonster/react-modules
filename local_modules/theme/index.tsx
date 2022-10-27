@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext(null) as any;
 
-export type Color = {
+type Color = {
   light: {[name:string]:string},
   dark: {[name:string]:string}
 }
