@@ -1,4 +1,5 @@
-# @team-devmonster/react-native-theme
+# @team-devmonster/react-theme
+
 This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.
 [@team-devmonster/react-native-theme](https://github.com/team-devmonster/react-native-modules/tree/master/local_modules/theme)
 
