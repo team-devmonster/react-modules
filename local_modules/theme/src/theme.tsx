@@ -35,10 +35,11 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   }, [])
 
   return (
-    colorScheme &&
-    <ThemeContext.Provider value={theme(color[colorScheme])}>
-      {children}
-    </ThemeContext.Provider>
+    <div style={{ visibility: colorScheme ? 'visible' : 'hidden' }}>
+      <ThemeContext.Provider value={theme(color[colorScheme || 'dark'])}>
+        {children}
+      </ThemeContext.Provider>
+    </div>
   )
 }
 

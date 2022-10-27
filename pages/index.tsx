@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { useTheme } from '@local_modules/theme'
+import { useTheme } from '@local_modules/theme/src'
 import { Theme } from 'App.theme'
 
 const Home: NextPage = () => {
