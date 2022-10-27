@@ -23,8 +23,7 @@ export function ThemeProvider({ children, color, theme }) {
             window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
         };
     }, []);
-    return (colorScheme &&
-        _jsx(ThemeContext.Provider, Object.assign({ value: theme(color[colorScheme]) }, { children: children })));
+    return (_jsx("div", Object.assign({ style: { visibility: colorScheme ? 'visible' : 'hidden' } }, { children: _jsx(ThemeContext.Provider, Object.assign({ value: theme(color[colorScheme || 'dark']) }, { children: children })) })));
 }
 export function useTheme() {
     return useContext(ThemeContext);

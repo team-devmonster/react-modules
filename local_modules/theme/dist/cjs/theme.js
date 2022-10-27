@@ -26,8 +26,7 @@ function ThemeProvider({ children, color, theme }) {
             window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
         };
     }, []);
-    return (colorScheme &&
-        (0, jsx_runtime_1.jsx)(ThemeContext.Provider, Object.assign({ value: theme(color[colorScheme]) }, { children: children })));
+    return ((0, jsx_runtime_1.jsx)("div", Object.assign({ style: { visibility: colorScheme ? 'visible' : 'hidden' } }, { children: (0, jsx_runtime_1.jsx)(ThemeContext.Provider, Object.assign({ value: theme(color[colorScheme || 'dark']) }, { children: children })) })));
 }
 exports.ThemeProvider = ThemeProvider;
 function useTheme() {

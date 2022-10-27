@@ -10,6 +10,6 @@ export declare function ThemeProvider<S extends Color, T extends Function>({ chi
     children: React.ReactNode;
     color: S;
     theme: T;
-}): JSX.Element | null;
+}): JSX.Element;
 export declare function useTheme<T>(): T;
 export {};
