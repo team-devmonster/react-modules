@@ -128,7 +128,7 @@ const theme = (color:Color) => {
 ### 2. Set Provider
 
 ```javascript
-import { ThemeProvider } from '@team-devmonster/react-native-theme';
+import { ThemeProvider } from '@team-devmonster/react-theme';
 import { color, theme } from './App.theme';
 
 export default function App() {
@@ -147,8 +147,7 @@ Use your theme, whatever you want!
 
 ```javascript
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from '@team-devmonster/react-native-theme';
+import { useTheme } from '@team-devmonster/react-theme';
 
 import { Theme } from './App.theme';
 
