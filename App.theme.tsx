@@ -45,10 +45,6 @@ export const color = {
   }
 }
 
-// example of Color & ColorKeys type
-export type Color = typeof color.light;
-export type ColorKeys = keyof Color;
-
 export const theme = (color:Color) => {
   const fontSize = {
     xs: 12 as const,
@@ -109,4 +105,7 @@ export const theme = (color:Color) => {
   }
 }
 
+// example of Color & ColorKeys type
+export type Color = typeof color.light;
+export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
