@@ -36,13 +36,28 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
 
   return (
     <div style={{ visibility: colorScheme ? 'visible' : 'hidden' }}>
-      <ThemeContext.Provider value={theme(color[colorScheme || 'dark'])}>
+      <ThemeContext.Provider 
+        value={
+          theme({
+            colorScheme, 
+            ...color[colorScheme || 'light']
+          }
+        )}>
         {children}
-      </ThemeContext.Provider>
+    </ThemeContext.Provider>
     </div>
   )
 }
 
+
+type Merge<A,B> = {
+  [K in keyof A]: K extends keyof B ? B[K] : A[K]
+} & B;
+type ThemeProps<T> = Merge<T, {
+  colorScheme:'light'|'dark'
+}>
+
 export function useTheme<T>() {
-  return useContext<T>(ThemeContext);
+  return useContext<ThemeProps<T>>(ThemeContext);
 }
+
