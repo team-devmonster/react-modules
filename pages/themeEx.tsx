@@ -1,5 +1,5 @@
-import React, { CSSProperties } from "react";
-import { contrastColor, darken, lighten, hexToRgb, useTheme } from "@local_modules/theme";
+import React from "react";
+import { darken, lighten, hexToRgb, useTheme, contrast } from "@local_modules/theme";
 import { Theme } from "App.theme";
 
 const ThemeEx = () => {
@@ -32,13 +32,13 @@ const ThemeEx = () => {
           paddingBottom: 18
         }}>
         <div style={{ backgroundColor: lighten(color.primary, 50), ...style.boxStyle }}>
-          <div style={{ color: contrastColor(color.primary), fontSize: fontSize.sm }}>primary lighter 50</div>
+          <div style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>primary lighter 50</div>
         </div>
         <div style={{ backgroundColor: darken(color.danger, 50), ...style.boxStyle }}>
-          <div style={{ color: contrastColor(color.danger), fontSize: fontSize.sm }}>danger darken 50</div>
+          <div style={{ color: contrast(color.danger), fontSize: fontSize.sm }}>danger darken 50</div>
         </div>
         <div style={{ backgroundColor: darken(color.step200, 50), ...style.boxStyle, width: style.boxStyle.width*2 }}>
-          <div style={{ color: contrastColor(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} <br></br> rgb: {hexToRgb(color.step200)}</div>
+          <div style={{ color: contrast(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} <br></br> rgb: {hexToRgb(color.step200)}</div>
         </div>
       </div>
     </div>

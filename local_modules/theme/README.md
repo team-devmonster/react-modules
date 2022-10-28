@@ -219,7 +219,7 @@ Sometimes we should use lighter, darker, or invert colors.
 So this library offers some utils.
 
 ```javascript
-import { useTheme, darken, lighten, hexToRgb, contrastColor } from "@local_modules/theme";
+import { useTheme, darken, lighten, hexToRgb, contrast } from "@local_modules/theme";
 import { Theme } from "App.theme";
 
 const ThemeEx = () => {
@@ -229,13 +229,13 @@ const ThemeEx = () => {
   return (
     <div>
       <div style={{ backgroundColor: lighten(color.primary, 50), ...shadow.base, ...style.boxStyle }}>
-        <div style={{ color: contrastColor(color.primary), fontSize: fontSize.sm }}>primary lighter 50</div>
+        <div style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>primary lighter 50</div>
       </div>
       <div style={{ backgroundColor: darken(color.danger, 50), ...shadow.lg, ...style.boxStyle }}>
-        <div style={{ color: contrastColor(color.danger), fontSize: fontSize.sm }}>danger darken 50</div>
+        <div style={{ color: contrast(color.danger), fontSize: fontSize.sm }}>danger darken 50</div>
       </div>
       <div style={{ backgroundColor: darken(color.step200, 50), ...style.boxStyle }}>
-        <div style={{ color: contrastColor(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} <br></br> rgb: {hexToRgb(color.step200)}</div>
+        <div style={{ color: contrast(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} <br></br> rgb: {hexToRgb(color.step200)}</div>
       </div>
     </div>
   )
