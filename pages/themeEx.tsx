@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import { useTheme } from "@local_modules/theme/src";
+import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 
 const ThemeEx = () => {
