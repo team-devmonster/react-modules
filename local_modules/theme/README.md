@@ -1,8 +1,15 @@
 # @team-devmonster/react-theme
 
-This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.
-[@team-devmonster/react-native-theme](https://github.com/team-devmonster/react-native-modules/tree/master/local_modules/theme)
+This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.<br>
+[@team-devmonster/react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 
+`react-theme` was created to easily create a theme in the `react` environment.
+`Darkmode` compatibility is also easy.
+You can also use it in the `nextjs` environment.
+
+##### author: devmonster 
+hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
+email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ### Road Map
 
@@ -10,7 +17,7 @@ General [react-modules] load map => [here](https://github.com/team-devmonster/re
 
 ## Getting started
 
-`$ npm install @team-devmonster/react-theme`
+`$ npm install @team-devmonster/react-theme@latest`
 
 
 ## Usage

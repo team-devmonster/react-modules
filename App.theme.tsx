@@ -1,4 +1,7 @@
-export const color = {
+import { ButtonProps, TagProvider, TagStyle } from "@local_modules/tags";
+import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
+
+const color = {
   light: {
     // key colors
     primary: '#4a93cf',
@@ -45,7 +48,7 @@ export const color = {
   }
 }
 
-export const theme = (color:Color) => {
+const theme = (color:Color) => {
   const fontSize = {
     xs: 12 as const,
     sm: 14 as const,
@@ -85,23 +88,43 @@ export const theme = (color:Color) => {
     borderColor: color.step200
   }
 
-  const button = {
-    cursor: 'pointer',
-    position: 'relative',
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: fontSize.base,
-    minHeight: 42,
-    borderRadius: 5
+  const div:TagStyle = {
+    color: color.black,
+    fontSize: fontSize.base
+  }
+  
+  const button:ButtonProps = {
+    color: color.white,
+    style: {
+      cursor: 'pointer',
+      position: 'relative',
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: fontSize.base,
+      minHeight: 42,
+      borderRadius: 5
+    }
+  }
+
+  const shadow = {
+    base: { 
+      boxShadow: `0 2px 10px 2px rgb(${hexToRgb(color.black)} / 0.1), 0 1px 4px -8px rgb(${hexToRgb(color.black)} / 0.1)` 
+    },
+    lg: {
+      boxShadow: `0 10px 15px -3px rgb(${hexToRgb(color.black)} / 0.1), 0 4px 6px -4px rgb(${hexToRgb(color.black)} / 0.1)`
+    },
+    card: {
+      boxShadow: `0 5px 15px -5px rgb(${hexToRgb(color.black)} / 0.1), 0 5px 10px -5px rgb(${hexToRgb(color.black)} / 0.1)`
+    }
   }
 
   return {
     // basic theme
-    color, fontSize, 
+    color, fontSize, shadow,
     // components theme
     input, inputError, inputDisabled,
-    button
+    div, button
   }
 }
 
@@ -109,3 +132,20 @@ export const theme = (color:Color) => {
 export type Color = typeof color.light;
 export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
+
+export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
+  return (
+    <ThemeProvider color={color} theme={theme}>
+      {children}
+    </ThemeProvider>
+  )
+}
+
+export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
+  const { div, button } = useTheme<Theme>();
+  return (
+    <TagProvider tagConfig={{ div, button }}>
+      {children}
+    </TagProvider>
+  )
+}

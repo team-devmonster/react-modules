@@ -1,13 +1,14 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ThemeProvider } from '@local_modules/theme'
-import { color, theme } from 'App.theme'
+import { AppTagProvider, AppThemeProvider } from 'App.theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider color={color} theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <AppThemeProvider>
+      <AppTagProvider>
+        <Component {...pageProps} />
+      </AppTagProvider>
+    </AppThemeProvider>
   )
 }
 

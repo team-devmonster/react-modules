@@ -1,0 +1,38 @@
+{
+  "name": "@team-devmonster/react-tags",
+  "version": "1.0.0",
+  "description": "This is devmonster's react module for make app easily. This is compatible with devmonster's react-native modules.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-devmonster/react-modules.git"
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "theme",
+    "tag",
+    "devmoster",
+    "team-devmonster"
+  ],
+  "author": "devmonster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/team-devmonster/react-modules/issues"
+  },
+  "homepage": "https://github.com/team-devmonster/react-modules#readme",
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16",
+    "react-native": ">=0.57"
+  }
+}

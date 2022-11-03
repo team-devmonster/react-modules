@@ -37,12 +37,10 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   return (
     <div style={{ visibility: colorScheme ? 'visible' : 'hidden' }}>
       <ThemeContext.Provider 
-        value={
-          theme({
-            colorScheme, 
-            ...color[colorScheme || 'light']
-          }
-        )}>
+        value={{
+          ...theme(color[colorScheme || 'light']),
+          colorScheme
+        }}>
         {children}
     </ThemeContext.Provider>
     </div>
