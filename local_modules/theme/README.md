@@ -3,8 +3,8 @@
 This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.<br>
 [@team-devmonster/react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 
-`react-theme` was created to easily create a theme in the `react` environment.
-`Darkmode` compatibility is also easy.
+`react-theme` was created to easily create a theme in the `react` environment.<br>
+`Darkmode` compatibility is also easy.<br>
 You can also use it in the `nextjs` environment.
 
 ##### author: devmonster 
