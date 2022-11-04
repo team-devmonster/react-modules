@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span } from "@local_modules/tags";
+import { Div, Button, Img, P, Span, Br } from "@local_modules/tags";
 import { Theme } from "App.theme";
 
 const TagsEx = () => {
@@ -46,7 +46,9 @@ const TagsEx = () => {
         hello?
         <Button color={color.step500}>not inline button. normal button.</Button>
       </P>
-      
+      <P>
+        text with <Br/>hello
+      </P>
       <Button 
         color={color.primary}
         fill="outline"
@@ -66,7 +68,6 @@ const TagsEx = () => {
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Button>
-
       <Button color={color.primary} fill="outline" style={{ marginBottom: 8 }}>
         outline
       </Button>

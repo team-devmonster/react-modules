@@ -20,6 +20,7 @@ General [react-modules] load map => [here](https://github.com/team-devmonster/re
 - [x] [div]
 - [x] [button](#Button)
 - [X] [img](#Img)
+- [X] [br]
 - [ ] input
 - [ ] checkbox
 - [ ] label

@@ -136,7 +136,7 @@ export const useColorScheme = () => {
   return colorScheme;
 }
 
-export const divDefaultStyle:CSSProperties = {
+export const flexDefaultStyle:CSSProperties = {
   display: 'flex',
   flexDirection: 'column'
 }
@@ -166,6 +166,9 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
         else {
           if(child?.type?.name === 'Span' || child?.props?.style?.display === 'inline-flex') {
             textchildren.push(child);
+          }
+          else if(child.type?.name === 'Br') {
+            textchildren.push(`\n`);
           }
           else {
             if(textchildren.length) {
@@ -199,7 +202,8 @@ const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) =>
   return (
     <p style={{
       margin: 0,
-      lineHeight: style?.fontSize ? `${style.fontSize*1.28}px` : undefined,
+      whiteSpace: 'pre-line',
+      lineHeight: style?.fontSize ? 1.28 : undefined,
       ...style
     }}>{children}</p>
   )

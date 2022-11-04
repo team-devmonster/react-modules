@@ -1,6 +1,6 @@
 import React, { forwardRef, LegacyRef, useState } from "react";
 import { TagStyle, useTags } from "./tags";
-import { contrast, darken, divDefaultStyle, TagModule, textPattern, useColorScheme, useTagStyle } from "./utils";
+import { contrast, darken, flexDefaultStyle, TagModule, textPattern, useColorScheme, useTagStyle } from "./utils";
 
 export interface ButtonProps {
   tag?: 'div'|'button';
@@ -93,7 +93,7 @@ export const Button = forwardRef((
       disabled={disabled} 
       style={{
         appearance: 'none',
-        ...divDefaultStyle,
+        ...flexDefaultStyle,
         borderStyle: 'solid',
         borderWidth: fillStyle.borderWidth || 0,
         borderColor: fillStyle.borderColor,
@@ -115,7 +115,8 @@ export const Button = forwardRef((
       {...rest}>
       <TagModule
         style={{
-          color: fillStyle.color, 
+          color: fillStyle.color,
+          lineHeight: 1,
           ...textStyle
         }}>
         {children}
