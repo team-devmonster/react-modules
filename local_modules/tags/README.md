@@ -33,7 +33,7 @@ General [react-modules] load map => [here](https://github.com/team-devmonster/re
 
 ## Getting started
 
-`$ npm install @team-devmonster/react-native-tags@latest`
+`$ npm install @team-devmonster/react-tags@latest`
 
 
 ## Usage
