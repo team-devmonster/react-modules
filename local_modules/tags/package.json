@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-tags",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is devmonster's react module for make app easily. This is compatible with devmonster's react-native modules.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -32,7 +32,6 @@
   "homepage": "https://github.com/team-devmonster/react-modules#readme",
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": ">=16",
-    "react-native": ">=0.57"
+    "react-dom": ">=16"
   }
 }
