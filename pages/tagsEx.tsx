@@ -5,7 +5,9 @@ import { Theme } from "App.theme";
 
 const TagsEx = () => {
 
-  const { color, fontSize, shadow } = useTheme<Theme>();
+  const { color, fontSize, shadow, colorScheme } = useTheme<Theme>();
+
+  //console.log(colorScheme);
 
   return (
     <Div
