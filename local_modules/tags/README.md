@@ -234,5 +234,5 @@ export default TagsEx;
 
 | props | values | description |
 | :---:   | :---: | :---: |
-| `resizeMode` | `contain` `cover` | default: `contain` |
+| `objectFit` | `contain` `cover` | default: `contain` |
 | `style` | `style` | `style` |

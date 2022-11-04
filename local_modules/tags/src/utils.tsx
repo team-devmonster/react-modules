@@ -23,28 +23,6 @@ export function darken(col:string, amt:number) {
   return '#' + (g | (b << 8) | (r << 16)).toString(16);
 }
 
-export const lighten = (col:string, amt:number) => {
-
-  const num = parseInt(col.slice(1),16);
-
-  let r = (num >> 16) + amt;
-
-  if (r > 255) r = 255;
-  else if  (r < 0) r = 0;
-
-  let b = ((num >> 8) & 0x00FF) + amt;
-
-  if (b > 255) b = 255;
-  else if  (b < 0) b = 0;
-
-  let g = (num & 0x0000FF) + amt;
-
-  if (g > 255) g = 255;
-  else if (g < 0) g = 0;
-
-  return '#' + (g | (b << 8) | (r << 16)).toString(16);
-}
-
 export const contrast = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF', amt:number = 206) => {
   
   hex = hex.slice(1);
@@ -68,13 +46,17 @@ export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
 
+export const flexDefaultStyle:CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column'
+}
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]) => {
 
-  const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null));
+  const [newStyles, setNewStyles] = useState<(TagStyle|{})[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
   useEffect(() => {
 
-    let styleObj = {};
+    let styleObj:TagStyle = { borderStyle:'solid', borderWidth: 0 };
     styleStates.forEach(styleState => {
       styleObj = Object.assign(styleObj, styleState);
     })
@@ -84,7 +66,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
     }
 
     const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
-    const styles:(any|null)[] = new Array(patterns.length+1).fill(null);
+    const styles:(any|null)[] = new Array(patterns.length+1).fill(null).map(() => ({}));
 
     for(let i = 0; i < entries.length; i++) {
       const key = entries[i][0];
@@ -95,13 +77,11 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
         const styleIndex = j;
 
         if(pattern.test(key)) {
-          if(!styles[styleIndex]) styles[styleIndex] = {};
           styles[styleIndex]![key] = value;
           break;
         }
 
         if(styleIndex === patterns.length-1) {
-          if(!styles[styles.length-1]) styles[styles.length-1] = {};
           styles[styles.length-1]![key] = value;
         }
       }
@@ -134,11 +114,6 @@ export const useColorScheme = () => {
   }, [])
 
   return colorScheme;
-}
-
-export const flexDefaultStyle:CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column'
 }
 
 export const TagModule = ({ children, style:textStyle }:TagProps) => {

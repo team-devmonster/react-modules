@@ -94,10 +94,9 @@ export const Button = forwardRef((
       style={{
         appearance: 'none',
         ...flexDefaultStyle,
-        borderStyle: 'solid',
-        borderWidth: fillStyle.borderWidth || 0,
-        borderColor: fillStyle.borderColor,
         ...etcStyle,
+        borderWidth: fillStyle.borderWidth || etcStyle.borderWidth,
+        borderColor: fillStyle.borderColor || etcStyle.borderColor,
         backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
       }}
 

@@ -7,17 +7,17 @@ interface TagImageStyle extends Omit<CSSProperties, 'display'> {
 interface ImgProps {
   src: string,
   style?: TagImageStyle,
-  resizeMode?: "contain" | "cover"
+  objectFit?: "contain" | "cover"
 }
 
-export const Img = ({ src, style, resizeMode = 'contain' }:ImgProps) => {
+export const Img = ({ src, style, objectFit = 'contain' }:ImgProps) => {
 
   return (
     <img 
-      src={src} 
-      style={{ 
+      src={src}
+      style={{
         ...style,
-        display: style?.display === 'inline-flex' ? 'flex' : style?.display
+        objectFit
       }}/>
   )
 }

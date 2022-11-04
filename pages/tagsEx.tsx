@@ -62,12 +62,12 @@ const TagsEx = () => {
           marginBottom: 18
         }}>
           hellohellohello omg~
-          <Img 
+          <Img
           style={{
             width: 20,
-            aspectRatio: 1.774, 
+            aspectRatio: 1.774,
             backgroundColor: color.step500
-          }} 
+          }}
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Button>
       <Button color={color.primary} fill="outline" style={{ marginBottom: 8 }}>
