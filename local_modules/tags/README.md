@@ -13,7 +13,6 @@ hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
 email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 
-
 ### Road Map
 
 General [react-modules] load map => [here](https://github.com/team-devmonster/react-native-modules);
@@ -29,7 +28,7 @@ General [react-modules] load map => [here](https://github.com/team-devmonster/re
 - [ ] option
 
 *extends `div`. These got base style from `div`.
-- [x] [p]
+- [x] [p] => this is for text.
 - [x] [span] => this is for inline style layout.
 
 ## Getting started

@@ -46,6 +46,7 @@ const TagsEx = () => {
         hello?
         <Button color={color.step500}>not inline button. normal button.</Button>
       </P>
+      
       <Button 
         color={color.primary}
         fill="outline"

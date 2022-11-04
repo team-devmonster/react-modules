@@ -1,5 +1,5 @@
 import { TagProps, useTags } from "./tags";
-import { divDefaultStyle, useTagStyle } from "./utils";
+import { divDefaultStyle, TagModule, textPattern, useTagStyle } from "./utils";
 
 export const Div = ({style, children, ...rest}:TagProps) => {
 
@@ -7,17 +7,19 @@ export const Div = ({style, children, ...rest}:TagProps) => {
   const divTagStyle = tagConfig?.['div'];
 
   const [
-    newStyle,
+    textStyle, 
+    viewStyle
   ]
   = useTagStyle([
+    textPattern
   ], [divTagStyle, style]);
   
   return (
     <div style={{
       ...divDefaultStyle,
-      ...newStyle
+      ...viewStyle
     }} {...rest}>
-      {children}
+      <TagModule style={textStyle}>{children}</TagModule>
     </div>
   )
 }

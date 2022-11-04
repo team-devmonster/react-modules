@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TagStyle, useTags } from "./tags";
-import { contrast, darken, divDefaultStyle, useColorScheme, useTagStyle } from "./utils";
+import { contrast, darken, divDefaultStyle, TagModule, textPattern, useColorScheme, useTagStyle } from "./utils";
 
 export interface ButtonProps {
   tag?: 'div'|'button';
@@ -72,9 +72,11 @@ export const Button = (
   }
 
   const [
-    newStyle
+    textStyle, 
+    etcStyle
   ]
   = useTagStyle([
+    textPattern
   ], [buttonTagStyle, style]);
 
   const onPress = () => {
@@ -93,9 +95,8 @@ export const Button = (
         borderStyle: 'solid',
         borderWidth: fillStyle.borderWidth || 0,
         borderColor: fillStyle.borderColor,
-        color: fillStyle.color,
-        ...newStyle,
-        backgroundColor: !isActive ? (newStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
+        ...etcStyle,
+        backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
       }}
 
       onMouseDown={onPress}
@@ -108,7 +109,13 @@ export const Button = (
       onTouchCancel={onLeave}
       
       {...rest}>
-      {children}
+      <TagModule
+        style={{
+          color: fillStyle.color, 
+          ...textStyle
+        }}>
+        {children}
+      </TagModule>
     </Tag>
   )
 }
