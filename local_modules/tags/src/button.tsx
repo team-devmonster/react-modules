@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, LegacyRef, useState } from "react";
 import { TagStyle, useTags } from "./tags";
 import { contrast, darken, divDefaultStyle, TagModule, textPattern, useColorScheme, useTagStyle } from "./utils";
 
@@ -12,7 +12,7 @@ export interface ButtonProps {
   disabled?:boolean;
 }
 
-export const Button = (
+export const Button = forwardRef((
     {
       tag = 'button',
       color:_color, 
@@ -23,7 +23,8 @@ export const Button = (
       children,
       // onMouseDown etcs....
       ...rest
-    }:ButtonProps
+    }:ButtonProps,
+    ref:LegacyRef<HTMLButtonElement>
   ) => {
 
   const Tag:any = tag;
@@ -88,6 +89,7 @@ export const Button = (
 
   return (
     <Tag 
+      ref={ref}
       disabled={disabled} 
       style={{
         appearance: 'none',
@@ -107,6 +109,8 @@ export const Button = (
       onMouseUp={onLeave}
       onTouchEnd={onLeave}
       onTouchCancel={onLeave}
+
+      onClick={onClick}
       
       {...rest}>
       <TagModule
@@ -118,4 +122,4 @@ export const Button = (
       </TagModule>
     </Tag>
   )
-}
+})
