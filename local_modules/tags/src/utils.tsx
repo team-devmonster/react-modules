@@ -160,11 +160,14 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
       const textchildren = [];
       for(let i = 0; i < children.length; i++) {
         const child = children[i];
-        if(typeof child === 'string' || typeof child === 'number') {
+        if(!child) {
+          continue;
+        }
+        else if(typeof child === 'string' || typeof child === 'number') {
           textchildren.push(child);
         }
         else {
-          if(child?.type?.name === 'Span' || child?.props?.style?.display === 'inline-flex') {
+          if(child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
             textchildren.push(child);
           }
           else if(child.type?.name === 'Br') {
