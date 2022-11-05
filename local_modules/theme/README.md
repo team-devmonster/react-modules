@@ -1,31 +1,39 @@
 # @team-devmonster/react-theme
 
-This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.<br>
-[@team-devmonster/react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
-
 `react-theme` was created to easily create a theme in the `react` environment.<br>
 `Darkmode` compatibility is also easy.<br>
-You can also use it in the `nextjs` environment.
+You can use it in the `nextjs` environment.
 
-##### author: devmonster 
+## This is under devmonster's react & react-native union project.
+
+This project is part of the `react-module & react-native-module` projects, that integrate `react & react-native` by the devmonster team.<br><br>
+`react-native` => [@team-devmonster/react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)<br>
+General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);<br>
+General `react-native-modules` load map => [here](https://github.com/team-devmonster/react-native-modules);
+
+### Other `react` modules
+
+- [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
+- [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
+
+#### author: devmonster 
+
+We are always looking for investment or assistance.<br>
 hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
 email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
-
-### Road Map
-
-General [react-modules] load map => [here](https://github.com/team-devmonster/react-modules);
 
 ## Getting started
 
 `$ npm install @team-devmonster/react-theme@latest`
 
 
-## Usage
+## Examples
 
+Easy. Too Easy.
 
-### 1. Make Color & Theme
+### step1. Make Color & Theme
 
-Set Colors & Themes anything you want to use.
+Set Colors & Themes whatever anything you want to use.
 
 ```javascript
 // App.theme.tsx => You can use any file name :)
@@ -135,14 +143,20 @@ const theme = (color:Color) => {
     button
   }
 }
+
+export type Color = typeof color.light;
+export type ColorKeys = keyof Color;
+export type Theme = ReturnType<typeof theme>;
 ```
 
 
-### 2. Set Provider
+### step2. Set Provider
 
 ```javascript
 // App.theme.tsx => You can use any file name :)
-export default function AppThemeProvider({children}) {
+import { ThemeProvider } from '@team-devmonster/react-theme';
+
+export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
   return (
     <ThemeProvider color={color} theme={theme}>
       {children}
@@ -164,11 +178,10 @@ export default function App() {
 }
 ```
 
-### 3. Use Theme
-
-Use your theme, whatever you want!
+### step3. Use
 
 ```javascript
+import React from "react";
 import { useTheme } from '@team-devmonster/react-theme';
 import { Theme } from './App.theme';
 
@@ -208,7 +221,7 @@ const style = {
 export default ThemeEx;
 ```
 
-#### 3-1. Use colorScheme
+### extra1. colorScheme
 
 Also you can use `colorScheme`. It is `light` or `dark`.
 
@@ -232,15 +245,7 @@ const ThemeEx = () => {
 export default ThemeEx;
 ```
 
-### 4. extra => Type Guide
-
-```javascript
-export type Color = typeof color.light;
-export type ColorKeys = keyof Color;
-export type Theme = ReturnType<typeof theme>;
-```
-
-### 5. extra2 => CSS property
+### extra2. => CSS property
 
 You can use style in user css property.
 Property name's rule is `--${ColorKey}`.
@@ -258,7 +263,7 @@ body {
 }
 ```
 
-### 6. extra3 => color utils
+### extra3. => color utils
 
 Sometimes we should use lighter, darker, or invert colors.
 So this library offers some utils.
@@ -287,7 +292,7 @@ const ThemeEx = () => {
 }
 const style = {
   boxStyle: {
-    width: 80, 
+    width: 80,
     height: 80, 
     margin: 8,
     alignItems: 'center',

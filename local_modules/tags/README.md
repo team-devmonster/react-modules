@@ -3,7 +3,7 @@
 > :warning: **It's under development**
 ## This is under devmonster's react & react-native union project.
 
-This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.<br><br>
+This project is part of the `react-module & react-native-module` projects, that integrate `react & react-native` by the devmonster team.<br><br>
 `react-native` => [@team-devmonster/react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)<br>
 General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);<br>
 General `react-native-modules` load map => [here](https://github.com/team-devmonster/react-native-modules);
