@@ -3,7 +3,7 @@ import { TagStyle, useTags } from "./tags";
 import { contrast, darken, flexDefaultStyle, TagModule, textPattern, useColorScheme, useTagStyle } from "./utils";
 
 export interface ButtonProps {
-  tag?: 'div'|'button';
+  tag?: 'div'|'button'|'a';
   children?: React.ReactNode;
   style?: TagStyle;
   color?: string;

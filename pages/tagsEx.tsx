@@ -12,7 +12,7 @@ const TagsEx = () => {
   return (
     <Div
       style={{
-        backgroundColor: color.white, 
+        backgroundColor: color.backgroundColor, 
         flex: 1, 
         padding: 18 
       }}>
@@ -25,7 +25,7 @@ const TagsEx = () => {
         </Button>
       </Div>
       <Div>
-        <Img 
+        <Img
           style={{
             width: '100%',
             aspectRatio: 1.774, 

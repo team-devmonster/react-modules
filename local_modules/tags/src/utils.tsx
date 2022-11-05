@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TagProps, TagStyle } from "./tags";
 
 export function darken(col:string, amt:number) {
@@ -46,7 +46,7 @@ export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
 
-export const flexDefaultStyle:CSSProperties = {
+export const flexDefaultStyle:TagStyle = {
   display: 'flex',
   flexDirection: 'column'
 }

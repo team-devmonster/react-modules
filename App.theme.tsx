@@ -31,9 +31,9 @@ const color = {
     success: '#9cca5a',
     danger: '#eb445a',
     placeholder: '#4d4d4d',
-    backgroundColor: '#191919',
+    backgroundColor: '#121212',
     // color steps
-    white: '#111111',
+    white: '#000000',
     step50: '#191919',
     step100: '#333333',
     step200: '#4d4d4d',

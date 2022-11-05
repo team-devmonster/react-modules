@@ -15,7 +15,7 @@ export interface TagGroupConfig {
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'> {
   style?:TagStyle
 }
-export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'> {
+export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'> {
   display?: 'flex' | 'inline-flex' | 'none',
   fontSize?:number
 }
