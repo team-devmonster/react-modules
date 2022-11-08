@@ -10,10 +10,11 @@ export interface Aprops {
   replace?:boolean,
   push?:boolean,
   back?:boolean,
+  reset?:boolean,
   children?:React.ReactNode
 }
 
-export const A = ({ href, as, replace, push:_, back, children }:Aprops) => {
+export const A = ({ href, as, replace, push:_, back, reset:__, children }:Aprops) => {
 
   const router = useRouter();
 
