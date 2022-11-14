@@ -28,8 +28,9 @@ const TagsEx = () => {
         <Img
           style={{
             width: '100%',
-            aspectRatio: 1.774, 
-            backgroundColor: color.step500
+            aspectRatio: 1.2, 
+            backgroundColor: color.step500,
+            objectFit: 'cover'
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
