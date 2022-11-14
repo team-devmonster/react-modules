@@ -12,12 +12,15 @@ export interface TagGroupConfig {
   span?:TagStyle
 }
 
-export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'> {
+export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
   style?:TagStyle
 }
-export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'> {
+export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'> {
   display?: 'flex' | 'inline-flex' | 'none',
   fontSize?:number
+}
+export interface ButtonStyle extends TagStyle {
+  cursor?:string
 }
 
 const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});

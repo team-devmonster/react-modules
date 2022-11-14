@@ -6,18 +6,19 @@ interface TagImageStyle extends Omit<CSSProperties, 'display'> {
 
 interface ImgProps {
   src: string,
-  style?: TagImageStyle,
-  objectFit?: "contain" | "cover"
+  style?: TagImageStyle
 }
 
-export const Img = ({ src, style, objectFit = 'contain' }:ImgProps) => {
+export const Img = ({ src, style }:ImgProps) => {
+
+  const { objectFit, ...restStyle } = style || {};
 
   return (
     <img 
       src={src}
       style={{
-        ...style,
-        objectFit
+        objectFit: objectFit || 'contain',
+        ...restStyle
       }}/>
   )
 }
