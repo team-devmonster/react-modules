@@ -29,7 +29,10 @@ const RouterEx = () => {
         <Button color={color.danger} style={{ marginBottom: 8 }}>paramEx</Button>
       </A>
       <A href='https://www.google.co.kr'>
-        <Button color={color.warning}>google</Button>
+        <Button color={color.warning} style={{ marginBottom: 8 }}>google</Button>
+      </A>
+      <A href='https://www.google.co.kr' target="blank">
+        <Button color={color.warning}>google target blank</Button>
       </A>
     </Div>
   )

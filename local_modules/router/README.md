@@ -28,7 +28,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 
-`$ npm install @team-devmonster/react-tags@latest @team-devmonster/react-router@latest`
+`$ npm install @team-devmonster/react-router@latest`
 
 
 ## Examples
