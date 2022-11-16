@@ -6,6 +6,7 @@ export interface ButtonProps {
   tag?: 'div'|'button'|'a';
   children?: React.ReactNode;
   style?: ButtonStyle;
+  disabledStyle?:ButtonStyle;
   color?: string;
   fill?: 'base' | 'outline' | 'translucent';
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined,
@@ -18,6 +19,7 @@ export const Button = forwardRef((
       color:_color, 
       fill:_fill, 
       style, 
+      disabledStyle,
       disabled, 
       onClick, 
       children,
@@ -31,6 +33,7 @@ export const Button = forwardRef((
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   const buttonTagStyle = tagConfig?.['button']?.style;
+  const buttonTagDisabledStyle = tagConfig?.['button']?.disabledStyle;
   const color = _color || tagConfig?.['button']?.color;
   const fill = _fill || tagConfig?.['button']?.fill || 'base';
 
@@ -78,7 +81,12 @@ export const Button = forwardRef((
   ]
   = useTagStyle([
     textPattern
-  ], [buttonTagStyle, style]);
+  ], [
+    buttonTagStyle, 
+    disabled ? buttonTagDisabledStyle : undefined,
+    style,
+    disabled ? disabledStyle : undefined
+  ]);
 
   const onPress = () => {
     setIsActive(true);
@@ -93,6 +101,7 @@ export const Button = forwardRef((
       disabled={disabled} 
       style={{
         appearance: 'none',
+        textAlign: 'left',
         ...flexDefaultStyle,
         ...etcStyle,
         borderWidth: fillStyle.borderWidth || etcStyle.borderWidth,
