@@ -7,8 +7,8 @@ interface TagImageStyle extends Omit<CSSProperties, 'display'> {
 interface ImgProps {
   src: string,
   style?: TagImageStyle,
-  onError: React.ReactEventHandler,
-  onLoad: React.ReactEventHandler
+  onError?: React.ReactEventHandler,
+  onLoad?: React.ReactEventHandler
 }
 
 export const Img = ({ src, style, ...rest }:ImgProps) => {
