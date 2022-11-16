@@ -6,15 +6,18 @@ interface TagImageStyle extends Omit<CSSProperties, 'display'> {
 
 interface ImgProps {
   src: string,
-  style?: TagImageStyle
+  style?: TagImageStyle,
+  onError: React.ReactEventHandler,
+  onLoad: React.ReactEventHandler
 }
 
-export const Img = ({ src, style }:ImgProps) => {
+export const Img = ({ src, style, ...rest }:ImgProps) => {
 
   const { objectFit, ...restStyle } = style || {};
 
   return (
     <img 
+      {...rest}
       src={src}
       style={{
         objectFit: objectFit || 'contain',
