@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useLayoutEffect } from "react";
 import { TagStyle, TagProps, TagGroupConfig } from "./type";
 
 
@@ -33,7 +33,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
 
   const [newStyles, setNewStyles] = useState<(TagStyle|{})[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     let styleObj:TagStyle = { borderStyle:'solid', borderWidth: 0 };
     styleStates.forEach(styleState => {
@@ -100,7 +100,7 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
   const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
   const [id] = useState(new Date().getTime());
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const newChildren = newChildrenFn();
     setNewChildren(newChildren);
   }, [children, textStyle]);
