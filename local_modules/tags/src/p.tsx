@@ -1,13 +1,12 @@
-import { useTagStyle, textPattern, flexDefaultStyle, TagModule } from "./core";
-import { useTags } from "./tags";
+import { useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
 import { TagProps } from "./type";
 
 
 export const P = ({style, children, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.['div'];
-  const pTagStyle = tagConfig?.['p'];
+  const divTagStyle = tagConfig?.div;
+  const pTagStyle = tagConfig?.p;
 
   const [
     textStyle, 

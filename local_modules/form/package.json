@@ -32,6 +32,7 @@
   "homepage": "https://github.com/team-devmonster/react-modules#readme",
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "react-hook-form": ">=6"
   }
 }

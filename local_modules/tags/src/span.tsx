@@ -1,5 +1,4 @@
-import { useTagStyle } from "./core";
-import { useTags } from "./tags";
+import { useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
 

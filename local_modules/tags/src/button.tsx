@@ -1,6 +1,5 @@
 import React, { forwardRef, LegacyRef, useState } from "react";
-import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule } from "./core";
-import { useTags } from "./tags";
+import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
 import { ButtonStyle } from "./type";
 import { darken, contrast } from "./utils";
 
@@ -34,10 +33,10 @@ export const Button = forwardRef((
   const Tag:any = tag;
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
-  const buttonTagStyle = tagConfig?.['button']?.style;
-  const buttonTagDisabledStyle = tagConfig?.['button']?.disabledStyle;
-  const color = _color || tagConfig?.['button']?.color;
-  const fill = _fill || tagConfig?.['button']?.fill || 'base';
+  const buttonTagStyle = tagConfig?.button?.style;
+  const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
+  const color = _color || tagConfig?.button?.color;
+  const fill = _fill || tagConfig?.button?.fill || 'base';
 
   const [isActive, setIsActive] = useState(false);
 
