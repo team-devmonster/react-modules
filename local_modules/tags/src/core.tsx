@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext, useLayoutEffect } from "react";
+import { useState, createContext, useContext, useLayoutEffect } from "react";
 import { TagStyle, TagProps, TagGroupConfig } from "./type";
 
 
@@ -77,7 +77,7 @@ export const useColorScheme = () => {
 
   const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     setColorScheme(colorScheme);
 
