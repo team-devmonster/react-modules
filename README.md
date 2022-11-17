@@ -8,17 +8,22 @@ General `react-native-modules` load map => [here](https://github.com/team-devmon
 General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);
 
 
+## all start
+
+`$ npm install @team-devmonster/react-theme@latest @team-devmonster/react-tags@latest @team-devmonster/react-router@latest @team-devmonster/react-form@latest`
+
 ## modules
 
 - [o] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 - [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
-- [-] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-router)
-- [ ] react-modal
+- [-] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
+- [-] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
+- [-] [react-modal]
+- [ ] react-img-editor
+- [ ] react-text-editor
 - [ ] react-form
 - [ ] react-file
 - [ ] react-camera
-- [ ] react-img-editor
-- [ ] react-text-editor
 
 
 #### author: devmonster 
