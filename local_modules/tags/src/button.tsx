@@ -1,6 +1,8 @@
 import React, { forwardRef, LegacyRef, useState } from "react";
-import { ButtonStyle, useTags } from "./tags";
-import { contrast, darken, flexDefaultStyle, TagModule, textPattern, useColorScheme, useTagStyle } from "./utils";
+import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule } from "./core";
+import { useTags } from "./tags";
+import { ButtonStyle } from "./type";
+import { darken, contrast } from "./utils";
 
 export interface ButtonProps {
   tag?: 'div'|'button'|'a';
@@ -102,6 +104,7 @@ export const Button = forwardRef((
       style={{
         appearance: 'none',
         textAlign: 'left',
+        cursor: 'pointer',
         ...flexDefaultStyle,
         ...etcStyle,
         borderWidth: fillStyle.borderWidth || etcStyle.borderWidth,

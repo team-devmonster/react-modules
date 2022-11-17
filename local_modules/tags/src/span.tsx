@@ -1,6 +1,7 @@
-import { TagProps, useTags } from "./tags";
-import { useTagStyle } from "./utils";
-// import { textPattern } from "./utils";
+import { useTagStyle } from "./core";
+import { useTags } from "./tags";
+import { TagProps } from "./type";
+
 
 export const Span = ({style, children, ...rest}:TagProps) => {
 

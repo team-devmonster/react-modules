@@ -12,6 +12,7 @@ General `react-native-modules` load map => [here](https://github.com/team-devmon
 
 - [o] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 - [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
+- [o] [`react-form`](https://www.npmjs.com/package/@team-devmonster/react-form)
 
 #### author: devmonster 
 
@@ -26,6 +27,18 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Img](#Img)
 - [o] [P] => this is for text. `extends` `div`.
 - [o] [Span] => this is for inline text. `extends` `div`.
+
+### additional Items
+These items are not contained this library.
+from [`react-form`](https://www.npmjs.com/package/@team-devmonster/react-form).
+- [o] [Input]
+- [o] [ErrorText]
+- [o] [Label] => this is input label. `extends` `divConfig`.
+- [o] [input[type=checkbox]]
+- [o] [input[type=radio]]
+- [o] [input[type=date]]
+- [o] [input[type=time]]
+
 
 ## Getting started
 
@@ -45,7 +58,7 @@ import { TagProvider, TagStyle, ButtonProps } from '@team-devmonster/react-tags'
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 
   // useTheme is in react-theme. If you wanna use darkmode easily, use it.
-  const { div, button } = useTheme<Theme>();
+  //const { div, button } = useTheme<Theme>();
 
   const div:TagStyle = {
     color: color.black,
@@ -62,10 +75,46 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
       fontSize: fontSize.base,
       minHeight: 42,
       borderRadius: 5
+    },
+    disabledStyle: {
+      opacity: 0.5
+    }
+  }
+  const input:InputConfig = {
+    style: {
+      backgroundColor: color.white,
+      borderColor: color.step300,
+      color: color.black,
+      placeholderColor: color.step500,
+      borderRadius: 5,
+      borderWidth: 1,
+      fontSize: fontSize.base,
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
+      paddingRight: 10,
+      minHeight: 42,
+      marginTop: 8,
+      marginBottom: 8
+    },
+    errorStyle: {
+      borderColor: color.warning,
+      marginBottom: 0 // for errorText
+    },
+    disabledStyle: {
+      backgroundColor: color.step100,
+      borderColor: color.step200
+    }
+  }
+
+  const errorText:ErrorTextConfig = {
+    style: {
+      color: color.danger,
+      marginBottom: 8
     }
   }
   return (
-    <TagProvider tagConfig={{ div, button }}>
+    <TagProvider tagConfig={{ div, button, input, errorText }}>
       {children}
     </TagProvider>
   )
@@ -167,6 +216,28 @@ const TagsEx = () => {
       <Button color={color.primary} fill="translucent">
         translucent
       </Button>
+
+      <P>gap Test1</P>
+      <Div style={{ borderColor: 'green', borderWidth: 1 }}>
+        <Div style={{ flexDirection: 'row', borderColor: 'blue', borderWidth: 1, margin: -4 }}>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        </Div>
+      </Div>
+
+      <P>gap Test2</P>
+      <Div style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8 }}>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+      </Div>
     </Div>
   )
 }

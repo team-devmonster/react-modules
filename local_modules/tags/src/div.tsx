@@ -1,5 +1,6 @@
-import { TagProps, useTags } from "./tags";
-import { flexDefaultStyle, TagModule, textPattern, useTagStyle } from "./utils";
+import { useTagStyle, textPattern, flexDefaultStyle, TagModule } from "./core";
+import { useTags } from "./tags";
+import { TagProps } from "./type";
 
 export const Div = ({style, children, ...rest}:TagProps) => {
 
