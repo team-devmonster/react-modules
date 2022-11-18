@@ -16,7 +16,8 @@ export interface TagGroupConfig {
 }
 
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
-  style?:TagStyle
+  style?:TagStyle,
+  hoverStyle?:TagStyle
 }
 export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'> {
   display?: 'flex' | 'inline-flex' | 'none',
