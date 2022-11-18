@@ -31,6 +31,7 @@ export interface ButtonStyle extends TagStyle {
 export interface ButtonConfig {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
+  hoverStyle?:ButtonStyle;
   color?: string;
   fill?: 'base' | 'outline' | 'translucent';
 }

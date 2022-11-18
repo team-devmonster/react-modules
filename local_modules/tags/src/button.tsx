@@ -8,6 +8,7 @@ export interface ButtonProps {
   children?: React.ReactNode;
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
+  hoverStyle?:ButtonStyle;
   color?: string;
   fill?: 'base' | 'outline' | 'translucent';
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined,
@@ -21,7 +22,8 @@ export const Button = forwardRef((
       fill:_fill, 
       style, 
       disabledStyle,
-      disabled, 
+      hoverStyle,
+      disabled,
       onClick, 
       children,
       // onMouseDown etcs....
@@ -35,10 +37,12 @@ export const Button = forwardRef((
   const { tagConfig } = useTags();
   const buttonTagStyle = tagConfig?.button?.style;
   const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
+  const buttonTagHoverStyle = tagConfig?.button?.hoverStyle;
   const color = _color || tagConfig?.button?.color;
   const fill = _fill || tagConfig?.button?.fill || 'base';
 
   const [isActive, setIsActive] = useState(false);
+  const [isHover, setIsHover] = useState(false);
 
   let fillStyle:any;
   switch(fill) {
@@ -85,15 +89,21 @@ export const Button = forwardRef((
   ], [
     buttonTagStyle, 
     disabled ? buttonTagDisabledStyle : undefined,
+    isHover ? buttonTagHoverStyle : undefined,
     style,
-    disabled ? disabledStyle : undefined
+    disabled ? disabledStyle : undefined,
+    isHover ? hoverStyle : undefined,
   ]);
 
   const onPress = () => {
     setIsActive(true);
   }
+  const onHover = () => {
+    setIsHover(true);
+  }
   const onLeave = () => {
     setIsActive(false);
+    setIsHover(false);
   }
 
   return (
@@ -105,14 +115,16 @@ export const Button = forwardRef((
         textAlign: 'left',
         cursor: 'pointer',
         ...flexDefaultStyle,
-        ...etcStyle,
         borderWidth: fillStyle.borderWidth || etcStyle.borderWidth,
         borderColor: fillStyle.borderColor || etcStyle.borderColor,
         backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
+        ...etcStyle
       }}
 
       onMouseDown={onPress}
       onTouchStart={onPress}
+      
+      onMouseMove={onHover}
 
       onMouseLeave={onLeave}
       onMouseOut={onLeave}
