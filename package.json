@@ -9,12 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@team-devmonster/react-tags": "^1.1.6",
+    "@team-devmonster/react-tags": "^1.4.6",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@types/node": "18.11.7",
     "@types/react": "18.0.23",
     "@types/react-dom": "18.0.7",

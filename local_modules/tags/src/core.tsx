@@ -157,12 +157,34 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
 }
 
 const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) => {
+
+  const [p, setP] = useState<HTMLElement|null>(null);
+  const [fontSize, setFontSize] = useState(0);
+
+  useLayoutEffect(() => {
+    if(p) {
+      const fontSize = window.getComputedStyle(p).fontSize;
+      setFontSize(parseFloat(fontSize));
+    }
+  }, [p]);
+
   return (
-    <p style={{
-      margin: 0,
-      whiteSpace: 'pre-line',
-      lineHeight: style?.fontSize ? 1.28 : undefined,
-      ...style
-    }}>{children}</p>
+    <p 
+      ref={ref => setP(ref)}
+      style={{
+        margin: 0,
+        whiteSpace: 'pre-line',
+        lineHeight: 
+          style?.lineHeight
+          ? 
+            fontSize
+            ? 
+              style.lineHeight/fontSize
+            : 
+              undefined
+          : 
+            1.28,
+        ...style
+      }}>{children}</p>
   )
 }

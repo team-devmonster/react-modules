@@ -1,4 +1,5 @@
 import { createContext, useContext, useLayoutEffect, useState } from "react";
+import { ColorSchemeName } from "./utils";
 
 const ThemeContext = createContext(null) as any;
 
@@ -9,7 +10,7 @@ type Color = {
 
 export function ThemeProvider<S extends Color,T extends Function>({children, color, theme}:{children:React.ReactNode, color:S, theme:T}) {
 
-  const [colorScheme, setColorScheme] = useState<'light'|'dark'|null>(null);
+  const [colorScheme, setColorScheme] = useState<ColorSchemeName>(null);
 
   useLayoutEffect(() => {
     const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

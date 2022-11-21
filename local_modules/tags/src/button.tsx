@@ -1,7 +1,9 @@
-import React, { forwardRef, LegacyRef, useState } from "react";
+import React, { forwardRef, LegacyRef, useLayoutEffect, useState } from "react";
 import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
-import { ButtonStyle } from "./type";
-import { darken, contrast } from "./utils";
+import { ButtonStyle, FillProps } from "./type";
+import { darken, contrast, lighten } from "./utils";
+
+
 
 export interface ButtonProps {
   tag?: 'div'|'button'|'a';
@@ -10,7 +12,7 @@ export interface ButtonProps {
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
   color?: string;
-  fill?: 'base' | 'outline' | 'translucent';
+  fill?: FillProps;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined,
   disabled?:boolean;
 }
@@ -35,50 +37,21 @@ export const Button = forwardRef((
   const Tag:any = tag;
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
+  const fill = _fill || tagConfig?.button?.fill || 'base';
   const buttonTagStyle = tagConfig?.button?.style;
   const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
   const buttonTagHoverStyle = tagConfig?.button?.hoverStyle;
   const color = _color || tagConfig?.button?.color;
-  const fill = _fill || tagConfig?.button?.fill || 'base';
+
+  const [fillStyle, setFillStyle] = useState<FillStyle|undefined>(undefined);
+
+  useLayoutEffect(() => {
+    const fillStyle = getFillStyle({ colorScheme, color, fill, buttonTagStyle });
+    setFillStyle(fillStyle);
+  }, [colorScheme, color, fill, buttonTagStyle]);
 
   const [isActive, setIsActive] = useState(false);
   const [isHover, setIsHover] = useState(false);
-
-  let fillStyle:any;
-  switch(fill) {
-    case 'base':
-      fillStyle = {
-        background: {
-          base: color,
-          pressed: color ? darken(color, 30) : undefined,
-          ripple: color ? darken(color, 30) : undefined
-        },
-        color: color ? contrast(color) : undefined
-      }
-      break;
-    case 'outline':
-      fillStyle = {
-        background: {
-          base: colorScheme === 'dark' ? '#000000' : '#ffffff',
-          pressed: color || undefined,
-          ripple: color || undefined
-        },
-        color: color || undefined,
-        borderColor: color,
-        borderWidth: 1
-      }
-      break;
-    case 'translucent':
-      fillStyle = {
-        background: {
-          base: color ? `${color}3C` : undefined,
-          pressed: color || undefined,
-          ripple: color || undefined
-        },
-        color: color || undefined
-      }
-      break;
-  }
 
   const [
     textStyle, 
@@ -87,7 +60,7 @@ export const Button = forwardRef((
   = useTagStyle([
     textPattern
   ], [
-    buttonTagStyle, 
+    fill !== 'none' ? buttonTagStyle : undefined, 
     disabled ? buttonTagDisabledStyle : undefined,
     isHover ? buttonTagHoverStyle : undefined,
     style,
@@ -115,9 +88,9 @@ export const Button = forwardRef((
         textAlign: 'left',
         cursor: 'pointer',
         ...flexDefaultStyle,
-        borderWidth: fillStyle.borderWidth || etcStyle.borderWidth,
-        borderColor: fillStyle.borderColor || etcStyle.borderColor,
-        backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
+        borderWidth: fillStyle?.borderWidth,
+        borderColor: fillStyle?.borderColor,
+        backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle?.background?.base) : fillStyle?.background?.pressed,
         ...etcStyle
       }}
 
@@ -137,7 +110,7 @@ export const Button = forwardRef((
       {...rest}>
       <TagModule
         style={{
-          color: fillStyle.color,
+          color: fillStyle?.color,
           lineHeight: 1,
           ...textStyle
         }}>
@@ -146,3 +119,59 @@ export const Button = forwardRef((
     </Tag>
   )
 })
+
+
+interface FillStyle {
+  background: {
+    base?: string,
+    pressed?: string,
+    ripple?: string
+  },
+  color?: string,
+  borderColor?: string,
+  borderWidth?: number,
+  borderRadius?: number
+}
+const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:"light" | "dark" | null | undefined, color?: string, fill: FillProps, buttonTagStyle?:ButtonStyle}):FillStyle => {
+  switch(fill) {
+    case 'outline':
+      return {
+        background: {
+          base: colorScheme === 'dark' ? '#000000' : '#ffffff',
+          pressed: color ? `${color}3C` : undefined,
+          ripple: color ? `${color}3C` : undefined
+        },
+        color: color,
+        borderColor: color,
+        borderWidth: 1
+      }
+    case 'translucent':
+      return {
+        background: {
+          base: color ? `${color}3C` : undefined,
+          pressed: color,
+          ripple: color
+        },
+        color: color
+      }
+    case 'none':
+      return {
+        background: {
+          base: color || 'transparent',
+          pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : 'transparent',
+          ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : 'transparent'
+        },
+        color: color ? contrast(color) : undefined,
+        borderRadius: buttonTagStyle?.borderRadius
+      }
+    default:
+      return {
+        background: {
+          base: color,
+          pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined,
+          ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined
+        },
+        color: color ? contrast(color) : undefined
+      }
+  }
+}

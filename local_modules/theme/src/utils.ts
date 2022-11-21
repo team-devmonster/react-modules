@@ -72,3 +72,5 @@ export const contrast = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF
   return (r * 0.299 + g * 0.587 + b * 0.114) > amt 
     ? c1 : c2;
 }
+
+export type ColorSchemeName = "light" | "dark" | null | undefined;

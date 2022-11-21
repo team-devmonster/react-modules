@@ -19,7 +19,7 @@
       "@local_modules/*": ["local_modules/*"],
       "@pages/*": ["pages/*"],
       "@env": ["env"],
-      "@image/*": ["assets/images/*"]
+      "@image/*": ["public/images/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -19,22 +19,24 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onC
   style?:TagStyle,
   hoverStyle?:TagStyle
 }
-export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'> {
+export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
   display?: 'flex' | 'inline-flex' | 'none',
-  fontSize?:number
+  fontSize?:number,
+  lineHeight?:number
 }
-export interface ButtonStyle extends TagStyle {
-  cursor?:string
+export interface ButtonStyle extends Omit<TagStyle, 'borderRadius'> {
+  cursor?:string,
+  borderRadius?:number
 }
 
 // tags
-
+export type FillProps = 'base' | 'outline' | 'translucent' | 'none';
 export interface ButtonConfig {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
   color?: string;
-  fill?: 'base' | 'outline' | 'translucent';
+  fill?: FillProps;
 }
 
 // forms

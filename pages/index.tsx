@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useTheme } from '@local_modules/theme'
 import { Theme } from 'App.theme'
 import { Div, P, Button } from '@local_modules/tags'
-import { A } from '@local_modules/router'
+import { A, Header } from '@local_modules/router'
 
 const Home: NextPage = () => {
 
