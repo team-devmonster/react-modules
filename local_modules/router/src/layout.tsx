@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Div, TagProps, useTagStyle } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
 import { Header } from "./header";
@@ -14,7 +14,7 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
   const [headerState, setHeaderState] = useState<HTMLDivElement|null>(null);
   const [offset, setOffset] = useState({ top: 0, bottom: 0 });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(!children) return;
     else if(Array.isArray(children)) {
       const contents = [...children];

@@ -1,4 +1,4 @@
-import React, { forwardRef, LegacyRef, useLayoutEffect, useState } from "react";
+import React, { forwardRef, LegacyRef, useEffect, useState } from "react";
 import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
 import { ButtonStyle, FillProps } from "./type";
 import { darken, contrast, lighten } from "./utils";
@@ -45,7 +45,7 @@ export const Button = forwardRef((
 
   const [fillStyle, setFillStyle] = useState<FillStyle|undefined>(undefined);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fillStyle = getFillStyle({ colorScheme, color, fill, buttonTagStyle });
     setFillStyle(fillStyle);
   }, [colorScheme, color, fill, buttonTagStyle]);

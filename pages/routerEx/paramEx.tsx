@@ -22,7 +22,8 @@ const ParamEx = () => {
       }}>
       <Header
         style={{
-          backgroundColor: color.primary
+          backgroundColor: color.primary,
+          color: 'red'
         }}
         title="Hello Params"
       />

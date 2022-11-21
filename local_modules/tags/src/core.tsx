@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useLayoutEffect } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import { TagStyle, TagProps, TagGroupConfig } from "./type";
 
 
@@ -33,7 +33,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
 
   const [newStyles, setNewStyles] = useState<(TagStyle|{})[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
-  useLayoutEffect(() => {
+  useEffect(() => {
 
     let styleObj:TagStyle = { borderStyle:'solid', borderWidth: 0 };
     styleStates.forEach(styleState => {
@@ -77,7 +77,7 @@ export const useColorScheme = () => {
 
   const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     setColorScheme(colorScheme);
 
@@ -100,7 +100,7 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
   const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
   const [id] = useState(new Date().getTime());
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const newChildren = newChildrenFn();
     setNewChildren(newChildren);
   }, [children, textStyle]);
@@ -161,7 +161,7 @@ const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) =>
   const [p, setP] = useState<HTMLElement|null>(null);
   const [fontSize, setFontSize] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(p) {
       const fontSize = window.getComputedStyle(p).fontSize;
       setFontSize(parseFloat(fontSize));
