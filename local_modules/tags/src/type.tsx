@@ -1,5 +1,12 @@
 import { HTMLAttributes, CSSProperties } from "react"
 
+
+export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
+  display?: 'flex' | 'inline-flex' | 'none',
+  fontSize?:number,
+  lineHeight?:number,
+  borderRadius?:number
+}
 export interface TagGroupConfig {
   div?: TagStyle,
   button?: ButtonConfig,
@@ -7,6 +14,8 @@ export interface TagGroupConfig {
   //additional
   p?:TagStyle,
   span?:TagStyle,
+  // router
+  header?:HeaderConfig,
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
@@ -19,14 +28,8 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onC
   style?:TagStyle,
   hoverStyle?:TagStyle
 }
-export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
-  display?: 'flex' | 'inline-flex' | 'none',
-  fontSize?:number,
-  lineHeight?:number
-}
-export interface ButtonStyle extends Omit<TagStyle, 'borderRadius'> {
-  cursor?:string,
-  borderRadius?:number
+export interface ButtonStyle extends TagStyle {
+  cursor?:string
 }
 
 // tags
@@ -37,6 +40,14 @@ export interface ButtonConfig {
   hoverStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;
+}
+
+// router
+export interface HeaderConfig {
+  style?: TagStyle,
+  headerTitleStyle?:Pick<TagStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
+    color?: string | undefined;
+  }
 }
 
 // forms

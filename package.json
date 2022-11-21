@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@team-devmonster/react-tags": "^1.4.6",
+    "@team-devmonster/react-tags": "^1.5.0",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"

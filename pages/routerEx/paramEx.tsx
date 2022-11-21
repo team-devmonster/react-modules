@@ -21,6 +21,9 @@ const ParamEx = () => {
         padding: 18
       }}>
       <Header
+        style={{
+          backgroundColor: color.primary
+        }}
         title="Hello Params"
       />
       <P style={{ padding: 8, backgroundColor: color.step300 }}>

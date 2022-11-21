@@ -1,5 +1,5 @@
-import { Button, Div, P, TagStyle, useColorScheme } from '@team-devmonster/react-tags';
 import { forwardRef, Ref } from 'react';
+import { Button, Div, P, TagStyle, useColorScheme, useTags } from '@team-devmonster/react-tags';
 import { A } from './a';
 import { StatusBarStyle } from './type';
 
@@ -36,6 +36,9 @@ const Header = forwardRef((
   ) => {
 
   const colorScheme = useColorScheme();
+  const { tagConfig } = useTags();
+  const headerTagStyle = tagConfig?.header?.style;
+  const headerTagTitleStyle = tagConfig?.header?.headerTitleStyle;
 
 
   if(!headerShown) return null;
@@ -54,6 +57,7 @@ const Header = forwardRef((
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20,
+        ...headerTagStyle,
         ...style
       }}>
       <Div 
@@ -68,7 +72,7 @@ const Header = forwardRef((
             backButtonShown
             ?
               <A back={true}>
-                <Button fill="none" color={colorScheme === 'dark' ? '#000000' : '#ffffff'}>
+                <Button fill="none" color={headerTagStyle?.backgroundColor || style?.backgroundColor}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={24} height={24} strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                   </svg>
@@ -82,7 +86,7 @@ const Header = forwardRef((
               null
             :
               <A back={true}>
-                <Button fill="none" color={colorScheme === 'dark' ? '#000000' : '#ffffff'}>
+                <Button fill="none" color={headerTagStyle?.backgroundColor || style?.backgroundColor}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={24} height={24} strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                   </svg>
@@ -101,6 +105,7 @@ const Header = forwardRef((
         justifyContent: 'center',
         color: colorScheme === 'dark' ? '#ffffff' : '#000000',
         zIndex: 1,
+        ...headerTagTitleStyle,
         ...headerTitleStyle
       }}>{title}</P>
       <Div
