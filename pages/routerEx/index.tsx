@@ -1,15 +1,15 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Div, Button } from "@local_modules/tags";
+import { Div, Button, Img } from "@local_modules/tags";
 import { A, Header, Layout } from "@local_modules/router";
-import { Img } from "@team-devmonster/react-tags";
 
 import ImgBell from "@image/header/bell.svg";
 import ImgBellDark from "@image/header/bell-dark.svg";
 import ImgSetting from "@image/header/setting.svg";
 import ImgSettingDark from "@image/header/setting-dark.svg";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const RouterEx = () => {
 
@@ -26,8 +26,11 @@ const RouterEx = () => {
         flex: 1,
         padding: 18
       }}>
+        <Head>
+          <title>Devmonster: router</title>
+        </Head>
         <Header
-          headerLeft={<Img style={{ width: 150 }} src="https://devmonster.co.kr/static/media/logo-white.bd1e1be9.svg"></Img>}
+          headerLeft={<Img style={{ width: 150 }} alt="devmonster" src="https://devmonster.co.kr/static/media/logo-white.bd1e1be9.svg"></Img>}
           title="Title"
           //style={{ backgroundColor: tm.color.white }}
           headerRight={

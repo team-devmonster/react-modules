@@ -95,65 +95,65 @@ export const useColorScheme = () => {
   return colorScheme;
 }
 
-export const TagModule = ({ children, style:textStyle }:TagProps) => {
+export const TagModule = ({ children, style }:TagProps) => {
 
-  const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
+  //const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
   const [id] = useState(new Date().getTime());
+  const newChildren = newChildrenFn({ id, children, style });
 
-  useEffect(() => {
-    const newChildren = newChildrenFn();
+  /* useEffect(() => {
+    const newChildren = newChildrenFn({ id, children, style });
     setNewChildren(newChildren);
-  }, [children, textStyle]);
-
-  const newChildrenFn = () => {
-    if(!children) return null;
-    if(typeof children === 'string' || typeof children === 'number') {
-      return <Text style={textStyle}>{children}</Text>
-    }
-    else if(Array.isArray(children)) {
-      const newChildren = [];
-      const textchildren = [];
-      for(let i = 0; i < children.length; i++) {
-        const child = children[i];
-        if(!child) {
-          continue;
-        }
-        else if(typeof child === 'string' || typeof child === 'number') {
-          textchildren.push(child);
-        }
-        else {
-          if(child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
-            textchildren.push(child);
-          }
-          else if(child.type?.name === 'Br') {
-            textchildren.push(`\n`);
-          }
-          else {
-            if(textchildren.length) {
-              newChildren.push(
-                <Text key={`tag_${id}_${newChildren.length}`} style={textStyle}>{[...textchildren]}</Text>
-              );
-              textchildren.length = 0;
-            }
-            newChildren.push(child);
-          }
-        }
-      }
-      // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
-      if(textchildren.length) {
-        newChildren.push(
-          <Text key={`tag_${id}_${newChildren.length}`} style={textStyle}>{[...textchildren]}</Text>
-        );
-        textchildren.length = 0;
-      }
-      return newChildren;
-    }
-    else {
-      return children;
-    }
-  }
+  }, [children, style]); */  
 
   return newChildren as JSX.Element;
+}
+const newChildrenFn = ({ id, children, style }:{ id:number, children?:React.ReactNode, style?:TagStyle }) => {
+  if(!children) return null;
+  if(typeof children === 'string' || typeof children === 'number') {
+    return <Text style={style}>{children}</Text>
+  }
+  else if(Array.isArray(children)) {
+    const newChildren = [];
+    const textchildren = [];
+    for(let i = 0; i < children.length; i++) {
+      const child = children[i];
+      if(!child) {
+        continue;
+      }
+      else if(typeof child === 'string' || typeof child === 'number') {
+        textchildren.push(child);
+      }
+      else {
+        if(child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
+          textchildren.push(child);
+        }
+        else if(child.type?.name === 'Br') {
+          textchildren.push(`\n`);
+        }
+        else {
+          if(textchildren.length) {
+            newChildren.push(
+              <Text key={`tag_${id}_${newChildren.length}`} style={style}>{[...textchildren]}</Text>
+            );
+            textchildren.length = 0;
+          }
+          newChildren.push(child);
+        }
+      }
+    }
+    // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
+    if(textchildren.length) {
+      newChildren.push(
+        <Text key={`tag_${id}_${newChildren.length}`} style={style}>{[...textchildren]}</Text>
+      );
+      textchildren.length = 0;
+    }
+    return newChildren;
+  }
+  else {
+    return children;
+  }
 }
 
 const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) => {

@@ -5,6 +5,7 @@ interface TagImageStyle extends Omit<CSSProperties, 'display'> {
 }
 
 interface ImgProps {
+  alt?: string,
   src: string,
   style?: TagImageStyle,
   onError?: React.ReactEventHandler,

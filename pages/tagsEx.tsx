@@ -32,6 +32,7 @@ const TagsEx = () => {
             backgroundColor: color.step500,
             objectFit: 'cover'
           }} 
+          alt="logo"
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
       <P style={{
