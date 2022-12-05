@@ -8,13 +8,15 @@ export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSi
   borderRadius?:number
 }
 export interface TagGroupConfig {
+  // tag - default
   div?: TagStyle,
   button?: ButtonConfig,
   img?: TagStyle,
-  //additional
+  // tag - additional
   p?:TagStyle,
   span?:TagStyle,
   // router
+  layout?:LayoutConfig,
   header?:HeaderConfig,
   // forms
   input?: InputConfig
@@ -43,6 +45,9 @@ export interface ButtonConfig {
 }
 
 // router
+export interface LayoutConfig {
+  style?: TagStyle
+}
 export interface HeaderConfig {
   style?: TagStyle,
   headerTitleStyle?:Pick<TagStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
@@ -51,7 +56,6 @@ export interface HeaderConfig {
 }
 
 // forms
-
 export interface InputStyle extends TagStyle {
   placeholderColor?:string
 }

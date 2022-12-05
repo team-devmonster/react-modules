@@ -20,7 +20,7 @@ export function useTags() {
 }
 
 export const textPattern = /^(color|font|text|lineHeight)/;
-export const layoutPattern = /^(flex|width|height)$/;
+export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight|maxHeight|position|top|left|right|bottom|opacity|overflow|alignSelf|justifySelf)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;

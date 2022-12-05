@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 export interface Aprops {
   href?: string | UrlObject,
-  as?: Url,
+  as?: string | Url,
   replace?:boolean,
   push?:boolean,
   back?:boolean,
