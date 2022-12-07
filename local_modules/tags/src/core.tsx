@@ -72,9 +72,9 @@ export const TagModule = ({ children, style }:TagProps) => {
 
   return <>{tagChildren}</>;
 }
-const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagElement|TagElement[], style?:TagStyle }) => {
+const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagElement, style?:TagStyle }) => {
   if(Array.isArray(children)) {
-    const newChildren:(JSX.Element|JSX.Element[]|null)[] = [];
+    const newChildren:TagElement[] = [];
     const textchildren:(JSX.Element|string)[] = [];
     children.forEach((child, i) => {
       if(Array.isArray(child)) {
@@ -90,7 +90,7 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${newChildren.length}`} style={{
+              <Text key={`tag_${id}_${i}`} style={{
                 lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
                 ...style
               }}>{[...textchildren]}</Text>
@@ -107,7 +107,7 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
-        <Text key={`tag_${id}_${newChildren.length}`} style={style}>{[...textchildren]}</Text>
+        <Text key={`tag_${id}_${children.length}`} style={style}>{[...textchildren]}</Text>
       );
       textchildren.length = 0;
     }

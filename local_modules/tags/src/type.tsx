@@ -27,14 +27,14 @@ export interface TagGroupConfig {
 }
 
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
-  children?:TagElement|TagElement[],
+  children?:TagElement,
   style?:TagStyle,
   hoverStyle?:TagStyle,
 }
 export interface ButtonStyle extends TagStyle {
   cursor?:string
 }
-export type TagElement = JSX.Element|JSX.Element[]|string|number|null|undefined;
+export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
 // tags
 export type FillProps = 'base' | 'outline' | 'translucent' | 'none';

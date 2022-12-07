@@ -7,7 +7,7 @@ import { darken, contrast, lighten } from "./utils";
 
 export interface ButtonProps {
   tag?: 'div'|'button'|'a';
-  children?: TagElement|TagElement[];
+  children?: TagElement;
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
