@@ -90,16 +90,12 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${i}`} style={{
-                lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
-                ...style
-              }}>{[...textchildren]}</Text>
+              <Text key={`tag_${id}_${i}`} style={style}>{[...textchildren]}</Text>
             )
             textchildren.length = 0;
           }
-          else {
-            newChildren.push(child);
-          }
+          
+          newChildren.push(child);
         }
       }
     });

@@ -18,6 +18,15 @@ const TagsEx = () => {
       }}>
       <Div style={{ fontSize: fontSize.xl }}>
         {`1. div => <Div></Div>`}
+        <Img
+          style={{
+            width: '100%',
+            aspectRatio: 1.2, 
+            backgroundColor: color.step500,
+            objectFit: 'cover'
+          }} 
+          alt="logo"
+          src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
       <Div>
         <Button color={color.primary} onClick={() => alert('pressed')}>
