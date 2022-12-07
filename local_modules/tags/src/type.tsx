@@ -1,7 +1,7 @@
 import { HTMLAttributes, CSSProperties } from "react"
 
 
-export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
+export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'borderTop'|'borderBottom'|'borderRight'|'borderLeft'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
   display?: 'flex' | 'inline-flex' | 'none',
   fontSize?:number,
   lineHeight?:number,
@@ -27,12 +27,14 @@ export interface TagGroupConfig {
 }
 
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
+  children?:TagElement|TagElement[],
   style?:TagStyle,
-  hoverStyle?:TagStyle
+  hoverStyle?:TagStyle,
 }
 export interface ButtonStyle extends TagStyle {
   cursor?:string
 }
+export type TagElement = JSX.Element|string|number|null;
 
 // tags
 export type FillProps = 'base' | 'outline' | 'translucent' | 'none';

@@ -1,13 +1,13 @@
-import React, { forwardRef, LegacyRef, useEffect, useState } from "react";
+import React, { forwardRef, LegacyRef, useMemo, useState } from "react";
 import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
-import { ButtonStyle, FillProps } from "./type";
+import { ButtonStyle, FillProps, TagElement } from "./type";
 import { darken, contrast, lighten } from "./utils";
 
 
 
 export interface ButtonProps {
   tag?: 'div'|'button'|'a';
-  children?: React.ReactNode;
+  children?: TagElement|TagElement[];
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
@@ -43,12 +43,7 @@ export const Button = forwardRef((
   const buttonTagHoverStyle = tagConfig?.button?.hoverStyle;
   const color = _color || tagConfig?.button?.color;
 
-  const [fillStyle, setFillStyle] = useState<FillStyle|undefined>(undefined);
-
-  useEffect(() => {
-    const fillStyle = getFillStyle({ colorScheme, color, fill, buttonTagStyle });
-    setFillStyle(fillStyle);
-  }, [colorScheme, color, fill, buttonTagStyle]);
+  const fillStyle = useMemo(() => getFillStyle({ colorScheme, color, fill, buttonTagStyle }), [colorScheme, color, fill, buttonTagStyle]);
 
   const [isActive, setIsActive] = useState(false);
   const [isHover, setIsHover] = useState(false);
@@ -148,9 +143,9 @@ const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:
     case 'translucent':
       return {
         background: {
-          base: color ? `${color}3C` : undefined,
-          pressed: color,
-          ripple: color
+          base: color ? `${color}32` : undefined,
+          pressed: color ? `${color}4b` : undefined,
+          ripple: color ? `${color}4b` : undefined,
         },
         color: color
       }

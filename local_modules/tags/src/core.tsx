@@ -1,5 +1,5 @@
-import { useState, createContext, useContext, useEffect } from "react";
-import { TagStyle, TagProps, TagGroupConfig } from "./type";
+import { useState, createContext, useContext, useEffect, useMemo } from "react";
+import { TagStyle, TagProps, TagGroupConfig, TagElement } from "./type";
 
 
 const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
@@ -31,117 +31,76 @@ export const flexDefaultStyle:TagStyle = {
 }
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]) => {
 
-  const [newStyles, setNewStyles] = useState<(TagStyle|{})[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
+  const styles = useMemo(() => makeTagStyle({ patterns, styleStates }), styleStates);
+  return styles;
+}
+const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleStates:(TagStyle|undefined)[] }):TagStyle[] => {
+  // case 1
+  let styleObj = { borderStyle:'solid', borderWidth: 0 };
+  styleStates.forEach(styleState => styleObj = Object.assign(styleObj, styleState));
+  if(!patterns.length) return [styleObj];
 
-  useEffect(() => {
+  // case 2
+  const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
+  const styles:TagStyle[] = new Array(patterns.length+1).fill(null).map(() => ({}));
 
-    let styleObj:TagStyle = { borderStyle:'solid', borderWidth: 0 };
-    styleStates.forEach(styleState => {
-      styleObj = Object.assign(styleObj, styleState);
-    })
+  for(let i = 0; i < entries.length; i++) {
+    const key = entries[i][0];
+    const value = entries[i][1];
 
-    if(!patterns.length) {
-      return setNewStyles([styleObj]);
-    }
+    for(let j = 0; j < patterns.length; j++) {
+      const pattern = patterns[j];
+      const styleIndex = j;
 
-    const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
-    const styles:(any|null)[] = new Array(patterns.length+1).fill(null).map(() => ({}));
-
-    for(let i = 0; i < entries.length; i++) {
-      const key = entries[i][0];
-      const value = entries[i][1];
-
-      for(let j = 0; j < patterns.length; j++) {
-        const pattern = patterns[j];
-        const styleIndex = j;
-
-        if(pattern.test(key)) {
-          styles[styleIndex]![key] = value;
-          break;
-        }
-
-        if(styleIndex === patterns.length-1) {
-          styles[styles.length-1]![key] = value;
-        }
+      if(pattern.test(key)) {
+        (styles[styleIndex] as any)[key] = value;
+        break;
       }
 
+      if(styleIndex === patterns.length-1) {
+        (styles[styles.length-1] as any)[key] = value;
+      }
     }
-
-    setNewStyles(styles);
-  }, styleStates);
-
-  return newStyles as TagStyle[];
-}
-
-export const useColorScheme = () => {
-
-  const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
-
-  useEffect(() => {
-    const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    setColorScheme(colorScheme);
-
-    const fn = (event:MediaQueryListEvent) => {
-      const newScheme = event.matches ? 'dark' : 'light';
-      setColorScheme(newScheme);
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
-    
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
-    }
-  }, [])
-
-  return colorScheme;
+  }
+  return styles;
 }
 
 export const TagModule = ({ children, style }:TagProps) => {
 
-  //const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
-  const [id] = useState(new Date().getTime());
-  const newChildren = newChildrenFn({ id, children, style });
+  const id = useMemo(() => String(new Date().getTime()), []);
+  const tagChildren = useMemo(() => makeTagChildren({ id, children, style }), [children, style]);
 
-  /* useEffect(() => {
-    const newChildren = newChildrenFn({ id, children, style });
-    setNewChildren(newChildren);
-  }, [children, style]); */  
-
-  return newChildren as JSX.Element;
+  return <>{tagChildren}</>;
 }
-const newChildrenFn = ({ id, children, style }:{ id:number, children?:React.ReactNode, style?:TagStyle }) => {
-  if(!children) return null;
-  if(typeof children === 'string' || typeof children === 'number') {
-    return <Text style={style}>{children}</Text>
-  }
-  else if(Array.isArray(children)) {
-    const newChildren = [];
-    const textchildren = [];
-    for(let i = 0; i < children.length; i++) {
-      const child = children[i];
-      if(!child) {
-        continue;
-      }
-      else if(typeof child === 'string' || typeof child === 'number') {
-        textchildren.push(child);
-      }
-      else {
-        if(child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
-          textchildren.push(child);
+const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagElement|TagElement[], style?:TagStyle }) => {
+  if(Array.isArray(children)) {
+    const newChildren:(JSX.Element|null)[] = [];
+    const textchildren:(JSX.Element|string)[] = [];
+    children.forEach((child, i) => {
+      if(child) {
+        if(typeof child === 'string' || typeof child === 'number') {
+          textchildren.push(String(child));
         }
-        else if(child.type?.name === 'Br') {
-          textchildren.push(`\n`);
+        else if(child.type?.displayName === 'Br' || child.type?.displayName === 'Span' || child.props?.style?.display === 'inline-flex') {
+          textchildren.push(child);
         }
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${newChildren.length}`} style={style}>{[...textchildren]}</Text>
-            );
+              <Text key={`tag_${id}_${newChildren.length}`} style={{
+                lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
+                ...style
+              }}>{[...textchildren]}</Text>
+            )
             textchildren.length = 0;
           }
-          newChildren.push(child);
+          else {
+            newChildren.push(child);
+          }
         }
       }
-    }
+    });
+    
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
@@ -150,6 +109,9 @@ const newChildrenFn = ({ id, children, style }:{ id:number, children?:React.Reac
       textchildren.length = 0;
     }
     return newChildren;
+  }
+  else if(typeof children === 'string' || typeof children === 'number') {
+    return <Text style={style}>{children}</Text>
   }
   else {
     return children;
@@ -187,4 +149,26 @@ const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) =>
         ...style
       }}>{children}</p>
   )
+}
+
+export const useColorScheme = () => {
+
+  const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
+
+  useEffect(() => {
+    const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    setColorScheme(colorScheme);
+
+    const fn = (event:MediaQueryListEvent) => {
+      const newScheme = event.matches ? 'dark' : 'light';
+      setColorScheme(newScheme);
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
+    
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
+    }
+  }, [])
+
+  return colorScheme;
 }
