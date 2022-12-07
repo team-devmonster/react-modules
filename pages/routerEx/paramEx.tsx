@@ -28,7 +28,7 @@ const ParamEx = () => {
         title="Hello Params"
       />
       <P style={{ padding: 8, backgroundColor: color.step300 }}>
-        { query.name } / { query.nickname } / { query.company }
+        { query.name as string } / { query.nickname as string } / { query.company as string }
       </P>
       <A back={true}>
         <Button color={color.primary}>Back</Button>

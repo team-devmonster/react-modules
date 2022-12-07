@@ -76,9 +76,13 @@ const TagsEx = () => {
         outline
       </Button>
 
-      <Button color={color.primary} fill="translucent">
-        translucent
-      </Button>
+      {
+        [1,2,3,4,5].map((item) => (
+          <Button key={item} color={color.primary} fill="translucent">
+            translucent
+          </Button>
+        ))
+      }
     </Div>
   )
 }

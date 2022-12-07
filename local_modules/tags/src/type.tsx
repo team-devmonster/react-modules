@@ -34,7 +34,7 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onC
 export interface ButtonStyle extends TagStyle {
   cursor?:string
 }
-export type TagElement = JSX.Element|string|number|null;
+export type TagElement = JSX.Element|JSX.Element[]|string|number|null|undefined;
 
 // tags
 export type FillProps = 'base' | 'outline' | 'translucent' | 'none';

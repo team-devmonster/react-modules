@@ -74,10 +74,13 @@ export const TagModule = ({ children, style }:TagProps) => {
 }
 const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagElement|TagElement[], style?:TagStyle }) => {
   if(Array.isArray(children)) {
-    const newChildren:(JSX.Element|null)[] = [];
+    const newChildren:(JSX.Element|JSX.Element[]|null)[] = [];
     const textchildren:(JSX.Element|string)[] = [];
     children.forEach((child, i) => {
-      if(child) {
+      if(Array.isArray(child)) {
+        newChildren.push(child);
+      }
+      else if(child) {
         if(typeof child === 'string' || typeof child === 'number') {
           textchildren.push(String(child));
         }
