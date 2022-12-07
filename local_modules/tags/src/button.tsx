@@ -73,7 +73,7 @@ export const Button = forwardRef((
     setIsActive(false);
     setIsHover(false);
   }
-  console.log(children);
+
   return (
     <Tag 
       ref={ref}
