@@ -19,3 +19,4 @@ export const Span = ({style, children, ...rest}:TagProps) => {
     <span style={newStyle} {...rest}>{children}</span>
   )
 }
+Span.displayName = 'Span';

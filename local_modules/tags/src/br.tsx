@@ -3,3 +3,4 @@ export const Br = () => {
     <br></br>
   )
 }
+Br.displayName = 'Br';
