@@ -94,7 +94,7 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
             )
             textchildren.length = 0;
           }
-          
+
           newChildren.push(child);
         }
       }
@@ -119,32 +119,24 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
 
 const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) => {
 
-  const [p, setP] = useState<HTMLElement|null>(null);
-  const [fontSize, setFontSize] = useState(0);
-
-  useEffect(() => {
-    if(p) {
-      const fontSize = window.getComputedStyle(p).fontSize;
-      setFontSize(parseFloat(fontSize));
+  const [el, setEl] = useState<HTMLElement|null>(null);
+  const fontSize = useMemo(() =>  style?.fontSize || el ? parseFloat(window.getComputedStyle(el!).fontSize) : 14, [style?.fontSize, el])
+  const lineHeight = useMemo(() => {
+    if(typeof style?.lineHeight === 'number' && fontSize) {
+      return style.lineHeight/fontSize;
     }
-  }, [p]);
+    else {
+      return 1.28;
+    }
+  }, [fontSize, style?.lineHeight])
 
   return (
     <p 
-      ref={ref => setP(ref)}
+      ref={ref => setEl(ref)}
       style={{
         margin: 0,
         whiteSpace: 'pre-line',
-        lineHeight: 
-          style?.lineHeight
-          ? 
-            fontSize
-            ? 
-              style.lineHeight/fontSize
-            : 
-              undefined
-          : 
-            1.28,
+        lineHeight,
         ...style
       }}>{children}</p>
   )
