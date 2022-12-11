@@ -1,12 +1,12 @@
 import { forwardRef, Ref } from 'react';
-import { Button, Div, P, TagStyle, useColorScheme, useTags } from '@team-devmonster/react-tags';
+import { Button, Div, P, TagElement, TagStyle, useColorScheme, useTags } from '@team-devmonster/react-tags';
 import { A } from './a';
 import { StatusBarStyle } from './type';
 
 export interface HeaderProps {
-  title?:string | React.ReactNode;
-  headerLeft?:React.ReactNode;
-  headerRight?:React.ReactNode;
+  title?:string | TagElement;
+  headerLeft?:TagElement;
+  headerRight?:TagElement;
   headerBackTitle?:string;
   backButtonShown?:boolean;
   headerTitleAlign?:"left" | "center" | undefined;

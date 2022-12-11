@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Div, TagProps } from "@team-devmonster/react-tags";
+import { useMemo, useRef } from "react";
+import { Div, TagElement, TagProps } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
 import { Header } from "./header";
 
@@ -7,27 +7,9 @@ interface LayoutProps extends TagProps {
   edges?:Edge[];
 }
 export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
-  
-  //const [header, setHeader] = useState<any>(null);
-  //const [contents, setContents] = useState<any|any[]>(null);
 
-  const [headerState, setHeaderState] = useState<HTMLDivElement|null>(null);
-  const [offset, setOffset] = useState({ top: 0, bottom: 0 });
-
-  const { header, contents } = newChildren({ children });
-
-  /* useEffect(() => {
-    
-  }, [children]); */
-
-  useEffect(() => {
-    if(headerState?.offsetHeight) {
-      setOffset({ top: headerState.offsetHeight, bottom: 0 });
-    }
-    else {
-      setOffset({ top: 0, bottom: 0 });
-    }
-  }, [headerState?.offsetHeight])
+  const headerRef = useRef<HTMLDivElement>(null);
+  const { header, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
 
   return (
     <Div 
@@ -36,33 +18,80 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
       {
         header
         ?
-          <Header ref={ref => setHeaderState(ref)} {...header.props}></Header>
+          <Header ref={headerRef} {...header.props}></Header>
         :
           null
       }
-      <Div style={{ paddingTop: offset.top, flex: 1 }}>
+      <Div style={{ paddingTop: header?.props?.style?.height || headerRef?.current?.offsetHeight, flex: 1 }}>
         {contents}
       </Div>
+      {fixedLayout}
+      {footer}
     </Div>
   )
 }
 
-const newChildren = ({ children }:{ children:React.ReactNode }):{header:React.ReactElement|null, contents:React.ReactNode} => {
-  if(!children) return { header: null, contents: null };
-  else if(Array.isArray(children)) {
-    const contents = [...children];
-    const headerIndex = contents.findIndex(child => {
-      return child.type?.displayName === 'Header';
-    });
-    if(headerIndex > -1) {
-      const header = contents.splice(headerIndex, 1);
-      return { header: header[0], contents };
-    }
-    else {
-      return { header: null, contents };
+const newChildren = ({ children }:{ children:TagElement })
+  :{ 
+    defaultEdges:Edge[], 
+    header:JSX.Element|null,
+    contents:TagElement, 
+    fixedLayout:TagElement,
+    footer:TagElement
+  } => {
+  if(!children) return { defaultEdges: ['top', 'left', 'right', 'bottom'], header:null, contents: null, fixedLayout: null, footer: null };
+
+  const edges:Edge[] = ['left', 'right'];
+  
+  let header:JSX.Element|null = null;
+  let contents:TagElement = [];
+  let fixedLayout = null;
+  let footer = null;
+
+  if(Array.isArray(children)) {
+    for(let i = 0; i < children.length; i++) {
+      const child = children[i];
+      if(Array.isArray(child)) {
+        contents = children;
+      }
+      else if(child) {
+        if(typeof child === 'string' || typeof child === 'number') {
+          contents = children;
+        }
+        else {
+          switch(child?.type?.displayName) {
+            case 'Header':
+              header = child;
+              contents.push(child);
+              break;
+            case 'FixedLayout':
+              fixedLayout = child;
+              break;
+            case 'Footer':
+              footer = child;
+              break;
+            default:
+              contents.push(child);
+              break;
+          }
+        }
+      }
+      else {
+        contents = children;
+      }
     }
   }
   else {
-    return { header: null, contents: children };
+    contents = children;
+  }
+
+  if(!header || header?.props?.headerShown === false) edges.push('top');
+  if(!footer) edges.push('bottom');
+  return {
+    defaultEdges: edges, 
+    header,
+    contents,
+    fixedLayout,
+    footer
   }
 }

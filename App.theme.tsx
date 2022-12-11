@@ -1,5 +1,7 @@
+import { TagConfig } from "@local_modules/tags";
 import { ButtonProps, TagProvider, TagStyle } from "@local_modules/tags";
 import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
+import { InputConfig } from "@team-devmonster/react-tags";
 
 const color = {
   light: {
@@ -65,32 +67,36 @@ const theme = (color:Color) => {
     x9l: 128 as const
   }
 
-  const input = {
-    position: 'relative',
-    backgroundColor: color.white,
-    borderColor: color.step300,
-    color: color.black,
-    borderRadius: 5,
-    borderWidth: 1,
-    fontSize: fontSize.base,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    minHeight: 42,
-    flex: 1
-  }
-  const inputError = {
-    borderColor: color.warning
-  }
-  const inputDisabled = {
-    backgroundColor: color.step100,
-    borderColor: color.step200
+  const input:InputConfig = {
+    style: {
+      position: 'relative',
+      backgroundColor: color.white,
+      borderColor: color.step300,
+      color: color.black,
+      borderRadius: 5,
+      borderWidth: 1,
+      fontSize: fontSize.base,
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
+      paddingRight: 10,
+      minHeight: 42,
+      flex: 1
+    },
+    disabledStyle: {
+      backgroundColor: color.step100,
+      borderColor: color.step200
+    },
+    errorStyle: {
+      borderColor: color.warning
+    }
   }
 
-  const div:TagStyle = {
-    color: color.black,
-    fontSize: fontSize.base
+  const div:TagConfig = {
+    style: {
+      color: color.black,
+      fontSize: fontSize.base
+    }
   }
   
   const button:ButtonProps = {
@@ -127,10 +133,13 @@ const theme = (color:Color) => {
 
   return {
     // basic theme
-    color, fontSize, shadow,
+    color, 
+    fontSize, 
+    shadow,
     // components theme
-    input, inputError, inputDisabled,
-    div, button
+    input,
+    div, 
+    button
   }
 }
 
@@ -148,9 +157,9 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
-  const { div, button } = useTheme<Theme>();
+  const theme = useTheme<Theme>();
   return (
-    <TagProvider tagConfig={{ div, button }}>
+    <TagProvider tagConfig={theme}>
       {children}
     </TagProvider>
   )

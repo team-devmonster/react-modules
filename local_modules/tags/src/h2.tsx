@@ -2,10 +2,10 @@ import { useTags } from "./core";
 import { Div } from "./div";
 import { TagProps } from "./type";
 
-export const P = ({style, ...rest}:TagProps) => {
+export const H2 = ({style, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const tagStyle = tagConfig?.p?.style;
+  const tagStyle = tagConfig?.h2?.style;
   
   return (
     <Div 

@@ -119,8 +119,7 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
 
 const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) => {
 
-  const [el, setEl] = useState<HTMLElement|null>(null);
-  const fontSize = useMemo(() =>  style?.fontSize || el ? parseFloat(window.getComputedStyle(el!).fontSize) : 14, [style?.fontSize, el])
+  const fontSize = useMemo(() =>  style?.fontSize || 14, [style?.fontSize])
   const lineHeight = useMemo(() => {
     if(typeof style?.lineHeight === 'number' && fontSize) {
       return style.lineHeight/fontSize;
@@ -132,7 +131,6 @@ const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) =>
 
   return (
     <p 
-      ref={ref => setEl(ref)}
       style={{
         margin: 0,
         whiteSpace: 'pre-line',

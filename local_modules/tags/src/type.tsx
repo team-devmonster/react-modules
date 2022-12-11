@@ -9,21 +9,31 @@ export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'border
 }
 export interface TagGroupConfig {
   // tag - default
-  div?: TagStyle,
+  div?: TagConfig,
   button?: ButtonConfig,
-  img?: TagStyle,
+  img?: TagConfig,
   // tag - additional
-  p?:TagStyle,
-  span?:TagStyle,
+  h1?:TagConfig,
+  h2?:TagConfig,
+  h3?:TagConfig,
+  p?:TagConfig,
+  span?:TagConfig,
+  dl?:TagConfig,
+  dt?:TagConfig,
+  dd?:TagConfig,
+  main?:TagConfig,
   // router
-  layout?:LayoutConfig,
+  layout?:TagConfig,
   header?:HeaderConfig,
+  footer?:TagConfig,
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
-  checkbox?: InputConfig,
-  radio?: InputConfig
+  select?: SelectConfig
+}
+export interface TagConfig {
+  style?:TagStyle
 }
 
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
@@ -67,6 +77,39 @@ export interface InputConfig {
   errorStyle?:InputStyle
 }
 
+export interface ErrorTextConfig {
+  style?:TagStyle
+}
+export interface SelectConfig {
+  confirmText?:string,
+  cancelText?:string,
+  style?:SelectStyle,
+  disabledStyle?:SelectStyle,
+  errorStyle?:SelectStyle,
+  confirmButtonStyle?:ButtonStyle,
+  cancelButtonStyle?:ButtonStyle
+}
+export interface InputCheckboxStyle extends TagStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
+export interface InputRadioStyle extends TagStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
+export interface InputDateStyle extends TagStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
+
+export interface SelectStyle extends InputStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
 export interface ErrorTextConfig {
   style?:TagStyle
 }
