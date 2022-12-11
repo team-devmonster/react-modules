@@ -29,6 +29,13 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
       }
     }
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
+
+    root.style.setProperty(`button`, 
+    `
+      outline: none;
+      border-width: 0;
+      padding: 0;
+    `);
     
     return () => {
       window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);

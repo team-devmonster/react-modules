@@ -118,14 +118,14 @@ export const Button = forwardRef((
 
 interface FillStyle {
   background: {
-    base?: string,
-    pressed?: string,
-    ripple?: string
+    base?:string,
+    pressed?:string,
+    ripple?:string
   },
-  color?: string,
-  borderColor?: string,
-  borderWidth?: number,
-  borderRadius?: number
+  color?:string,
+  borderColor?:string,
+  borderWidth?:number,
+  borderRadius?:number
 }
 const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:"light" | "dark" | null | undefined, color?: string, fill: FillProps, buttonTagStyle?:ButtonStyle}):FillStyle => {
   switch(fill) {
