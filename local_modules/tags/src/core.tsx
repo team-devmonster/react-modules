@@ -37,7 +37,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
 }
 const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleStates:(TagStyle|undefined)[] }):TagStyle[] => {
   // case 1
-  let styleObj = { borderStyle:'solid', borderWidth: 0 };
+  let styleObj = {};
   styleStates.forEach(styleState => styleObj = Object.assign(styleObj, styleState));
   if(!patterns.length) return [styleObj];
 

@@ -83,10 +83,10 @@ export const Button = forwardRef((
         textAlign: 'left',
         cursor: 'pointer',
         ...flexDefaultStyle,
-        ...etcStyle,
         borderWidth: fillStyle?.borderWidth,
         borderColor: fillStyle?.borderColor,
         backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle?.background?.base) : fillStyle?.background?.pressed,
+        ...etcStyle
       }}
 
       onMouseDown={onPress}

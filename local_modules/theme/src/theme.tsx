@@ -66,10 +66,12 @@ function normalize() {
   // set default styles
   document.head.insertAdjacentHTML("beforeend", `
     <style>
-      button {
-        outline: none;
-        border-style: solid;
+      * {
+        border-style:'solid';
         border-width: 0;
+        outline: none;
+      }
+      button {
         padding: 0;
       }
       ::placeholder {
