@@ -5,7 +5,8 @@ export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'border
   display?: 'flex' | 'inline-flex' | 'none',
   fontSize?:number,
   lineHeight?:number,
-  borderRadius?:number
+  borderRadius?:number,
+  placeholderColor?:string
 }
 export interface TagGroupConfig {
   // tag - default
@@ -74,11 +75,42 @@ export interface InputStyle extends TagStyle {
 export interface InputConfig {
   style?:InputStyle,
   disabledStyle?:InputStyle,
-  errorStyle?:InputStyle
+  errorStyle?:InputStyle,
+  'type=checkbox'?:InputCheckboxConfig,
+  'type=radio'?:InputRadioConfig,
+  'type=date'?:InputDateConfig,
+  'type=datetime-local'?:InputDateConfig,
+  'type=time'?:InputDateConfig,
+  'type=file'?:InputFileConfig,
 }
 
-export interface ErrorTextConfig {
-  style?:TagStyle
+export interface InputCheckboxConfig {
+  style?:InputCheckboxStyle,
+  disabledStyle?:InputCheckboxStyle,
+  errorStyle?:InputCheckboxStyle
+}
+export interface InputRadioConfig {
+  style?:InputRadioStyle,
+  disabledStyle?:InputRadioStyle,
+  errorStyle?:InputRadioStyle
+}
+export interface InputDateConfig {
+  confirmText?:string,
+  cancelText?:string,
+  style?:InputDateStyle,
+  disabledStyle?:InputDateStyle,
+  errorStyle?:InputDateStyle
+}
+export interface InputFileConfig {
+  cameraText?:string,
+  albumText?:string,
+  cancelText?:string,
+  style?:InputStyle,
+  disabledStyle?:InputStyle,
+  errorStyle?:InputStyle,
+  cameraButtonStyle?:ButtonStyle,
+  albumButtonStyle?:ButtonStyle,
+  cancelButtonStyle?:ButtonStyle
 }
 export interface SelectConfig {
   confirmText?:string,

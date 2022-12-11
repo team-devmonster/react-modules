@@ -24,6 +24,7 @@ export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
+export const placeholderPattern = /^(placeholder)/;
 
 export const flexDefaultStyle:TagStyle = {
   display: 'flex',

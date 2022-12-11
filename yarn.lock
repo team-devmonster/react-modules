@@ -1007,6 +1007,11 @@
     "minimatch" "^3.1.2"
     "strip-json-comments" "^3.1.1"
 
+"@hookform/error-message@^2.0.1":
+  "integrity" "sha512-U410sAr92xgxT1idlu9WWOVjndxLdgPUHEB8Schr27C9eh7/xUnITWpCMF93s+lGiG++D4JnbSnrb5A21AdSNg=="
+  "resolved" "https://registry.npmjs.org/@hookform/error-message/-/error-message-2.0.1.tgz"
+  "version" "2.0.1"
+
 "@humanwhocodes/config-array@^0.11.6":
   "integrity" "sha512-jJr+hPTJYKyDILJfhNSHsjiwXYf26Flsz8DvNndOsHs5pwSnpGUEy8yzF0JYhCEvTDdV2vuOK5tt8BVhwO5/hg=="
   "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.6.tgz"
@@ -1222,10 +1227,10 @@
   dependencies:
     "tslib" "^2.4.0"
 
-"@team-devmonster/react-tags@^1.6.5":
-  "integrity" "sha512-byfbj15eFmxl7Gl3jTDL2uTpFkHVG+3ZDYfzXPEAt5GWTzFWGzI+J40YtRo9RATPu+V6oZzhdq9FoWvZu7Ftew=="
-  "resolved" "https://registry.npmjs.org/@team-devmonster/react-tags/-/react-tags-1.6.5.tgz"
-  "version" "1.6.5"
+"@team-devmonster/react-tags@^1.7.0":
+  "integrity" "sha512-65BPC8z0N7PTKk6DoGxV4p4n9TMIBsm1MIJWLUYV50yIB85LRKiOFIuPUN414SnP8Ha4ykldGDV7C8GWDj1Epw=="
+  "resolved" "https://registry.npmjs.org/@team-devmonster/react-tags/-/react-tags-1.7.0.tgz"
+  "version" "1.7.0"
 
 "@trysound/sax@0.2.0":
   "integrity" "sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA=="
@@ -2787,7 +2792,7 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
-"react-dom@^18.0.0-0", "react-dom@>=16", "react-dom@18.2.0":
+"react-dom@^18.0.0-0", "react-dom@>=16", "react-dom@>=16.8.0", "react-dom@18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -2795,12 +2800,17 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.23.0"
 
+"react-hook-form@^7.0.0", "react-hook-form@^7.40.0":
+  "integrity" "sha512-0rokdxMPJs0k9bvFtY6dbcSydyNhnZNXCR49jgDr/aR03FDHFOK6gfh8ccqB3fl696Mk7lqh04xdm+agqWXKSw=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.40.0.tgz"
+  "version" "7.40.0"
+
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0-0", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@18.2.0":
+"react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0-0", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@>=16.8.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

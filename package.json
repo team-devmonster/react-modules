@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@team-devmonster/react-tags": "^1.6.5",
+    "@hookform/error-message": "^2.0.1",
+    "@team-devmonster/react-tags": "^1.7.0",
     "next": "13.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.40.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",

@@ -1,5 +1,5 @@
-import { useMemo, useRef } from "react";
-import { Div, TagElement, TagProps } from "@team-devmonster/react-tags";
+import { useMemo, useState } from "react";
+import { Div, TagElement, TagProps, useTags } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
 import { Header } from "./header";
 
@@ -8,21 +8,29 @@ interface LayoutProps extends TagProps {
 }
 export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
 
-  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerRef, setHeaderRef] = useState<HTMLDivElement|null>(null);
   const { header, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
+  const { tagConfig } = useTags();
+  const layoutTagStyle = tagConfig?.layout?.style;
 
   return (
     <Div 
       {...rest}
-      style={style}>
+      style={{
+        ...style,
+        ...layoutTagStyle
+      }}>
       {
         header
         ?
-          <Header ref={headerRef} {...header.props}></Header>
+          <Header ref={ref => setHeaderRef(ref)} {...header.props}></Header>
         :
           null
       }
-      <Div style={{ paddingTop: header?.props?.style?.height || headerRef?.current?.offsetHeight, flex: 1 }}>
+      <Div style={{ 
+        flex: 1, 
+        paddingTop: header?.props?.style?.height || headerRef?.offsetHeight
+      }}>
         {contents}
       </Div>
       {fixedLayout}

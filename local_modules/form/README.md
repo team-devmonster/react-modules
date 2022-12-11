@@ -10,32 +10,29 @@ This use [`react-hook-form`](https://github.com/react-hook-form/react-hook-form)
 hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
 email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
+#### author: devmonster
 
-### Road Map
+We are always looking for investment or assistance.
+hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
+email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
+## items
 
-General [react-modules] load map => [here](https://github.com/team-devmonster/react-native-modules);
-
-- [ ] [input]
-- [ ] [input[type=radio]]
-- [ ] [input[type=time]]
-- [ ] [checkbox]
-- [ ] [radio]
-- [ ] [errorText]
-- [ ] [select]
-- [ ] [option]
+- [o] [Input]
+- [o] [Input\[type=radio\]]
+- [o] [Input\[type=checkbox\]]
+- [o] [Input\[type=number\]]
+- [o] [Input\[type=date\]]
+- [o] [Input\[type=time\]]
+- [o] [Input\[type=file\]]
+- [o] [Select]
+- [o] [Textarea]
 
 
 ## Getting started
 
-`$ npm install react-hook-form @team-devmonster/react-form@latest`
+`$ npm install react-hook-form @hookform/error-message`
 
-We recommend to use with
-
-- [x] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
-- [X] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
-
-`$ npm install @team-devmonster/react-theme@latest`
-`$ npm install @team-devmonster/react-tags@latest`
+`$ npm install @team-devmonster/react-theme@latest @team-devmonster/react-tags@latest @team-devmonster/react-form@latest`
 
 
 ## Usage

@@ -1,25 +1,26 @@
-import { FormValues, SelectProps } from "./type";
+import { FormValues, InputProps } from "./type";
 import { Controller } from 'react-hook-form';
 import { useTags, useTagStyle } from '@team-devmonster/react-tags';
 import { useEffect } from "react";
 
-export function Select<T extends FormValues>({
-  control, 
-  name, 
-  confirmText:_,
-  cancelText:__,
-  confirmButtonStyle:___,
-  cancelButtonStyle:____,
-  placeholder,
-  disabled,
-  style,
-  disabledStyle,
-  errorStyle,
-  value,
-  onClick,
-  children,
-  ...rules
-}:SelectProps<T>) {
+export function Textarea<T extends FormValues>(props:InputProps<T>) 
+{
+  const {
+    control, 
+    name,
+    placeholder,
+    disabled,
+    style,
+    disabledStyle,
+    errorStyle,
+    value,
+    type = 'text',
+    returnKeyType,
+    onKeyDown,
+    onKeyUp,
+    onEnter,
+    ...rules
+  } = props;
 
   const { tagConfig } = useTags();
 
@@ -54,6 +55,28 @@ export function Select<T extends FormValues>({
         let newValue:string = value;
         let newOnChange = onChange;
 
+        switch(type) {
+          case 'number':
+            newValue = String(value || '0');
+            newOnChange = (v) => {
+              let num = v.replace(/\D+/g, '');
+              onChange(num ? +num : 0);
+            }
+            break;
+          case 'tel':
+            let tel = (value as string)?.replace(/\D+/g, '').replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+            newValue = tel;
+            newOnChange = (v) => {
+              let num = v.replace(/\D+/g, '');
+              onChange(num);
+            }
+            rules.maxLength = rules.maxLength || 13;
+            break;
+          case 'password':
+            // nothing
+            break;
+        }
+
         useEffect(() => {
           const root = document.documentElement;
           if(inputStyle.placeholderColor) {
@@ -62,17 +85,21 @@ export function Select<T extends FormValues>({
         }, []);
 
         return (
-          <select
+          <textarea
             ref={ref}
-            onChange={newOnChange}
+            onChange={e => newOnChange(e.target.value)}
             onBlur={onBlur}
             value={newValue}
+            maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
             placeholder={placeholder}
             style={inputStyle}
             disabled={!disabled}
-          >
-            {children}
-          </select>
+            onKeyDown={onKeyDown as any}
+            onKeyUp={e => {
+              onKeyUp?.(e as any);
+              if(e.key === 'Enter') onEnter?.(e as any);
+            }}
+          ></textarea>
         )
         }}
     />
