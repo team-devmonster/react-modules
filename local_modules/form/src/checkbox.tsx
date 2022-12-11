@@ -55,12 +55,17 @@ export function Checkbox<T extends FormValues>({
           <input
             ref={ref}
             name={name}
-            onClick={(e) => {
-              const newValue = !value;
-              onChange(newValue);
-              onClick?.({...e, value: newValue} as any);
+            onClick={(e:any) => {
+              //const newValue = !value;
+              //onChange(newValue);
+              onClick?.(e);
             }}
             checked={value}
+            onChange={(e) => {
+              console.log(e.target.checked);
+              const newValue = e.target.checked;
+              onChange(newValue);
+            }}
             onBlur={onBlur}
             type="checkbox"
             style={{

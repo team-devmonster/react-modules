@@ -19,6 +19,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
     onKeyDown,
     onKeyUp,
     onEnter,
+    onFocus,
     ...rules
   } = props;
 
@@ -98,7 +99,8 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
               onKeyUp?.(e);
               if(e.key === 'Enter') onEnter?.(e);
             }}
-          ></input>
+            onFocus={onFocus}
+          />
         )
         }}
     />
