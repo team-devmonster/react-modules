@@ -79,7 +79,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
         useEffect(() => {
           const root = document.documentElement;
           if(inputStyle.placeholderColor) {
-            root.style.setProperty('::placeholder', inputStyle.placeholderColor);
+            root.style.setProperty('--placeholder', inputStyle.placeholderColor);
           }
         }, []);
 

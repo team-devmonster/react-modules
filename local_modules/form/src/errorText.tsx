@@ -9,12 +9,13 @@ import { FormValues } from './type';
 export interface ErrorTextProps<T extends FormValues> {
   errors: Partial<FieldErrorsImpl<T>>,
   name:Path<T>,
-  style?:TagStyle
+  style?:TagStyle,
+  message?:string
 }
 
 export function ErrorText<T extends FormValues>(
   {
-    errors, name, style
+    errors, name, style, message
   }:ErrorTextProps<T>) 
 {
 
@@ -34,10 +35,11 @@ export function ErrorText<T extends FormValues>(
     <ErrorMessage
       errors={errors}
       name={name as any}
-      render={({ message }) => {
+      message={message}
+      render={({ message:msg }) => {
         return (
-          message &&
-          <Div style={tagStyle}>{message}</Div>
+          msg &&
+          <Div style={tagStyle}>{msg}</Div>
         )
       }}
     />

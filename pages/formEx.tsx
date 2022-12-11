@@ -67,8 +67,8 @@ const FormEx = () => {
           type="tel"
           placeholder="phone"
           minLength={{ value: 11, message: 'phone more than 11' }}
-          required="please insert phone"></Input>
-        <ErrorText errors={errors} name="phone"></ErrorText>
+          required={true}></Input>
+        <ErrorText errors={errors} name="phone" message="hello"></ErrorText>
 
         <Input 
           control={control} 

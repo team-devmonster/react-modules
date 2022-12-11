@@ -13,6 +13,8 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   const [colorScheme, setColorScheme] = useState<ColorSchemeName>(null);
 
   useEffect(() => {
+    normalize();
+
     const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     setColorScheme(colorScheme);
     const root = document.documentElement;
@@ -30,13 +32,6 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
     }
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
 
-    root.style.setProperty(`button`, 
-    `
-      outline: none;
-      border-width: 0;
-      padding: 0;
-    `);
-    
     return () => {
       window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
     }
@@ -67,3 +62,19 @@ export function useTheme<T>() {
   return useContext<ThemeProps<T>>(ThemeContext);
 }
 
+function normalize() {
+  // set default styles
+  document.head.insertAdjacentHTML("beforeend", `
+    <style>
+      button {
+        outline: none;
+        border-style: solid;
+        border-width: 0;
+        padding: 0;
+      }
+      ::placeholder {
+        color: var(--placeholder, #a8a8a8);
+      }
+    </style>
+  `)
+}
