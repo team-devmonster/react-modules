@@ -84,6 +84,9 @@ const newChildren = ({ children }:{ children:TagElement })
           }
         }
       }
+      else if(!child) {
+        // nothing
+      }
       else {
         contents = children;
       }

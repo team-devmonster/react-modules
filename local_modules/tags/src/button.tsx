@@ -157,6 +157,7 @@ const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:
           ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : 'transparent'
         },
         color: color ? contrast(color) : undefined,
+        borderColor: color,
         borderRadius: buttonTagStyle?.borderRadius
       }
     default:
@@ -166,6 +167,7 @@ const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:
           pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined,
           ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined
         },
+        borderColor: color,
         color: color ? contrast(color) : undefined
       }
   }
