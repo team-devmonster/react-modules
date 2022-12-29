@@ -48,4 +48,7 @@ Easy. Too Easy.
   compareTime(date:Date);
   // return compare time with now.
   // ex) 1일전, 어제, 1시간 전, 1분 전, 방금전
+  compareTime(date:Date, date3:Date, 'time');
+  // return compare time with now.
+  // ex) -3284343434, 3483489
 ```

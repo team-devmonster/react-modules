@@ -13,28 +13,32 @@ export const toMonth = () => {
 export const toString = (date:Date) => {
   return date.getFullYear() + '-' + toXX(date.getMonth() + 1) + '-' + toXX(date.getDate());
 }
-export const compareTime = (time:string | Date) => {
-  const now = new Date();
-
+export const compareTime = (time:string | Date, time2:string | Date = new Date(), type: 'ko'|'time' = 'ko') => {
   const end = typeof time === 'string' ? new Date(time) : time;
+  const now = typeof time2 === 'string' ? new Date(time2) : time2;
 
   const def_time = now.getTime() - end.getTime();
   const def_days = def_time / (1000 * 3600 * 24);
   const def_hours = def_time / (1000 * 3600);
   const def_minutes = def_time / (1000 * 60);
   // const def_seconds = def_time / 1000;
-  if(def_days > 1) {
-    return  Math.floor(def_days) + '일 전';
+  if(type === 'ko') {
+    if(def_days > 1) {
+      return  Math.floor(def_days) + '일 전';
+    }
+    else if(def_days >= 1) {
+      return  '어제';
+    }
+    else if(def_hours >= 1) {
+      return  Math.floor(def_hours) + '시간 전';
+    } else if(def_minutes >= 1) {
+      return Math.floor(def_minutes) + '분 전';
+    } else {
+      return '방금 전';
+    }
   }
-  else if(def_days >= 1) {
-    return  '어제';
-  }
-  else if(def_hours >= 1) {
-    return  Math.floor(def_hours) + '시간 전';
-  } else if(def_minutes >= 1) {
-    return Math.floor(def_minutes) + '분 전';
-  } else {
-    return '방금 전';
+  else {
+    return def_time;
   }
 }
 export const toXX = (num:number) => {
