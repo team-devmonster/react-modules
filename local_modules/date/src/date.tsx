@@ -1,10 +1,21 @@
-export const today = (opts = {year: 0, month: 0, date: 0}) => {
+export type TodayProps = {
+  year?:number,
+  month?:number,
+  date?:number,
+  type?:'YYYY-MM-DD'|'YYYY-MM-DD hh:mm:ss'
+}
+export const today = ({ year, month, date, type }:TodayProps) => {
   const now = new Date();
-  if (opts.year) now.setFullYear(now.getFullYear() + opts.year);
-  if (opts.month) now.setMonth(now.getMonth() + opts.month);
-  if (opts.date) now.setDate(now.getDate() + opts.date);
+  if (year) now.setFullYear(now.getFullYear() + year);
+  if (month) now.setMonth(now.getMonth() + month);
+  if (date) now.setDate(now.getDate() + date);
 
-  return now.getFullYear() + '-' + toXX(now.getMonth() + 1) + '-' + toXX(now.getDate());
+  switch(type) {
+    case 'YYYY-MM-DD hh:mm:ss':
+      return `${now.getFullYear()}-${toXX(now.getMonth() + 1)}-${toXX(now.getDate())} ${toXX(now.getHours())}:${toXX(now.getMinutes())}:${toXX(now.getSeconds())}`;
+    default: // 'YYYY-MM-DD'
+      return `${now.getFullYear()}-${toXX(now.getMonth() + 1)}-${toXX(now.getDate())}`;
+  }
 }
 export const toMonth = () => {
   const date = new Date();
@@ -13,9 +24,14 @@ export const toMonth = () => {
 export const toString = (date:Date) => {
   return date.getFullYear() + '-' + toXX(date.getMonth() + 1) + '-' + toXX(date.getDate());
 }
-export const compareTime = (time:string | Date, time2:string | Date = new Date(), type: 'ko'|'time' = 'ko') => {
-  const end = typeof time === 'string' ? new Date(time) : time;
-  const now = typeof time2 === 'string' ? new Date(time2) : time2;
+export type CompareTimeProps = {
+  date:string|Date,
+  date2?:string|Date,
+  type?:'ko'|'time'
+}
+export const compareTime = ({ date, date2 = new Date(), type = 'ko' }:CompareTimeProps) => {
+  const end = typeof date === 'string' ? new Date(date) : date;
+  const now = typeof date2 === 'string' ? new Date(date2) : date2;
 
   const def_time = now.getTime() - end.getTime();
   const def_days = def_time / (1000 * 3600 * 24);
@@ -23,6 +39,14 @@ export const compareTime = (time:string | Date, time2:string | Date = new Date()
   const def_minutes = def_time / (1000 * 60);
   // const def_seconds = def_time / 1000;
   if(type === 'ko') {
+    if(def_days > 7) {
+      if(end.getFullYear() !== now.getFullYear()) {
+        return  `${end.getFullYear()} ${end.getMonth()+1}월 ${end.getDate()}일`;  
+      }
+      else {
+        return  `${end.getMonth()+1}월 ${end.getDate()}일`;
+      }
+    }
     if(def_days > 1) {
       return  Math.floor(def_days) + '일 전';
     }

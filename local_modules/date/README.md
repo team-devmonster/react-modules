@@ -38,6 +38,8 @@ Easy. Too Easy.
   // return last month as YYYY-MM-DD
   today({ date: -1 });
   // return last date as YYYY-MM-DD
+  today({ type: 'YYYY-MM-DD hh:mm:ss' });
+  // return last date as YYYY-MM-DD hh:mm:ss
 
   toMonth();
   // return this Month as YYYY-MM
@@ -45,10 +47,16 @@ Easy. Too Easy.
   toString(date:Date);
   // return date as YYYY-MM-DD
 
-  compareTime(date:Date);
-  // return compare time with now.
-  // ex) 1일전, 어제, 1시간 전, 1분 전, 방금전
-  compareTime(date:Date, date3:Date, 'time');
-  // return compare time with now.
+  compareTime({ date: '2022-12-31' });
+  compareTime({ date: new Date() });
+  // return compared time with now.
+  // ex) 12월 31일, 1일전, 어제, 1시간 전, 1분 전, 방금전
+
+  compareTime({ date: '2022-12-31', date2: '2023-01-01' });
+  // return compared time date & date2.
+  // ex) 12월 31일, 1일전, 어제, 1시간 전, 1분 전, 방금전
+
+  compareTime({ date: '2022-12-31', date2: '2023-01-01', type: 'time' });
+  // return compared time. as milliseconds.
   // ex) -3284343434, 3483489
 ```
