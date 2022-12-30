@@ -4,7 +4,8 @@ export type TodayProps = {
   date?:number,
   type?:'YYYY-MM-DD'|'YYYY-MM-DD hh:mm:ss'
 }
-export const today = ({ year, month, date, type }:TodayProps) => {
+export const today = (opts?:TodayProps) => {
+  const { year, month, date, type } = opts || {};
   const now = new Date();
   if (year) now.setFullYear(now.getFullYear() + year);
   if (month) now.setMonth(now.getMonth() + month);
