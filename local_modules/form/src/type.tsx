@@ -83,7 +83,7 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   multiple?:boolean
 }
 export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|'hidden'|InputDateType;
-export type InputDateType = 'date'|'time';
+export type InputDateType = 'date'|'time'|'month';
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send"
 
 export interface LabelProps<T extends FormValues> extends TagProps {
