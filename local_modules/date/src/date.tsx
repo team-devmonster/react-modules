@@ -31,8 +31,8 @@ export type CompareTimeProps = {
   type?:'ko'|'time'
 }
 export const compareTime = ({ date, date2 = new Date(), type = 'ko' }:CompareTimeProps) => {
-  const end = typeof date === 'string' ? new Date(date) : date;
-  const now = typeof date2 === 'string' ? new Date(date2) : date2;
+  const end = typeof date === 'string' ? new Date(date.trim().replace(' ', 'T')) : date;
+  const now = typeof date2 === 'string' ? new Date(date2.trim().replace(' ', 'T')) : date2;
 
   const def_time = now.getTime() - end.getTime();
   const def_days = def_time / (1000 * 3600 * 24);
