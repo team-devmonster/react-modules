@@ -81,8 +81,7 @@ import React from "react";
 import { useTheme } from '@team-devmonster/react-theme';
 import { Theme } from "./App.theme";
 import { Div, Button, P } from "@team-devmonster/react-tags";
-import { A } from "@team-devmonster/react-router";
-import { useRouter } from "next/router";
+import { A, useRouter } from "@team-devmonster/react-router";
 
 const ParamEx = () => {
 
