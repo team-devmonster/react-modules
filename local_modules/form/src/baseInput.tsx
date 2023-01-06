@@ -88,7 +88,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             ref={ref}
             onChange={e => newOnChange(e.target.value)}
             onBlur={onBlur}
-            value={newValue}
+            value={newValue || ''}
             type={type}
             maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
             placeholder={placeholder}
