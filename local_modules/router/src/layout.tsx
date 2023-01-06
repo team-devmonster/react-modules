@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Div, TagElement, TagProps, useTags } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
 import { Header } from "./header";
+import { Footer } from "./footer";
 
 interface LayoutProps extends TagProps {
   edges?:Edge[];
@@ -9,6 +10,7 @@ interface LayoutProps extends TagProps {
 export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
 
   const [headerRef, setHeaderRef] = useState<HTMLDivElement|null>(null);
+  const [footerRef, setFooterRef] = useState<HTMLDivElement|null>(null);
   const { header, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
@@ -24,17 +26,22 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
         header
         ?
           <Header ref={ref => setHeaderRef(ref)} {...header.props}></Header>
-        :
-          null
+        : null
       }
       <Div style={{ 
         flex: 1, 
-        paddingTop: header?.props?.style?.height || headerRef?.offsetHeight
+        paddingTop: header?.props?.style?.height || headerRef?.offsetHeight,
+        paddingBottom: header?.props?.style?.height || footerRef?.offsetHeight,
       }}>
         {contents}
       </Div>
       {fixedLayout}
-      {footer}
+      {
+        footer
+        ?
+          <Footer ref={ref => setFooterRef(ref)} {...footer.props}/>
+        : null
+      }
     </Div>
   )
 }
@@ -45,7 +52,7 @@ const newChildren = ({ children }:{ children:TagElement })
     header:JSX.Element|null,
     contents:TagElement, 
     fixedLayout:TagElement,
-    footer:TagElement
+    footer:JSX.Element|null
   } => {
   if(!children) return { defaultEdges: ['top', 'left', 'right', 'bottom'], header:null, contents: null, fixedLayout: null, footer: null };
 
@@ -54,7 +61,7 @@ const newChildren = ({ children }:{ children:TagElement })
   let header:JSX.Element|null = null;
   let contents:TagElement = [];
   let fixedLayout = null;
-  let footer = null;
+  let footer:JSX.Element|null = null;
 
   if(Array.isArray(children)) {
     for(let i = 0; i < children.length; i++) {
@@ -67,6 +74,7 @@ const newChildren = ({ children }:{ children:TagElement })
           contents = children;
         }
         else {
+          console.log(child);
           switch(child?.type?.displayName) {
             case 'Header':
               header = child;

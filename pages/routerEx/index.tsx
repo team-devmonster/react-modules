@@ -10,6 +10,8 @@ import ImgSetting from "@image/header/setting.svg";
 import ImgSettingDark from "@image/header/setting-dark.svg";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { Footer } from "@local_modules/router";
+import { FixedLayout } from "@local_modules/router";
 
 const RouterEx = () => {
 
@@ -57,6 +59,11 @@ const RouterEx = () => {
             </Div>
           }
           ></Header>
+
+        <FixedLayout>
+          <Button style={{ bottom: 100, right: 100 }}>hover button</Button>
+        </FixedLayout>
+        
         <A href='/themeEx'>
           <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
         </A>
@@ -76,6 +83,11 @@ const RouterEx = () => {
         <A href='https://www.google.co.kr' target="blank">
           <Button color={color.warning}>google target blank</Button>
         </A>
+
+        <Footer>
+          <Button>tabs1</Button>
+          <Button>tabs2</Button>
+        </Footer>
     </Layout>
   )
 }

@@ -1,14 +1,16 @@
 import { Div, TagElement, TagStyle, useTags } from '@team-devmonster/react-tags';
+import { forwardRef, Ref } from 'react';
 
 export interface FooterProps {
   children:TagElement,
   style?:TagStyle
 }
-export const Footer = (
+export const Footer = forwardRef((
   { 
     children,
     style
-  }:FooterProps
+  }:FooterProps,
+  ref:Ref<HTMLDivElement>
   ) => {
 
   const { tagConfig } = useTags();
@@ -16,12 +18,17 @@ export const Footer = (
 
   return (
     <Div 
+      ref={ref}
       style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        width: '100%',
         ...tagStyle,
         ...style
       }}>
       { children }
     </Div>
   )
-}
+})
 Footer.displayName = 'Footer';

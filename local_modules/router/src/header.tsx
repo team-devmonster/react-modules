@@ -18,7 +18,7 @@ export interface HeaderProps {
   statusBarStyle?:StatusBarStyle;
   contentStyle?:TagStyle
 }
-const Header = forwardRef((
+export const Header = forwardRef((
   { 
     title, 
     headerTitleAlign, 
@@ -130,4 +130,3 @@ const Header = forwardRef((
   )
 })
 Header.displayName = 'Header';
-export { Header };
