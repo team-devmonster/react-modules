@@ -60,7 +60,7 @@ export function Checkbox<T extends FormValues>({
               //onChange(newValue);
               onClick?.(e);
             }}
-            checked={value}
+            checked={value||false}
             onChange={(e) => {
               console.log(e.target.checked);
               const newValue = e.target.checked;

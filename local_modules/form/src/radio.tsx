@@ -67,7 +67,7 @@ export function Radio<T extends FormValues>(
               onChange(e.target.value);
             }}
             onBlur={onBlur}
-            value={value}
+            value={value||undefined}
             checked={fieldValue === value}
             type="radio"
             style={{
