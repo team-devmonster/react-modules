@@ -64,10 +64,15 @@ export function useTheme<T>() {
 
 function normalize() {
   // set default styles
+  const style = document.getElementById('team-devmonster-react-theme');
+  if(style) return;
   document.head.insertAdjacentHTML("beforeend", `
-    <style>
+    <style id="team-devmonster-react-theme">
       * {
-        border-style:'solid';
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        border-style: solid;
         border-width: 0;
         outline: none;
       }
@@ -76,6 +81,16 @@ function normalize() {
       }
       ::placeholder {
         color: var(--placeholder, #a8a8a8);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html {
+          color-scheme: dark;
+        }
       }
     </style>
   `)
