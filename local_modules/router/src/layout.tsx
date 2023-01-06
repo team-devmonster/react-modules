@@ -74,7 +74,6 @@ const newChildren = ({ children }:{ children:TagElement })
           contents = children;
         }
         else {
-          console.log(child);
           switch(child?.type?.displayName) {
             case 'Header':
               header = child;
