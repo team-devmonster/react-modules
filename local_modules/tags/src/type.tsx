@@ -49,10 +49,6 @@ export interface ButtonStyle extends TagStyle {
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
 // tags props
-export interface ButtonClickEvent extends React.MouseEventHandler<HTMLButtonElement> {
-  [name:string]:any
-}
-
 export interface ButtonProps {
   tag?: 'div'|'button'|'a';
   style?: ButtonStyle;
@@ -61,7 +57,7 @@ export interface ButtonProps {
   activeStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;
-  onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
+  onClick?: ((event: any) => void) | null | undefined;
   disabled?:boolean;
   children?:TagElement
 }
