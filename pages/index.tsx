@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div, P } from "@local_modules/tags";
 import { A } from "@local_modules/router";
 import { Layout } from "@local_modules/router";
+import { Modal } from "@local_modules/modal";
 
 const Index = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
+  const [visible, setVisible] = useState(false);
 
   return (
     <Layout style={{ backgroundColor: color.white }}>
@@ -45,11 +47,28 @@ const Index = () => {
                 react-native-form
               </Button>
             </A>
-            {/* <A href={'/swiperEx'}>
-              <Button color={color.danger} fill="outline" style={{ ...shadow.base }}>
-                react-native-swiper
-              </Button>
-            </A> */}
+            <Button 
+              onClick={() => setVisible(true)}
+              fill="outline">
+              react-modal
+            </Button>
+            <Modal visible={visible} onRequestClose={() => console.log('on request close')}>
+              <Div style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: '100%',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10
+              }}>
+                hihihi
+                <Button onClick={() => { setVisible(false) }}>close</Button>
+              </Div>
+            </Modal>
           </Div>
         </Div>
     </Layout>
