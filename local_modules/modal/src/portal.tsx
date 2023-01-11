@@ -15,10 +15,10 @@ const getEl = () => {
 
   const [el, setEl] = useState<HTMLElement|null>(null);
   useEffect(() => {
-    const el = document.getElementById("modal");
+    const el = document.getElementById("devmonster-modal");
     if(!el) {
       const modalEl = document.createElement('div');
-      modalEl.id = 'modal';
+      modalEl.id = 'devmonster-modal';
       document.body.append(modalEl);
       setEl(modalEl);
     }
