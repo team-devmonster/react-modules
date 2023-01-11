@@ -1,6 +1,7 @@
 import { HTMLAttributes, CSSProperties } from "react"
 
 
+export type ColorSchemeName = 'light'|'dark'|undefined;
 export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'borderTop'|'borderBottom'|'borderRight'|'borderLeft'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
   display?: 'flex' | 'inline-flex' | 'none',
   fontSize?:number,
@@ -47,14 +48,45 @@ export interface ButtonStyle extends TagStyle {
 }
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
-// tags
-export type FillProps = 'base' | 'outline' | 'translucent' | 'none';
-export interface ButtonConfig {
+// tags props
+export interface ButtonClickEvent extends React.MouseEventHandler<HTMLButtonElement> {
+  [name:string]:any
+}
+
+export interface ButtonProps {
+  tag?: 'div'|'button'|'a';
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
+  activeStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;
+  onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
+  disabled?:boolean;
+  children?:TagElement
+}
+
+// tags config
+export type FillProps = 'base' | 'outline' | 'translucent' | 'clear' | 'none';
+export interface ButtonConfig {
+  style?: ButtonStyle;
+  disabledStyle?:ButtonStyle;
+  activeStyle?:ButtonStyle;
+  hoverStyle?:ButtonStyle;
+  color?: string;
+  fill?: FillProps;
+  'fill=base'?:ButtonFillConfig;
+  'fill=outline'?:ButtonFillConfig;
+  'fill=translucent'?:ButtonFillConfig;
+  'fill=clear'?:ButtonFillConfig;
+  'fill=none'?:ButtonFillConfig;
+}
+interface ButtonFillConfig {
+  style?: ButtonStyle;
+  disabledStyle?:ButtonStyle;
+  hoverStyle?:ButtonStyle;
+  activeStyle?:ButtonStyle;
+  color?: string;
 }
 
 // router

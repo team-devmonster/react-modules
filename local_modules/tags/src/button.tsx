@@ -1,21 +1,7 @@
-import React, { forwardRef, LegacyRef, useMemo, useState } from "react";
+import { forwardRef, LegacyRef, useMemo, useState } from "react";
 import { useColorScheme, useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
-import { ButtonStyle, FillProps, TagElement } from "./type";
+import { ButtonProps, ColorSchemeName, FillProps, TagGroupConfig } from "./type";
 import { darken, contrast, lighten } from "./utils";
-
-
-
-export interface ButtonProps {
-  tag?: 'div'|'button'|'a';
-  children?: TagElement;
-  style?: ButtonStyle;
-  disabledStyle?:ButtonStyle;
-  hoverStyle?:ButtonStyle;
-  color?: string;
-  fill?: FillProps;
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined,
-  disabled?:boolean;
-}
 
 export const Button = forwardRef((
     {
@@ -24,6 +10,7 @@ export const Button = forwardRef((
       fill:_fill, 
       style, 
       disabledStyle,
+      activeStyle,
       hoverStyle,
       disabled,
       onClick, 
@@ -37,16 +24,13 @@ export const Button = forwardRef((
   const Tag:any = tag;
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
+  
+  const color = _color || tagConfig?.button?.color || '#FF6420';
   const fill = _fill || tagConfig?.button?.fill || 'base';
-  const buttonTagStyle = tagConfig?.button?.style;
-  const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
-  const buttonTagHoverStyle = tagConfig?.button?.hoverStyle;
-  const color = _color || tagConfig?.button?.color;
 
-  const fillStyle = useMemo(() => getFillStyle({ colorScheme, color, fill, buttonTagStyle }), [colorScheme, color, fill, buttonTagStyle]);
-
-  const [isActive, setIsActive] = useState(false);
-  const [isHover, setIsHover] = useState(false);
+  const styles = useMemo(() => getStyles({ tagConfig, colorScheme, color, fill }), [tagConfig?.button, colorScheme, color, fill]);
+  const [active, setActive] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const [
     textStyle, 
@@ -55,23 +39,28 @@ export const Button = forwardRef((
   = useTagStyle([
     textPattern
   ], [
-    fill !== 'none' ? buttonTagStyle : undefined, 
-    disabled ? buttonTagDisabledStyle : undefined,
-    isHover ? buttonTagHoverStyle : undefined,
+    styles.tagStyle, 
+    hover ? styles.tagHoverStyle : undefined,
+    active ? styles.tagActiveStyle : undefined,
+    disabled ? styles.tagDisabledStyle : undefined,
     style,
-    disabled ? disabledStyle : undefined,
-    isHover ? hoverStyle : undefined,
+    hover ? hoverStyle : undefined,
+    active ? activeStyle : undefined,
+    disabled ? disabledStyle : undefined
   ]);
 
   const onPress = () => {
-    setIsActive(true);
+    setActive(true);
   }
   const onHover = () => {
-    setIsHover(true);
+    setHover(true);
   }
   const onLeave = () => {
-    setIsActive(false);
-    setIsHover(false);
+    setHover(false);
+    setActive(false);
+  }
+  const onEnd = () => {
+    setActive(false);
   }
 
   return (
@@ -83,9 +72,6 @@ export const Button = forwardRef((
         textAlign: 'left',
         cursor: 'pointer',
         ...flexDefaultStyle,
-        borderWidth: fillStyle?.borderWidth,
-        borderColor: fillStyle?.borderColor,
-        backgroundColor: !isActive ? (etcStyle?.backgroundColor || fillStyle?.background?.base) : fillStyle?.background?.pressed,
         ...etcStyle
       }}
 
@@ -96,7 +82,7 @@ export const Button = forwardRef((
 
       onMouseLeave={onLeave}
       onMouseOut={onLeave}
-      onMouseUp={onLeave}
+      onMouseUp={onEnd}
       onTouchEnd={onLeave}
       onTouchCancel={onLeave}
 
@@ -105,7 +91,6 @@ export const Button = forwardRef((
       {...rest}>
       <TagModule
         style={{
-          color: fillStyle?.color,
           lineHeight: 1,
           ...textStyle
         }}>
@@ -115,60 +100,145 @@ export const Button = forwardRef((
   )
 })
 
+const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupConfig|undefined, colorScheme:ColorSchemeName, color:string, fill:FillProps}) => {
+  const tagStyle = tagConfig?.button?.style;
+  const tagDisabledStyle = tagConfig?.button?.disabledStyle;
+  const tagActiveStyle = tagConfig?.button?.activeStyle;
+  const tagHoverStyle = tagConfig?.button?.hoverStyle;
 
-interface FillStyle {
-  background: {
-    base?:string,
-    pressed?:string,
-    ripple?:string
-  },
-  color?:string,
-  borderColor?:string,
-  borderWidth?:number,
-  borderRadius?:number
-}
-const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:"light" | "dark" | null | undefined, color?: string, fill: FillProps, buttonTagStyle?:ButtonStyle}):FillStyle => {
-  switch(fill) {
-    case 'outline':
-      return {
-        background: {
-          base: colorScheme === 'dark' ? '#000000' : '#ffffff',
-          pressed: color ? `${color}3C` : undefined,
-          ripple: color ? `${color}3C` : undefined
-        },
-        color: color,
-        borderColor: color,
-        borderWidth: 1
+  const fillType:`fill=${FillProps}` = `fill=${fill}`;
+  const tagFillStyle = tagConfig?.button?.[fillType]?.style;
+  const tagFillDisabeldStyle = tagConfig?.button?.[fillType]?.disabledStyle;
+  const tagFillActiveStyle = tagConfig?.button?.[fillType]?.activeStyle;
+  const tagFillHoverStyle = tagConfig?.button?.[fillType]?.hoverStyle;
+
+  const defaultStyle = (() => {
+    switch(fill) {
+      case 'outline':
+        return {
+          style: {
+            backgroundColor: 'transparent',
+            rippleColor: `${color}32`,
+            color: color,
+            borderColor: color,
+            borderWidth: 1
+          },
+          activeStyle: {
+            backgroundColor: `${color}19`
+          },
+          hoverStyle: {
+            backgroundColor: `${color}0F`
+          }
+        }
+      case 'translucent':
+        return {
+          style: {
+            backgroundColor: `${color}32`,
+            rippleColor: `${color}5A`,
+            color: color
+          },
+          activeStyle: {
+            backgroundColor: `${color}4b`
+          },
+          hoverStyle: {
+            backgroundColor: `${color}19`
+          }
+        }
+      case 'clear':
+        return {
+          style: {
+            backgroundColor: 'transparent',
+            rippleColor: `${color}32`,
+            color: color
+          },
+          activeStyle: {
+            backgroundColor: `${color}19`
+          },
+          hoverStyle: {
+            backgroundColor: `${color}19`
+          }
+        }
+      case 'none':
+        return {
+          style: {
+            backgroundColor: color,
+            rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
+            color: contrast(color),
+            borderRadius: tagStyle?.borderRadius
+          },
+          activeStyle: {
+            backgroundColor: colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30)
+          },
+          hoverStyle: {
+            backgroundColor: colorScheme === 'dark' ? lighten(color, 15) : darken(color, 15)
+          }
+        }
+      default: // base
+        return {
+          style: {
+            backgroundColor: color,
+            rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
+            color: contrast(color)
+          },
+          activeStyle: {
+            backgroundColor: colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30)
+          },
+          hoverStyle: {
+            backgroundColor: colorScheme === 'dark' ? lighten(color, 15) : darken(color, 15)
+          }
+        }
+    }
+  })()
+
+  if(color === 'transparent') {
+    defaultStyle.style.backgroundColor = 'transparent';
+    defaultStyle.style.rippleColor = 'transparent';
+    defaultStyle.activeStyle.backgroundColor = 'transparent';
+  }
+
+  if(fill !== 'none') {
+    return {
+      tagStyle: {
+        ...defaultStyle.style,
+        ...tagStyle,
+        ...tagFillStyle
+      },
+      tagDisabledStyle: {
+        ...tagDisabledStyle,
+        ...tagFillDisabeldStyle
+      },
+      tagActiveStyle: {
+        ...defaultStyle.activeStyle,
+        ...tagActiveStyle,
+        ...tagFillActiveStyle
+      },
+      tagHoverStyle: {
+        ...defaultStyle.hoverStyle,
+        ...tagHoverStyle,
+        ...tagFillHoverStyle
       }
-    case 'translucent':
-      return {
-        background: {
-          base: color ? `${color}32` : undefined,
-          pressed: color ? `${color}4b` : undefined,
-          ripple: color ? `${color}4b` : undefined,
-        },
-        color: color
+    }
+  }
+  else {
+    return {
+      tagStyle: {
+        ...defaultStyle.style,
+        ...tagFillStyle
+      },
+      tagDisabledStyle: {
+        ...tagDisabledStyle,
+        ...tagFillDisabeldStyle
+      },
+      tagActiveStyle: {
+        ...defaultStyle.activeStyle,
+        ...tagActiveStyle,
+        ...tagFillActiveStyle
+      },
+      tagHoverStyle: {
+        ...defaultStyle.activeStyle,
+        ...tagHoverStyle,
+        ...tagFillHoverStyle
       }
-    case 'none':
-      return {
-        background: {
-          base: color || 'transparent',
-          pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : 'transparent',
-          ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : 'transparent'
-        },
-        color: color ? contrast(color) : undefined,
-        borderColor: color,
-        borderRadius: buttonTagStyle?.borderRadius
-      }
-    default:
-      return {
-        background: {
-          base: color,
-          pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined,
-          ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined
-        },
-        borderColor: color,
-        color: color ? contrast(color) : undefined
-      }
+    }
   }
 }

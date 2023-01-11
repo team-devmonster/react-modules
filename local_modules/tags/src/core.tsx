@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, useEffect, useMemo } from "react";
-import { TagStyle, TagProps, TagGroupConfig, TagElement } from "./type";
+import { TagStyle, TagProps, TagGroupConfig, TagElement, ColorSchemeName } from "./type";
 
 
 const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
@@ -141,7 +141,7 @@ const Text = ({style, children}:{style?:TagStyle, children?:React.ReactNode}) =>
   )
 }
 
-export const useColorScheme = () => {
+export const useColorScheme = ():ColorSchemeName => {
 
   const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 
