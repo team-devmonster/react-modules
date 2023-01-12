@@ -156,11 +156,10 @@ const FormEx = () => {
           control={control}
           name="company"
           placeholder="please select">
-          <Option value="1">devmonster</Option>
+          <Option value={1}>devmonster</Option>
+          <Option value={2}>devmonster2</Option>
           {
-            [2,3,4,5,6].map((item) => (
-              <Option key={`options_${item}`} value={item}>{String(item)}</Option>
-            ))
+            null
           }
         </Select>
 

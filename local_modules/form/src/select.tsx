@@ -1,4 +1,4 @@
-import { FormValues, SelectProps } from "./type";
+import { FormValues, Options, SelectProps } from "./type";
 import { Controller } from 'react-hook-form';
 import { useTags, useTagStyle } from '@team-devmonster/react-tags';
 import { useEffect } from "react";
@@ -54,7 +54,15 @@ export function Select<T extends FormValues>({
 
         let newValue:string = value;
         let newOnChange = (e:any) => {
-          onChange(e);
+          const index:number = e.target.selectedIndex;
+          if(index > 0) {
+            const options = getOptions({ children });
+            const option = options[index-1] as JSX.Element;
+            onChange(option.props.value);
+          }
+          else {
+            onChange(null);
+          }
         }
 
         useEffect(() => {
@@ -81,4 +89,31 @@ export function Select<T extends FormValues>({
         }}
     />
   )
+}
+
+const getOptions = ({children}:{children:Options|Options[]}):Options[] => {
+  let options:Options[] = [];
+  if(Array.isArray(children)) {
+    for(let i = 0; i < children.length; i++) {
+      const child = children[i];
+      if(Array.isArray(child)) {
+        child.forEach(cChild => {
+          options.push(cChild);
+        })
+      }
+      else {
+        options.push(child);
+      }
+    }
+  }
+  else {
+    const child = children;
+    if(child) {
+      options.push(child);
+    }
+    else {
+      // nothing
+    }
+  }
+  return options;
 }

@@ -100,7 +100,7 @@ export interface OptionProps {
   children: string
 }
 
-export type Options = JSX.Element | JSX.Element[];
+export type Options = JSX.Element | JSX.Element[] | null | undefined;
 export interface SelectProps<T extends FormValues> extends Omit<InputProps<T>, 'type'|'cameraButtonStyle'|'albumButtonStyle'> {
   children?:Options|Options[]
 }
