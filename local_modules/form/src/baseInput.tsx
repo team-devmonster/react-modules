@@ -116,51 +116,9 @@ const getConfig = ({ tagConfig, type }:{ tagConfig:TagGroupConfig|undefined, typ
   const inputDisabledTagStyle = tagConfig?.input?.disabledStyle;
   const inputErrorTagStyle = tagConfig?.input?.errorStyle;
 
-  const tagStyle =  tagConfig?.input?.['type=file']?.style;
-  const tagDisabledStyle = tagConfig?.input?.['type=file']?.disabledStyle;
-  const tagErrorStyle = tagConfig?.input?.['type=file']?.errorStyle;
-
-  const cameraButtonStyle = tagConfig?.input?.['type=file']?.cameraButtonStyle;
-  const albumButtonStyle = tagConfig?.input?.['type=file']?.albumButtonStyle;
-  const cancelButtonStyle = tagConfig?.input?.['type=file']?.cancelButtonStyle;
-
-  const cameraText = tagConfig?.input?.['type=file']?.cameraText;
-  const albumText = tagConfig?.input?.['type=file']?.albumText;
-  const cancelText = tagConfig?.input?.['type=file']?.cancelText;
-
-  if(type !== 'file') {
-    return {
-      tagStyle:  {
-        ...inputTagStyle
-      },
-      tagDisabledStyle: {
-        ...inputDisabledTagStyle
-      },
-      tagErrorStyle: {
-        ...inputErrorTagStyle
-      }
-    }
-  }
-  else {
-    return {
-      tagStyle:  {
-        ...inputTagStyle,
-        ...tagStyle
-      },
-      tagDisabledStyle: {
-        ...inputDisabledTagStyle,
-        ...tagDisabledStyle
-      },
-      tagErrorStyle: {
-        ...inputErrorTagStyle,
-        ...tagErrorStyle
-      },
-      cameraButtonStyle,
-      albumButtonStyle,
-      cancelButtonStyle,
-      cameraText,
-      albumText,
-      cancelText
-    }
+  return {
+    tagStyle:  inputTagStyle,
+    tagDisabledStyle: inputDisabledTagStyle,
+    tagErrorStyle: inputErrorTagStyle
   }
 }
