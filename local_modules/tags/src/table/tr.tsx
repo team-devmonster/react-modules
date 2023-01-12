@@ -1,19 +1,38 @@
 import { useTags } from "../core";
 import { Div } from "../div";
-import { TagProps } from "../type";
+import { Button } from "../button";
+import { ButtonProps } from "../type";
 
-export const Tr = ({style, ...rest}:TagProps) => {
+export const Tr = ({style, hoverStyle, onClick, ...rest}:ButtonProps) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.tr?.style;
+  const tagHoverStyle = tagConfig?.tr?.hoverStyle;
   
   return (
-    <Div 
-      style={{
-        flexDirection: 'row',
-        paddingRight: 1,
-        ...tagStyle,
-        ...style
-      }} {...rest}></Div>
+    onClick ? 
+      <Button
+        tag="div"
+        onClick={onClick}
+        fill="none"
+        style={{
+          flexDirection: 'row',
+          paddingRight: 1,
+          ...tagStyle,
+          ...style
+        }}
+        hoverStyle={{
+          ...tagHoverStyle,
+          ...hoverStyle
+        }}
+        {...rest}></Button>
+    :
+      <Div 
+        style={{
+          flexDirection: 'row',
+          paddingRight: 1,
+          ...tagStyle,
+          ...style
+        }} {...rest}></Div>
   )
 }

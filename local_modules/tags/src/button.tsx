@@ -39,13 +39,13 @@ export const Button = forwardRef((
   = useTagStyle([
     textPattern
   ], [
-    styles.tagStyle, 
-    hover ? styles.tagHoverStyle : undefined,
-    active ? styles.tagActiveStyle : undefined,
-    disabled ? styles.tagDisabledStyle : undefined,
+    styles.tagStyle,
     style,
+    hover ? styles.tagHoverStyle : undefined,
     hover ? hoverStyle : undefined,
+    active ? styles.tagActiveStyle : undefined,
     active ? activeStyle : undefined,
+    disabled ? styles.tagDisabledStyle : undefined,
     disabled ? disabledStyle : undefined
   ]);
 
@@ -161,10 +161,8 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
       case 'none':
         return {
           style: {
-            backgroundColor: color,
-            rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
-            color: contrast(color),
-            borderRadius: tagStyle?.borderRadius
+            backgroundColor: 'transparent',
+            rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55)
           },
           activeStyle: {
             backgroundColor: colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30)
@@ -226,17 +224,14 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
         ...tagFillStyle
       },
       tagDisabledStyle: {
-        ...tagDisabledStyle,
         ...tagFillDisabeldStyle
       },
       tagActiveStyle: {
         ...defaultStyle.activeStyle,
-        ...tagActiveStyle,
         ...tagFillActiveStyle
       },
       tagHoverStyle: {
-        ...defaultStyle.activeStyle,
-        ...tagHoverStyle,
+        ...defaultStyle.hoverStyle,
         ...tagFillHoverStyle
       }
     }

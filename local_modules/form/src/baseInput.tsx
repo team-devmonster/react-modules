@@ -20,6 +20,9 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
     onKeyUp,
     onEnter,
     onFocus,
+    // input['type=file']
+    accept,
+    multiple,
     ...rules
   } = props;
 
@@ -95,6 +98,8 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             style={inputStyle}
             disabled={disabled}
             onKeyDown={onKeyDown}
+            accept={accept}
+            multiple={multiple}
             onKeyUp={e => {
               onKeyUp?.(e);
               if(e.key === 'Enter') onEnter?.(e);

@@ -42,7 +42,8 @@ export interface TagGroupConfig {
   select?: SelectConfig
 }
 export interface TagConfig {
-  style?:TagStyle
+  style?:TagStyle,
+  hoverStyle?:TagStyle,
 }
 
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
