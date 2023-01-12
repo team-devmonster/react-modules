@@ -2,6 +2,12 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Div, Button, Img, P, Span, Br } from "@local_modules/tags";
 import { Theme } from "App.theme";
+import { Table } from "@local_modules/tags";
+import { Thead } from "@local_modules/tags";
+import { Tr } from "@local_modules/tags";
+import { Th } from "@local_modules/tags";
+import { Tbody } from "@local_modules/tags";
+import { Td } from "@local_modules/tags";
 
 const TagsEx = () => {
 
@@ -82,6 +88,69 @@ const TagsEx = () => {
           </Button>
         ))
       }
+
+      <Table>
+        <Thead>
+          <Tr style={{ display: 'flex', flexDirection: 'row' }}>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>보관BOX</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품명</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>UNIT</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>WORK</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>STND</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최초잔량</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>RE-MAIN</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종DATE</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종 사용량</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>소모 / 수급량 정보 확인하기</Th>
+            <Th style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>수정하기</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Tr style={{ display: 'flex', flexDirection: 'row' }}>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>보관BOX</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품명</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>UNIT</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>WORK</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>STND</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최초잔량</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>RE-MAIN</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종DATE</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종 사용량</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>소모 / 수급량 정보 확인하기</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>수정하기</Td>
+          </Tr>
+          <Tr style={{ display: 'flex', flexDirection: 'row' }}>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>보관BOX</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품명</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>UNIT</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>WORK</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>STND</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최초잔량</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>RE-MAIN</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종DATE</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종 사용량</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>소모 / 수급량 정보 확인하기</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>수정하기</Td>
+          </Tr>
+          <Tr style={{ display: 'flex', flexDirection: 'row' }}>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>보관BOX</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품명</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>UNIT</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>WORK</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>STND</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최초잔량</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>RE-MAIN</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종DATE</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>최종 사용량</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>소모 / 수급량 정보 확인하기</Td>
+            <Td style={{ backgroundColor: color.white, padding: 8, borderWidth: 1, borderColor: color.step200 }}>수정하기</Td>
+          </Tr>
+        </Tbody>
+      </Table>
     </Div>
   )
 }
