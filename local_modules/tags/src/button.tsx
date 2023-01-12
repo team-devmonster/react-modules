@@ -5,8 +5,8 @@ import { darken, contrast, lighten } from "./utils";
 
 export const Button = forwardRef((
     {
-      tag = 'button',
-      color:_color, 
+      tag = 'div',
+      color, 
       fill:_fill, 
       style, 
       disabledStyle,
@@ -25,7 +25,6 @@ export const Button = forwardRef((
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   
-  const color = _color || tagConfig?.button?.color || '#FF6420';
   const fill = _fill || tagConfig?.button?.fill || 'base';
 
   const styles = useMemo(() => getStyles({ tagConfig, colorScheme, color, fill }), [tagConfig?.button, colorScheme, color, fill]);
@@ -100,7 +99,9 @@ export const Button = forwardRef((
   )
 })
 
-const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupConfig|undefined, colorScheme:ColorSchemeName, color:string, fill:FillProps}) => {
+const getStyles = ({ tagConfig, colorScheme, color:inlineColor, fill }:{tagConfig:TagGroupConfig|undefined, colorScheme:ColorSchemeName, color?:string, fill:FillProps}) => {
+  const color = inlineColor || tagConfig?.button?.color || '#FF6420';
+
   const tagStyle = tagConfig?.button?.style;
   const tagDisabledStyle = tagConfig?.button?.disabledStyle;
   const tagActiveStyle = tagConfig?.button?.activeStyle;
@@ -161,7 +162,7 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
       case 'none':
         return {
           style: {
-            backgroundColor: 'transparent',
+            backgroundColor: inlineColor ? inlineColor : 'transparent',
             rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55)
           },
           activeStyle: {

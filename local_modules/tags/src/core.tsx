@@ -27,6 +27,7 @@ export const marginPattern = /^(margin)/;
 export const placeholderPattern = /^(placeholder)/;
 
 export const flexDefaultStyle:TagStyle = {
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column'
 }

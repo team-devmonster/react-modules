@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { FormValues, InputProps } from "./type";
 import { Controller } from 'react-hook-form';
-import { useTags, useTagStyle } from '@team-devmonster/react-tags';
+import { TagGroupConfig, useTags, useTagStyle } from '@team-devmonster/react-tags';
 
 export function BaseInput<T extends FormValues>(props:InputProps<T>) 
 {
@@ -27,9 +27,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
   } = props;
 
   const { tagConfig } = useTags();
-  const inputTagStyle = tagConfig?.input?.style;
-  const inputTagDisabledStyle = tagConfig?.input?.disabledStyle;
-  const inputTagErrorStyle = tagConfig?.input?.errorStyle;
+  const config = useMemo(() => getConfig({ tagConfig }), [tagConfig?.input]);
     
   return (
     <Controller
@@ -47,9 +45,9 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
         ]
         = useTagStyle([
         ], [
-          inputTagStyle,
-          disabled ? inputTagDisabledStyle : undefined,
-          error ? inputTagErrorStyle : undefined,
+          config.tagStyle, 
+          disabled ? config.tagDisabledStyle : undefined,
+          error ? config.tagErrorStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
           error ? errorStyle : undefined
@@ -110,4 +108,44 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
         }}
     />
   )
+}
+
+
+const getConfig = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
+  const inputTagStyle = tagConfig?.input?.style;
+  const inputDisabledTagStyle = tagConfig?.input?.disabledStyle;
+  const inputErrorTagStyle = tagConfig?.input?.errorStyle;
+
+  const tagStyle = tagConfig?.input?.['type=file']?.style;
+  const tagDisabledStyle = tagConfig?.input?.['type=file']?.disabledStyle;
+  const tagErrorStyle = tagConfig?.input?.['type=file']?.errorStyle;
+
+  const cameraButtonStyle = tagConfig?.input?.['type=file']?.cameraButtonStyle;
+  const albumButtonStyle = tagConfig?.input?.['type=file']?.albumButtonStyle;
+  const cancelButtonStyle = tagConfig?.input?.['type=file']?.cancelButtonStyle;
+
+  const cameraText = tagConfig?.input?.['type=file']?.cameraText;
+  const albumText = tagConfig?.input?.['type=file']?.albumText;
+  const cancelText = tagConfig?.input?.['type=file']?.cancelText;
+
+  return {
+    tagStyle:  {
+      ...inputTagStyle,
+      ...tagStyle
+    },
+    tagDisabledStyle: {
+      ...inputDisabledTagStyle,
+      ...tagDisabledStyle
+    },
+    tagErrorStyle: {
+      ...inputErrorTagStyle,
+      ...tagErrorStyle
+    },
+    cameraButtonStyle,
+    albumButtonStyle,
+    cancelButtonStyle,
+    cameraText,
+    albumText,
+    cancelText
+  }
 }
