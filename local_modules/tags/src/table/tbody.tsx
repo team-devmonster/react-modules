@@ -1,18 +1,20 @@
+import { forwardRef, Ref } from "react";
 import { useTags } from "../core";
 import { Div } from "../div";
 import { TagProps } from "../type";
 
-export const Tbody = ({style, ...rest}:TagProps) => {
+export const Tbody = forwardRef(({style, ...rest}:TagProps, ref:Ref<HTMLDivElement>) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.tbody?.style;
   
   return (
     <Div 
+      ref={ref}
       style={{
         paddingBottom: 1,
         ...tagStyle,
         ...style
       }} {...rest}></Div>
   )
-}
+})
