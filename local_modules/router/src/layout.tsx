@@ -60,7 +60,7 @@ const newChildren = ({ children }:{ children:TagElement })
   
   let header:JSX.Element|null = null;
   let contents:TagElement = [];
-  let fixedLayout = null;
+  let fixedLayout:TagElement = [];
   let footer:JSX.Element|null = null;
 
   if(Array.isArray(children)) {
@@ -80,7 +80,7 @@ const newChildren = ({ children }:{ children:TagElement })
               contents.push(child);
               break;
             case 'FixedLayout':
-              fixedLayout = child;
+              fixedLayout.push(child);
               break;
             case 'Footer':
               footer = child;

@@ -30,8 +30,7 @@ const FormEx = () => {
     mode: 'onChange',
     defaultValues: {
       id: 'hello',
-      gender: 'man',
-      company: '1'
+      gender: 'man'
     }
   });
 
@@ -158,6 +157,11 @@ const FormEx = () => {
           name="company"
           placeholder="please select">
           <Option value="1">devmonster</Option>
+          {
+            [2,3,4,5,6].map((item) => (
+              <Option key={`options_${item}`} value={item}>{String(item)}</Option>
+            ))
+          }
         </Select>
 
         <Button

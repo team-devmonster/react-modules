@@ -57,6 +57,7 @@ export const Header = forwardRef((
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20,
+        zIndex: 100,
         ...headerTagStyle,
         ...style
       }}>
