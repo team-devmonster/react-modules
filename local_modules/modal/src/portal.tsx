@@ -1,29 +1,17 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import reactDom from "react-dom";
 
-export const Portal = ({ children }:{ children:any }) => {
-  const el = getEl();
+export const Portal = ({ children }:{ children:any }):React.ReactPortal|null => {
+  if(typeof window === "undefined") return null;;
+
+  const el = document.getElementById("devmonster-modal");
   if(el) {
     return reactDom.createPortal(children, el);
   }
   else {
-    return null;
+    const modalEl = document.createElement('div');
+    modalEl.id = 'devmonster-modal';
+    document.body.append(modalEl);
+    return reactDom.createPortal(children, modalEl);
   }
-}
-
-const getEl = () => {
-
-  const [el, setEl] = useState<HTMLElement|null>(null);
-  useEffect(() => {
-    const el = document.getElementById("devmonster-modal");
-    if(!el) {
-      const modalEl = document.createElement('div');
-      modalEl.id = 'devmonster-modal';
-      document.body.append(modalEl);
-      setEl(modalEl);
-    }
-    setEl(el);
-  }, []);
-
-  return el;
 }
