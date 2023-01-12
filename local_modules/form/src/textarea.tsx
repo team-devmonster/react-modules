@@ -93,7 +93,7 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
             maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
             placeholder={placeholder}
             style={inputStyle}
-            disabled={!disabled}
+            disabled={disabled}
             onKeyDown={onKeyDown as any}
             onKeyUp={e => {
               onKeyUp?.(e as any);

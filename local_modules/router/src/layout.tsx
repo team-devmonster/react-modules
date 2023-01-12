@@ -19,8 +19,9 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
     <Div 
       {...rest}
       style={{
+        ...layoutTagStyle,
         ...style,
-        ...layoutTagStyle
+        ...(style?.overflow === 'hidden' ? { height: '100vh' } : null)
       }}>
       {
         header

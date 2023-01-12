@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { FormValues, InputProps } from "./type";
+import { FormValues, InputProps, InputType } from "./type";
 import { Controller } from 'react-hook-form';
 import { TagGroupConfig, useTags, useTagStyle } from '@team-devmonster/react-tags';
 
@@ -27,7 +27,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
   } = props;
 
   const { tagConfig } = useTags();
-  const config = useMemo(() => getConfig({ tagConfig }), [tagConfig?.input]);
+  const config = useMemo(() => getConfig({ tagConfig, type }), [tagConfig?.input, type]);
     
   return (
     <Controller
@@ -111,12 +111,12 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
 }
 
 
-const getConfig = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
+const getConfig = ({ tagConfig, type }:{ tagConfig:TagGroupConfig|undefined, type:InputType }) => {
   const inputTagStyle = tagConfig?.input?.style;
   const inputDisabledTagStyle = tagConfig?.input?.disabledStyle;
   const inputErrorTagStyle = tagConfig?.input?.errorStyle;
 
-  const tagStyle = tagConfig?.input?.['type=file']?.style;
+  const tagStyle =  tagConfig?.input?.['type=file']?.style;
   const tagDisabledStyle = tagConfig?.input?.['type=file']?.disabledStyle;
   const tagErrorStyle = tagConfig?.input?.['type=file']?.errorStyle;
 
@@ -128,24 +128,39 @@ const getConfig = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
   const albumText = tagConfig?.input?.['type=file']?.albumText;
   const cancelText = tagConfig?.input?.['type=file']?.cancelText;
 
-  return {
-    tagStyle:  {
-      ...inputTagStyle,
-      ...tagStyle
-    },
-    tagDisabledStyle: {
-      ...inputDisabledTagStyle,
-      ...tagDisabledStyle
-    },
-    tagErrorStyle: {
-      ...inputErrorTagStyle,
-      ...tagErrorStyle
-    },
-    cameraButtonStyle,
-    albumButtonStyle,
-    cancelButtonStyle,
-    cameraText,
-    albumText,
-    cancelText
+  if(type !== 'file') {
+    return {
+      tagStyle:  {
+        ...inputTagStyle
+      },
+      tagDisabledStyle: {
+        ...inputDisabledTagStyle
+      },
+      tagErrorStyle: {
+        ...inputErrorTagStyle
+      }
+    }
+  }
+  else {
+    return {
+      tagStyle:  {
+        ...inputTagStyle,
+        ...tagStyle
+      },
+      tagDisabledStyle: {
+        ...inputDisabledTagStyle,
+        ...tagDisabledStyle
+      },
+      tagErrorStyle: {
+        ...inputErrorTagStyle,
+        ...tagErrorStyle
+      },
+      cameraButtonStyle,
+      albumButtonStyle,
+      cancelButtonStyle,
+      cameraText,
+      albumText,
+      cancelText
+    }
   }
 }
