@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Portal } from "./portal"
+import { ModalPortal } from "./portal"
 
 export type ModalProps = {
   animationType?:any,
@@ -19,10 +19,8 @@ export const Modal = ({ visible = true, onRequestClose, children }:ModalProps) =
   }, [visible]);
 
   return (
-    Portal ?
-      <Portal>
-        { visible ? children : null }
-      </Portal>
-    : null
+    <ModalPortal>
+      { visible ? children : null }
+    </ModalPortal>
   )
 }
