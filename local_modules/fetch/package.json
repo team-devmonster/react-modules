@@ -1,7 +1,7 @@
 {
-  "name": "@team-devmonster/react-theme",
-  "version": "1.2.1",
-  "description": "This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.",
+  "name": "@team-devmonster/date",
+  "version": "1.0.6",
+  "description": "This is a simple date module.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -17,18 +17,14 @@
     "url": "git+https://github.com/team-devmonster/react-modules.git"
   },
   "keywords": [
-    "react",
-    "theme",
-    "react-native"
+    "date",
+    "devmoster",
+    "team-devmonster"
   ],
   "author": "devmonster",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/team-devmonster/react-modules/issues"
+    "url": "https://www.devmonster.co.kr"
   },
-  "homepage": "https://github.com/team-devmonster/react-modules#readme",
-  "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16"
-  }
+  "homepage": "https://www.devmonster.co.kr"
 }

@@ -86,19 +86,21 @@ const color = {
 
 const theme = (color:Color) => {
   const fontSize = {
-    xs: 12 as const,
-    sm: 14 as const,
-    base: 16 as const,
-    lg: 18 as const,
-    xl: 20 as const,
-    x2l: 24 as const,
-    x3l: 30 as const,
-    x4l: 36 as const,
-    x5l: 48 as const,
-    x6l: 60 as const,
-    x7l: 72 as const,
-    x8l: 96 as const,
-    x9l: 128 as const
+    xs: 12,
+    sm: 13,
+    base: 15,
+    lg: 16,
+    xl: 17,
+    x2l: 19,
+    x3l: 21
+  }
+  const { width } = useWindowSize();
+  if(width >= container.mobile) {
+    fontSize.base = 15;
+    fontSize.lg = 16;
+    fontSize.xl = 22;
+    fontSize.x2l = 28;
+    fontSize.x3l = 36;
   }
 
   const input = {
