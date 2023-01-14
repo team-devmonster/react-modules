@@ -74,18 +74,18 @@ export const Button = forwardRef((
         ...etcStyle
       }}
 
-      onMouseDown={disabled ? onPress : null}
-      onTouchStart={disabled ? onPress : null}
+      onMouseDown={!disabled ? onPress : null}
+      onTouchStart={!disabled ? onPress : null}
       
-      onMouseMove={disabled ? onHover : null}
+      onMouseMove={!disabled ? onHover : null}
 
-      onMouseLeave={disabled ? onLeave : null}
-      onMouseOut={disabled ? onLeave : null}
-      onMouseUp={disabled ? onEnd : null}
-      onTouchEnd={disabled ? onLeave : null}
-      onTouchCancel={disabled ? onLeave : null}
+      onMouseLeave={!disabled ? onLeave : null}
+      onMouseOut={!disabled ? onLeave : null}
+      onMouseUp={!disabled ? onEnd : null}
+      onTouchEnd={!disabled ? onLeave : null}
+      onTouchCancel={!disabled ? onLeave : null}
 
-      onClick={disabled ? onClick : null}
+      onClick={!disabled ? onClick : null}
       
       {...rest}>
       <TagModule
