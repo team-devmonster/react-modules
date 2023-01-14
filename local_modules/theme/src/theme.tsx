@@ -92,6 +92,24 @@ function normalize() {
           color-scheme: dark;
         }
       }
+
+
+      /** entering & exiting animation group */
+      .devmonster-fade-enter {
+        opacity: 0.01;
+      }
+      .devmonster-fade-enter.devmonster-fade-enter-active {
+        opacity: 1;
+        transition: opacity 300ms ease-in;
+      }
+      
+      .devmonster-fade-leave {
+        opacity: 1;
+      }
+      .devmonster-fade-leave.devmonster-fade-leave-active {
+        opacity: 0.01;
+        transition: opacity 300ms ease-in;
+      }
     </style>
   `)
 }

@@ -92,6 +92,9 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             value={newValue || ''}
             type={type}
             maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
+            max={typeof rules.max === 'number' ? rules.max : rules.max?.value}
+            minLength={typeof rules.minLength === 'number' ? rules.minLength : rules.minLength?.value}
+            min={typeof rules.min === 'number' ? rules.min : rules.min?.value}
             placeholder={placeholder}
             style={inputStyle}
             disabled={disabled}
