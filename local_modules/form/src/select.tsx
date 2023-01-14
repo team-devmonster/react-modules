@@ -77,7 +77,7 @@ export function Select<T extends FormValues>({
             ref={ref}
             onChange={newOnChange}
             onBlur={onBlur}
-            value={newValue}
+            value={newValue || ''}
             placeholder={placeholder}
             style={inputStyle}
             disabled={disabled}
