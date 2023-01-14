@@ -52,7 +52,7 @@ export function Select<T extends FormValues>({
           error ? errorStyle : undefined
         ]);
 
-        let newValue:string = value;
+        let newValue = String(value) || null;
         let newOnChange = (e:any) => {
           const index:number = e.target.selectedIndex;
           if(index > 0) {
@@ -77,7 +77,7 @@ export function Select<T extends FormValues>({
             ref={ref}
             onChange={newOnChange}
             onBlur={onBlur}
-            value={newValue || ''}
+            value={newValue ?? ''}
             placeholder={placeholder}
             style={inputStyle}
             disabled={disabled}
