@@ -61,6 +61,10 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             newValue = String(value || '0');
             newOnChange = (v) => {
               let num = v.replace(/\D+/g, '');
+              if(num) num = +num;
+              else num = 0;
+
+              if(typeof rules.max === 'number') num > rules.max ? num = rules.max : null;
               onChange(num ? +num : 0);
             }
             break;

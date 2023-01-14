@@ -74,7 +74,7 @@ const FormEx = () => {
           type="number"
           name="price"
           style={{ display: 'flex' }}
-          max={{ value: 1000, message: 'price <= 1000' }}
+          max={1000}
           min={{ value: 11, message: 'price > 1' }}
           required="please insert price"></Input>
         <ErrorText errors={errors} name="price"></ErrorText>
