@@ -65,7 +65,7 @@ export const Button = forwardRef((
   return (
     <Tag 
       ref={ref}
-      disabled={disabled} 
+      disabled={disabled}
       style={{
         appearance: 'none',
         textAlign: 'left',
@@ -74,18 +74,18 @@ export const Button = forwardRef((
         ...etcStyle
       }}
 
-      onMouseDown={onPress}
-      onTouchStart={onPress}
+      onMouseDown={disabled || onPress}
+      onTouchStart={disabled || onPress}
       
-      onMouseMove={onHover}
+      onMouseMove={disabled || onHover}
 
-      onMouseLeave={onLeave}
-      onMouseOut={onLeave}
-      onMouseUp={onEnd}
-      onTouchEnd={onLeave}
-      onTouchCancel={onLeave}
+      onMouseLeave={disabled || onLeave}
+      onMouseOut={disabled || onLeave}
+      onMouseUp={disabled || onEnd}
+      onTouchEnd={disabled || onLeave}
+      onTouchCancel={disabled || onLeave}
 
-      onClick={onClick}
+      onClick={disabled || onClick}
       
       {...rest}>
       <TagModule
