@@ -55,7 +55,8 @@ export const A = ({ href, as, replace, push:_, back, reset:__, children, target 
           }}
           href={href!}
           as={as}
-          replace={replace}>
+          replace={replace}
+          target={target}>
           {children}
         </Link>
   )
