@@ -18,9 +18,15 @@ export const today = (opts?:TodayProps) => {
       return `${now.getFullYear()}-${toXX(now.getMonth() + 1)}-${toXX(now.getDate())}`;
   }
 }
-export const toMonth = () => {
-  const date = new Date();
-  return `${date.getFullYear()}-${toXX(date.getMonth()+1)}`;
+export const toMonth = (opts?:TodayProps) => {
+  const { year, month, date } = opts || {};
+
+  const now = new Date();
+  if (year) now.setFullYear(now.getFullYear() + year);
+  if (month) now.setMonth(now.getMonth() + month);
+  if (date) now.setDate(now.getDate() + date);
+
+  return `${now.getFullYear()}-${toXX(now.getMonth()+1)}`;
 }
 export const toString = (date:Date) => {
   return date.getFullYear() + '-' + toXX(date.getMonth() + 1) + '-' + toXX(date.getDate());

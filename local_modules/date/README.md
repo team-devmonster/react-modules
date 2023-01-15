@@ -38,6 +38,12 @@ Easy. Too Easy.
 
   toMonth();
   // return this Month as YYYY-MM
+  toMonth({ year: -1 });
+  // return last year as YYYY-MM
+  toMonth({ month: -1 });
+  // return last month as YYYY-MM
+  toMonth({ date: -1 });
+  // return last date as YYYY-MM
 
   toString(date:Date);
   // return date as YYYY-MM-DD
@@ -74,3 +80,4 @@ for react-native
 - [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
 - [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 - [`react-native-skeleton`](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
+- [`react-native-img-viewer`](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
