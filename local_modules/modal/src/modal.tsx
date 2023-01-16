@@ -5,9 +5,10 @@ export type ModalProps = {
   animationType?:any,
   visible?:boolean,
   onRequestClose?:(e?:any) => void,
-  children?:any
+  children?:any,
+  style?:any
 }
-export const Modal = ({ visible = true, onRequestClose, children }:ModalProps) => {
+export const Modal = ({ visible = true, onRequestClose, children, style }:ModalProps) => {
 
   const [prevVisible, setPrevVisible] = useState(visible);
 
@@ -20,7 +21,11 @@ export const Modal = ({ visible = true, onRequestClose, children }:ModalProps) =
 
   return (
     <ModalPortal>
-      { visible ? children : null }
+      { visible ? 
+        <div style={{ position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, ...style }}>
+          { children }
+        </div>
+       : null }      
     </ModalPortal>
   )
 }

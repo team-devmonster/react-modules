@@ -86,7 +86,8 @@ import { A, useRouter } from "@team-devmonster/react-router";
 const ParamEx = () => {
 
   const { color, fontSize, shadow, colorScheme } = useTheme<Theme>();
-  const { query } = useRouter();
+  const router = useRouter<{ name:string, nickname:string, company:string }>();
+  const { query } = router;
 
   return (
     <Div
@@ -98,6 +99,7 @@ const ParamEx = () => {
       <P style={{ padding: 8, backgroundColor: color.step300 }}>
         { query.name } / { query.nickname } / { query.company }
       </P>
+      <Button onClick={() => router.push({ pathname: 'https://www.google.co.kr', target: '_blank' })} color={color.primary}>push</Button>
       <A back={true}>
         <Button color={color.primary}>Back</Button>
       </A>

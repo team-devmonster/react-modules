@@ -10,13 +10,23 @@ export type RouterProps<T extends ParamListBase, K extends keyof T = Keyof<T>> =
 export function useRouter<Query extends RouterProps<ParamListBase>>() {
   const { pathname, query:_query, push:_push, replace:_replace, back:_back, isReady } = useNextRouter();
   const query = _query as Query;
-  const push = (href:string | UrlObject, as?: Url) => {
-    _push(href, as);
+  const push = (href:string | UrlObject & { target?:string }, as?: Url) => {
+    if(typeof href !== 'string' && href.target && href.target) {
+      let url = href.pathname || '/';
+      if(href.query) {
+        const entries = Object.entries(href.query);
+        url += '?' + entries.map(([key, value]) => `${key}=${value}`).join('&');
+      }
+      window.open(url, href.target);
+    }
+    else {
+      _push(href, as);
+    }
   }
-  const reset = (href:string | UrlObject, as?: Url) => {
+  const reset = (href:string | UrlObject & { target?:string }, as?: Url) => {
     _replace(href, as);
   }
-  const replace = (href:string | UrlObject, as?: Url) => {
+  const replace = (href:string | UrlObject & { target?:string }, as?: Url) => {
     _replace(href, as);
   }
   const back = () => {
