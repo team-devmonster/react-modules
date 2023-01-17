@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from "react";
+import { extentions } from "./fileTypes";
 
-interface UseFetchOptions {
+export interface UseFetchOptions {
   method: "POST"|"GET"|"PUT"|"DELETE",
   contentType?: "application/json"|"application/x-www-form-urlencoded"|'multipart/form-data'
 }
@@ -9,34 +10,41 @@ interface FetchRes extends Promise<Response> {
   cancel:(callback?:(error:any) => void) => void
 }
 
-interface UseFetchState<Response> {
+interface UseFetchState<Hash, ListHash> {
   loading: boolean,
-  data?: Response,
-  error?: any
+  data?:{ 
+    resultCode:number,
+    resultReference:string,
+    resultHash:Hash,
+    resultListHash:ListHash[],
+    [name:string]:any, 
+    exception:string
+  }
+  error?:any
 }
 
-export interface UseFetchResult<Form, Response> extends UseFetchState<Response> {
-  fetch:(form?:Form) => Promise<UseFetchState<Response>>,
+export interface UseFetchResult<Form = any, Hash = any, ListHash = any> extends UseFetchState<Hash, ListHash> {
+  fetch:(form?:Form) => Promise<UseFetchState<Hash, ListHash>>,
   cancel:(callback?:(error:any) => void) => void,
   setError: (error:any) => void,
-  watch:() => UseFetchState<Response>,
+  watch:() => UseFetchState<Hash,ListHash>,
 }
 
-export const useFetch = <Form, Response>(url:string, options:UseFetchOptions):UseFetchResult<Form, Response> => {
+export const useFetch = <Form = any, Hash = any, ListHash = any>(url:string, options:UseFetchOptions):UseFetchResult<Form, Hash, ListHash> => {
   const {method, contentType = "application/x-www-form-urlencoded"} = options;
 
-  const [state, setState] = useState<UseFetchState<Response>>({
+  const [state, setState] = useState<UseFetchState<Hash,ListHash>>({
     loading: false,
     data: undefined,
     error: undefined
   });
-  const ref = useRef<UseFetchState<Response>>({ loading:false, data:undefined, error:undefined });
+  const ref = useRef<UseFetchState<Hash,ListHash>>({ loading:false, data:undefined, error:undefined });
 
   let fetchCancel:((callback?:(error:any) => void) => void)|undefined;
 
-  let cancel = useCallback((callback?:(error:any) => void) => {
+  let cancel = (callback?:(error:any) => void) => {
     fetchCancel?.(callback);
-  }, [fetchCancel]);
+  }
 
   const fetchFn = useCallback(async(form?:Form) => {
     const controller = new AbortController();
@@ -99,24 +107,46 @@ export const useFetch = <Form, Response>(url:string, options:UseFetchOptions):Us
       }
     })
     .then(async(data) => {
+      console.log("👌 " + requestUrl + ' ' + method + ' ' + contentType + '\n', JSON.stringify(data));
+      if(data.resultCode == 1002)
+      {
+        await Promise.all([
+          removeUser(),
+          removeAutoLogin()
+        ]);
+        if(router.pathname !== 'login') {
+          router.reset('/login');
+        }
+        ref.current = {...ref.current, loading: false};
+        setState(prev => ({...prev, loading: false}))
+      }
+      else
+      {
+        ref.current = {data, error:undefined, loading: false};
+        setState({data, error:undefined, loading: false})
+      }
+
       return {data, error:undefined, loading: false};
     })
     .catch(error => {
-      console.log("❌ Error Data", JSON.stringify(error));
-      if(error?.message === 'The user aborted a request.') return state;
+      console.log("❌ Error Data", error);
+      if(signal.aborted) throw { ...state, error:{ message: 'aborted' } };
+      
       if(error.respInfo) {
         const state = {data:undefined, error:{message:`status: ${error.respInfo.status} / state: ${error.respInfo.state}`}, loading: false};
         ref.current = state;
         setState(state);
         throw state;
-      } else {
-        ref.current = {data:undefined, error, loading: false};
-        setState({data:undefined, error, loading: false})
-        throw {data:undefined, error, loading: false};
       }
+
+      ref.current = {data:undefined, error, loading: false};
+      setState({data:undefined, error, loading: false})
+      throw {data:undefined, error, loading: false};
     });
 
-    fetchCancel = () => controller.abort();
+    fetchCancel = () => {
+      controller.abort();
+    }
     return res;
   }, [url]);
 
@@ -142,59 +172,59 @@ export const useFetch = <Form, Response>(url:string, options:UseFetchOptions):Us
 const objToForm = (json:any) => {
   let form = new FormData();
   for (let prompt in json) {
-    if (typeof json[prompt] == 'object') {
-      if (!json[prompt]) {
-        form.append(prompt, json[prompt]);
-      } else if (json[prompt].constructor.name == 'Array') {
-        if (typeof json[prompt][0] == 'object') {
-          if (json[prompt][0].constructor.name == 'File') {
-            for (let i = 0; i < json[prompt].length; i++) {
-              form.append(prompt, json[prompt][i]);
-            }
-          } else if (json[prompt][0].constructor.name == 'Blob') {
-            for (let i = 0; i < json[prompt].length; i++) {
-              switch(json[prompt][i].type) {
-                case 'audio/mpeg':
-                  form.append(prompt, json[prompt][i], 'attaches' + new Date().getTime() + '.mp3');
-                  break;
-                case 'audio/wav':
-                  form.append(prompt, json[prompt][i], 'attaches' + new Date().getTime() + '.wav');
-                  break;
-                default:
-                  form.append(prompt, json[prompt][i], 'attaches' + new Date().getTime() + '.jpeg');
-                  break;
-              }
-            }
-          } else {
-            form.append(prompt, JSON.stringify(json[prompt]));
-          }
-        } else {
-          form.append(prompt, JSON.stringify(json[prompt]));
-        }
-      } else {
-        if (json[prompt].constructor.name == 'File') {
-          form.append(prompt, json[prompt]);
-        } else if (json[prompt].constructor.name == 'Blob') {
-          switch(json[prompt].type) {
-            case 'audio/mpeg':
-              form.append(prompt, json[prompt], 'attaches' + new Date().getTime() + '.mp3');
-              break;
-            case 'audio/wav':
-              form.append(prompt, json[prompt], 'attaches' + new Date().getTime() + '.wav');
-              break;
-            default:
-              form.append(prompt, json[prompt], 'attaches' + new Date().getTime() + '.jpeg');
-              break;
-          }
-        } else {
-          form.append(prompt, JSON.stringify(json[prompt]));
-        }
-      }
-    } else {
-      if (json[prompt] == 'true') json[prompt] = true;
-      if (json[prompt] == 'false') json[prompt] = false;
-      form.append(prompt, json[prompt]);
+
+    if(json[prompt] === null || json[prompt] === undefined) {
+      form.append(prompt, '');
+      continue;
     }
+
+    if(typeof json[prompt] !== 'object') {
+      form.append(prompt, json[prompt]);
+      continue;
+    }
+
+    // typeof json[prompt] === 'object'
+    if (json[prompt].constructor.name === 'File') {
+      form.append(prompt, json[prompt]);
+      continue;
+    }
+
+    if (json[prompt].constructor.name === 'Blob') {
+      const extension = extentions[json[prompt].type];
+      form.append(prompt, json[prompt], 'attaches' + new Date().getTime() + `.${extension}`);
+      continue;
+    }
+
+    // not file end blob
+    if(!Array.isArray(json[prompt])) {
+      form.append(prompt, JSON.stringify(json[prompt]));
+      continue;
+    }
+
+    // array value part
+    if(typeof json[prompt][0] !== 'object') {
+      form.append(prompt, JSON.stringify(json[prompt]));
+      continue;
+    }
+
+    // typeof json[prompt][0] === 'object'
+    if (json[prompt][0].constructor.name === 'File') {
+      for (let i = 0; i < json[prompt].length; i++) {
+        form.append(prompt, json[prompt][i]);
+      }
+      continue;
+    }
+    
+    if (json[prompt][0].constructor.name === 'Blob') {
+      for (let i = 0; i < json[prompt].length; i++) {
+        const extension = extentions[json[prompt][i].type];
+        if(!extension) throw `extension not matched: ${json[prompt][i].type}`;
+        form.append(prompt, json[prompt], 'attaches' + new Date().getTime() + `.${extension}`);
+      }
+      continue;
+    }
+
+    form.append(prompt, JSON.stringify(json[prompt]));
   }
   return form;
 }

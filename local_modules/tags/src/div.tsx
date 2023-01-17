@@ -2,7 +2,8 @@ import { forwardRef, LegacyRef } from "react";
 import { useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
 import { TagProps } from "./type";
 
-export const Div = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRef<HTMLDivElement>) => {
+export const Div = forwardRef(({style, children, tag='div', ...rest}:TagProps & { tag?:string }, ref:LegacyRef<HTMLDivElement>) => {
+  const Tag:any = tag;
 
   const { tagConfig } = useTags();
   const divTagStyle = tagConfig?.div?.style;
@@ -16,7 +17,7 @@ export const Div = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRe
   ], [divTagStyle, style]);
   
   return (
-    <div
+    <Tag
       {...rest} 
       ref={ref}
       style={{
@@ -24,6 +25,6 @@ export const Div = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRe
         ...viewStyle
       }}>
       <TagModule style={textStyle}>{children}</TagModule>
-    </div>
+    </Tag>
   )
 })

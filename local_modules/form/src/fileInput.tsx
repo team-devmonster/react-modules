@@ -68,13 +68,14 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
               const filesObj = e.target.files;
               if(!filesObj?.length) return;
               const files = Array.from(filesObj);
+              let fileBlobs = files.map(file => ({...file, uri: URL.createObjectURL(file)}));
               if(multiple) {
-                onChange([...value, ...files]);
-                _onChange?.({...e, target: { ...e.target, value: files }} as any);
+                onChange([...value, ...fileBlobs]);
+                _onChange?.({...e, target: { ...e.target, value: fileBlobs }} as any);
               }
               else {
-                onChange(files);
-                _onChange?.({...e, target: { ...e.target, value: files }} as any);
+                onChange(fileBlobs);
+                _onChange?.({...e, target: { ...e.target, value: fileBlobs }} as any);
               }
             }}
             onBlur={onBlur}
