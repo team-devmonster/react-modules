@@ -5,7 +5,7 @@ import { darken, contrast, lighten } from "./utils";
 
 export const Button = forwardRef((
     {
-      tag = 'div',
+      tag = 'button',
       color, 
       fill:_fill, 
       style, 
@@ -88,13 +88,15 @@ export const Button = forwardRef((
       onClick={!disabled ? onClick : null}
       
       {...rest}>
-      <TagModule
-        style={{
-          lineHeight: 1,
-          ...textStyle
-        }}>
-        {children}
-      </TagModule>
+      { 
+        TagModule({ 
+          children, 
+          style:{
+            lineHeight: 1,
+            ...textStyle
+          }
+        })
+      }
     </Tag>
   )
 })

@@ -9,7 +9,7 @@ export const H3 = ({style, ...rest}:TagProps) => {
   
   return (
     <Div 
-      tag="h3"
+      //tag="h3"
       style={{
         ...tagStyle, 
         ...style

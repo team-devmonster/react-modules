@@ -1,18 +1,30 @@
-import { useTags } from "./core";
-import { Div } from "./div";
+import { textPattern } from "@team-devmonster/react-tags";
+import { forwardRef, LegacyRef } from "react";
+import { flexDefaultStyle, TagModule, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
-export const P = ({style, ...rest}:TagProps) => {
+export const P = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRef<HTMLParagraphElement>) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.p?.style;
+
+  const [
+    textStyle,
+    viewStyle
+  ]
+  = useTagStyle([
+    textPattern
+  ], [tagStyle, style]);
   
   return (
-    <Div 
-      tag="p"
+    <p 
+      {...rest}
+      ref={ref}
       style={{
-        ...tagStyle, 
-        ...style
-      }} {...rest}></Div>
+        ...flexDefaultStyle,
+        ...viewStyle
+      }}>
+      { TagModule({ tag:'span', children, style:textStyle }) }
+    </p>
   )
-}
+})
