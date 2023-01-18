@@ -67,14 +67,14 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-export const TagModule = ({ children, style, tag }:TagProps & { tag?:string }) => {
+export const TagModule = ({ children, style, tag, numberOfLines, ellipsizeMode }:TagProps) => {
 
   const id = useMemo(() => String(new Date().getTime()), []);
-  const tagChildren = useMemo(() => makeTagChildren({ id, children, style, tag }), [children, style]);
+  const tagChildren = useMemo(() => makeTagChildren({ id, children, style, tag, numberOfLines, ellipsizeMode }), [children, style, tag, numberOfLines, ellipsizeMode]);
 
   return tagChildren;
 }
-const makeTagChildren = ({ id, children, style, tag }:{ id:string, children?:TagElement, style?:TagStyle, tag?:string }) => {
+const makeTagChildren = ({ id, children, style, tag, numberOfLines, ellipsizeMode }:{ id:string, children?:TagElement, style?:TagStyle, tag?:string, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(Array.isArray(children)) {
     const newChildren:TagElement[] = [];
     const textchildren:(JSX.Element|string)[] = [];
@@ -92,7 +92,7 @@ const makeTagChildren = ({ id, children, style, tag }:{ id:string, children?:Tag
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${i}`} tag={tag} style={style}>{[...textchildren]}</Text>
+              <Text key={`tag_${id}_${i}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
             )
             textchildren.length = 0;
           }
@@ -105,21 +105,21 @@ const makeTagChildren = ({ id, children, style, tag }:{ id:string, children?:Tag
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
-        <Text key={`tag_${id}_${children.length}`} tag={tag} style={style}>{[...textchildren]}</Text>
+        <Text key={`tag_${id}_${children.length}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
       );
       textchildren.length = 0;
     }
     return newChildren;
   }
   else if(typeof children === 'string' || typeof children === 'number') {
-    return <Text tag={tag} style={style}>{children}</Text>
+    return <Text tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{children}</Text>
   }
   else {
     return children;
   }
 }
 
-const Text = ({tag, style, children}:{tag?:string, style?:TagStyle, children?:React.ReactNode}) => {
+const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => {
 
   const Tag:any = tag || 'p';
 
@@ -133,12 +133,26 @@ const Text = ({tag, style, children}:{tag?:string, style?:TagStyle, children?:Re
     }
   }, [fontSize, style?.lineHeight])
 
+  const lineClamp = useMemo(() => {
+    if(numberOfLines && ellipsizeMode) {
+      return {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        display: '-webkit-box',
+        WebkitLineClamp: numberOfLines,
+        WebkitBoxOrient: 'vertical'
+      }
+    }
+    else return null;
+  }, [numberOfLines, ellipsizeMode]);
+
   return (
     <Tag
       style={{
         margin: 0,
         whiteSpace: 'pre-line',
         lineHeight,
+        ...lineClamp,
         ...style
       }}>{children}</Tag>
   )

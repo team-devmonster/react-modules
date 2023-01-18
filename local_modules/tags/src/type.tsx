@@ -47,9 +47,13 @@ export interface TagConfig {
 }
 
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
+  tag?:string,
+  childTag?:string,
   children?:TagElement,
   style?:TagStyle,
   hoverStyle?:TagStyle,
+  numberOfLines?:number,
+  ellipsizeMode?:"head" | "tail" | "middle" | "clip" 
 }
 export interface ButtonStyle extends TagStyle {
   cursor?:string
