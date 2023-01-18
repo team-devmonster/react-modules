@@ -5,7 +5,7 @@ import { TagProps } from "./type";
 export const Div = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRef<HTMLDivElement>) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.div?.style;
+  const tagStyle = tagConfig?.div?.style;
 
   const [
     textStyle, 
@@ -13,7 +13,7 @@ export const Div = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRe
   ]
   = useTagStyle([
     textPattern
-  ], [divTagStyle, style]);
+  ], [tagStyle, style]);
   
   return (
     <div
