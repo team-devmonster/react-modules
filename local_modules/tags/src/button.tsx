@@ -70,6 +70,7 @@ export const Button = forwardRef((
         appearance: 'none',
         textAlign: 'left',
         cursor: !disabled ? 'pointer' : 'default',
+        alignItems: 'stretch',
         ...flexDefaultStyle,
         ...etcStyle
       }}
