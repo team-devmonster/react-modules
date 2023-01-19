@@ -149,7 +149,6 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
   return (
     <Tag
       style={{
-        margin: 0,
         whiteSpace: 'pre-line',
         lineHeight,
         ...lineClamp,
