@@ -1,5 +1,5 @@
 import { useTags } from "../core";
-import { P } from "../p";
+import { Div } from "../div";
 import { TagProps } from "../type";
 
 export const Td = ({style, ...rest}:TagProps) => {
@@ -8,12 +8,12 @@ export const Td = ({style, ...rest}:TagProps) => {
   const tagStyle = tagConfig?.td?.style;
   
   return (
-    <P 
+    <Div
       style={{
         marginRight: -1,
         marginBottom: -1,
         ...tagStyle, 
         ...style
-      }} {...rest}></P>
+      }} {...rest}></Div>
   )
 }
