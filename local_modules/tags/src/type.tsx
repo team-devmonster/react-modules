@@ -61,7 +61,7 @@ export interface ButtonStyle extends TagStyle {
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
 // tags props
-export interface ButtonProps {
+export interface ButtonProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'style'|'onClick'> {
   tag?: 'div'|'button'|'a';
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;

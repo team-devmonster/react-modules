@@ -1,7 +1,7 @@
 //import { useEffect, useState } from "react";
 import reactDom from "react-dom";
 
-export const ModalPortal = ({ children }:{ children:any }):React.ReactPortal|null => {
+export const ModalPortal = ({ children, style }:{ children:any, style:any }):React.ReactPortal|null => {
   if(typeof window === "undefined") return null;;
 
   const el = document.getElementById("devmonster-modal");

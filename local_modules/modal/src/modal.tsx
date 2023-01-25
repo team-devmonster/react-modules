@@ -20,12 +20,8 @@ export const Modal = ({ visible = true, onRequestClose, children, style }:ModalP
   }, [visible]);
 
   return (
-    <ModalPortal>
-      { visible ? 
-        <div style={{ position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, ...style }}>
-          { children }
-        </div>
-       : null }      
+    <ModalPortal style={style}>
+      { visible ? children : null }      
     </ModalPortal>
   )
 }

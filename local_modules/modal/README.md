@@ -38,9 +38,11 @@ export const AnyComponent = ({ visible, onRequestClose }) => {
         fill="outline">
         react-modal
       </Button>
-      <Modal visible={visible} onRequestClose={() => console.log('on request close')} style={{ zIndex: 9999 }}>
-        <P>devmonster's react-modal</P>
-        <Button onClick={() => { setVisible(false) }}>close</Button>
+      <Modal visible={visible} onRequestClose={() => console.log('on request close')}>
+        <Div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}>
+          <P>devmonster's react-modal</P>
+          <Button onClick={() => { setVisible(false) }}>close</Button>
+        </Div>
       </Modal>
     </>
   )
