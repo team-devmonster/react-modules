@@ -33,6 +33,7 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
         flex: 1, 
         paddingTop: header?.props?.style?.height || headerRef?.offsetHeight,
         paddingBottom: header?.props?.style?.height || footerRef?.offsetHeight,
+        ...header?.props?.contentStyle
       }}>
         {contents}
       </Div>
@@ -67,34 +68,34 @@ const newChildren = ({ children }:{ children:TagElement })
   if(Array.isArray(children)) {
     for(let i = 0; i < children.length; i++) {
       const child = children[i];
+      if(!child) {
+        contents.push(child);
+        continue;
+      }
       if(Array.isArray(child)) {
-        contents = children;
+        contents.push(child);
+        continue;
       }
-      else if(child) {
-        if(typeof child === 'string' || typeof child === 'number') {
-          contents = children;
-        }
-        else {
-          switch(child?.type?.displayName) {
-            case 'Header':
-              header = child;
-              contents.push(child);
-              break;
-            case 'FixedLayout':
-              fixedLayout.push(child);
-              break;
-            case 'Footer':
-              footer = child;
-              break;
-            default:
-              contents.push(child);
-              break;
-          }
-        }
+      
+      // not array
+      if(typeof child === 'string' || typeof child === 'number') {
+        contents.push(child);
+        continue;
       }
-      else {
-        // nothing
-        // contents = children;
+      
+      switch(child?.type?.displayName) {
+        case 'Header':
+          header = child;
+          break;
+        case 'FixedLayout':
+          fixedLayout = child;
+          break;
+        case 'Footer':
+          footer = child;
+          break;
+        default:
+          contents.push(child);
+          break;
       }
     }
   }

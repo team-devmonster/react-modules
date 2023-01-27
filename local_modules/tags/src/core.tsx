@@ -100,6 +100,9 @@ const makeTagChildren = ({ id, children, style, tag, numberOfLines, ellipsizeMod
           newChildren.push(child);
         }
       }
+      else {
+        newChildren.push(child);
+      }
     });
     
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
