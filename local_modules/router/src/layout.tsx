@@ -1,7 +1,6 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Div, TagElement, TagProps, useTags } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
-import { Header } from "./header";
 import { Footer } from "./footer";
 
 interface LayoutProps extends TagProps {
@@ -24,9 +23,10 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
         ...(style?.overflow === 'hidden' ? { height: '100vh' } : null)
       }}>
       {
-        header
-        ?
-          <Header ref={ref => setHeaderRef(ref)} {...header.props}></Header>
+        header ?
+          React.cloneElement(header, {
+            ref: (ref:any) => setHeaderRef(ref)
+          })
         : null
       }
       <Div style={{ 

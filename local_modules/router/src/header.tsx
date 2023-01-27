@@ -26,7 +26,7 @@ export const Header = forwardRef((
     headerLeft, 
     headerRight, 
     headerBackTitle, 
-    backButtonShown,
+    backButtonShown = true,
     headerShown = true, 
     style, 
     statusBarStyle, 
@@ -68,8 +68,9 @@ export const Header = forwardRef((
           zIndex: 2,
         }}>
         {
-          typeof backButtonShown === 'boolean' 
-          ?
+          headerLeft ?
+            headerLeft
+          :
             backButtonShown
             ?
               <A back={true}>
@@ -81,28 +82,7 @@ export const Header = forwardRef((
               </A>
             :
               null
-          : 
-            headerLeft
-            ?
-              null
-            :
-              <A back={true}>
-                <Button fill="none" 
-                  color={headerTagStyle?.backgroundColor || style?.backgroundColor}>
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                    width={24} 
-                    height={24} 
-                    strokeWidth={1.5} 
-                    stroke={
-                      headerTagStyle?.color || style?.color || 'currentColor'
-                    }>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                  </svg>
-                </Button>
-              </A>
         }
-        {headerLeft}
       </Div>
       <P style={{
         position: 'absolute',

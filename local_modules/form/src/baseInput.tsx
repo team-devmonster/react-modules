@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { FormValues, InputProps, InputType } from "./type";
 import { Controller } from 'react-hook-form';
 import { TagGroupConfig, useTags, useTagStyle } from '@team-devmonster/react-tags';
@@ -28,6 +28,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
 
   const { tagConfig } = useTags();
   const config = useMemo(() => getConfig({ tagConfig, type }), [tagConfig?.input, type]);
+  const enterBubbleRef = useRef(false);
     
   return (
     <Controller
@@ -107,7 +108,14 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             multiple={multiple}
             onKeyUp={e => {
               onKeyUp?.(e);
-              if(e.key === 'Enter') onEnter?.(e);
+              if(e.key === 'Enter') {
+                if(enterBubbleRef.current) return;
+                enterBubbleRef.current = true;
+                onEnter?.(e);
+                setTimeout(() => {
+                  enterBubbleRef.current = false;
+                }, 100);
+              } 
             }}
             onFocus={onFocus}
           />
