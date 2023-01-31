@@ -5,6 +5,8 @@ import { Footer } from "./footer";
 
 interface LayoutProps extends TagProps {
   edges?:Edge[];
+  onScroll?:(e:any) => void;
+  scrollEventThrottle?:number;
 }
 export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
 
