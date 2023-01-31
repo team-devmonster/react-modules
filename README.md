@@ -10,20 +10,34 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 ## all start
 
-`$ npm install @team-devmonster/react-theme@latest @team-devmonster/react-tags@latest @team-devmonster/react-router@latest @team-devmonster/react-form@latest`
+`$ npm install @team-devmonster/date@latest @team-devmonster/react-modal@latest @team-devmonster/react-theme@latest @team-devmonster/react-tags@latest @team-devmonster/react-router@latest @team-devmonster/react-form@latest`
 
 ## modules
+:: javascript
+- [o] [date](https://www.npmjs.com/package/@team-devmonster/date)
 
+:: react
 - [o] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 - [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
-- [-] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
-- [-] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
-- [-] [react-modal]
-- [ ] react-img-editor
-- [ ] react-text-editor
-- [ ] react-form
-- [ ] react-file
-- [ ] react-camera
+- [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
+- [o] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
+- [o] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-modal)
+- [o] [react-skeletion](https://www.npmjs.com/package/@team-devmonster/react-modal)
+- [ ] [react-fetch]
+- [ ] [react-img-editor]
+- [ ] [react-text-editor]
+
+:: react-native
+- [o] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
+- [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
+- [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
+- [ ] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-native-modal)
+- [o] [react-native-skeletion](https://www.npmjs.com/package/@team-devmonster/react-native-modal)
+- [ ] [react-native-fetch]
+- [o] [react-native-img-viewer](https://www.npmjs.com/package/@team-devmonster/react-native-img-viewer) // tempt => it will be changed to react-native-img-editor
+- [ ] [react-native-img-editor]
+- [ ] [react-native-text-editor]
 
 
 #### author: devmonster 
