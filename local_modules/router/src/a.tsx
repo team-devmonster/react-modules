@@ -11,11 +11,12 @@ export interface Aprops {
   back?:boolean,
   reset?:boolean,
   children?:React.ReactNode,
-  target?:string
+  target?:string,
+  download?:string
 }
 
 const urlPattern = /^(mailTo:|tel:|http:|https:)/;
-export const A = ({ href, as, replace, push:_, back, reset:__, children, target }:Aprops):JSX.Element => {
+export const A = ({ href, as, replace, push:_, back, reset:__, children, target, download }:Aprops):JSX.Element => {
 
   const router = useRouter();
   const page = navigate({ href });
@@ -43,7 +44,8 @@ export const A = ({ href, as, replace, push:_, back, reset:__, children, target 
             textDecoration: 'none',
           }}
           href={page}
-          target={target}>
+          target={target}
+          download={download}>
           {children}
         </a>
       :
@@ -56,7 +58,8 @@ export const A = ({ href, as, replace, push:_, back, reset:__, children, target 
           href={href!}
           as={as}
           replace={replace}
-          target={target}>
+          target={target}
+          download={download}>
           {children}
         </Link>
   )
