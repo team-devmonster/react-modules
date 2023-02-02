@@ -2,6 +2,13 @@ import { HTMLAttributes, CSSProperties } from "react"
 
 
 export type ColorSchemeName = 'light'|'dark'|undefined;
+export type OnLayoutEvent = {
+  nativeEvent: {
+    layout:LayoutEvent
+  }
+};
+export type LayoutEvent = { width:number, height:number, x:number, y:number };
+
 export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'borderTop'|'borderBottom'|'borderRight'|'borderLeft'|'fontSize'|'backgroundImage'|'background'|'cursor'|'lineHeight'> {
   display?: 'flex' | 'inline-flex' | 'none',
   fontSize?:number,
@@ -53,7 +60,8 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onC
   style?:TagStyle,
   hoverStyle?:TagStyle,
   numberOfLines?:number,
-  ellipsizeMode?:"head" | "tail" | "middle" | "clip" 
+  ellipsizeMode?:"head" | "tail" | "middle" | "clip",
+  onLayout?:(e:OnLayoutEvent) => void
 }
 export interface ButtonStyle extends TagStyle {
   cursor?:string
@@ -61,7 +69,7 @@ export interface ButtonStyle extends TagStyle {
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
 // tags props
-export interface ButtonProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'style'|'onClick'> {
+export interface ButtonProps extends TagProps {
   tag?: 'div'|'button'|'a';
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;

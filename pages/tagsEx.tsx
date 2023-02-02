@@ -13,10 +13,11 @@ const TagsEx = () => {
 
   const { color, fontSize, shadow, colorScheme } = useTheme<Theme>();
 
-  //console.log(colorScheme);
-
   return (
     <Div
+      onLayout={(e) => {
+        console.log(e.nativeEvent.layout);
+      }}
       style={{
         backgroundColor: color.backgroundColor, 
         flex: 1, 

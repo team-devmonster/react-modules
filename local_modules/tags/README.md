@@ -156,6 +156,9 @@ const TagsEx = () => {
 
   return (
     <Div
+      onLayout={(e) => {
+        console.log(e.nativeEvent.layout);
+      }}
       style={{
         backgroundColor: color.backgroundColor, 
         flex: 1, 
@@ -250,3 +253,6 @@ const TagsEx = () => {
 
 export default TagsEx;
 ```
+
+
+### 
