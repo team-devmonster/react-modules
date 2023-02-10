@@ -1,5 +1,5 @@
 import { forwardRef, Ref } from 'react';
-import { Button, Div, P, TagElement, TagStyle, useColorScheme, useTags } from '@team-devmonster/react-tags';
+import { Button, Div, P, TagElement, TagStyle, useTags } from '@team-devmonster/react-tags';
 import { A } from './a';
 import { StatusBarStyle } from './type';
 
@@ -37,7 +37,6 @@ export const Header = forwardRef((
   ref:Ref<HTMLDivElement>
   ) => {
 
-  const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   const headerTagStyle = tagConfig?.header?.style;
   const headerTagTitleStyle = tagConfig?.header?.headerTitleStyle;
@@ -60,7 +59,7 @@ export const Header = forwardRef((
         paddingLeft: 20,
         paddingRight: 20,
         minHeight: 56,
-        backgroundColor: colorScheme === 'dark' ? '#000000' : '#ffffff',
+        backgroundColor: '#ffffff',
         zIndex: 100
       }}>
         <Div 
@@ -94,7 +93,7 @@ export const Header = forwardRef((
           left: 0,
           alignItems: 'center',
           justifyContent: 'center',
-          color: colorScheme === 'dark' ? '#ffffff' : '#000000',
+          color: '#ffffff',
           zIndex: 1,
           ...(headerTagStyle?.color ? {color: headerTagStyle.color} : null),
           ...(style?.color ? {color: style.color} : null),

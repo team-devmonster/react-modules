@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export function darken(col:string, amt:number) {
 
   const num = parseInt(col.slice(1),16);
@@ -74,4 +76,26 @@ export const getLightOrDark = (hex:string, amt:number = 206) => {
 
   return (r * 0.299 + g * 0.587 + b * 0.114) > amt 
     ? 'light' : 'dark';
+}
+
+export const useColorScheme = () => {
+
+  const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
+
+  useEffect(() => {
+    const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    setColorScheme(colorScheme);
+
+    const fn = (event:MediaQueryListEvent) => {
+      const newScheme = event.matches ? 'dark' : 'light';
+      setColorScheme(newScheme);
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
+
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
+    }
+  }, [])
+
+  return colorScheme;
 }
