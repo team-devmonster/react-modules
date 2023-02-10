@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { forwardRef, LegacyRef, useMemo, useState } from "react";
 import { Div, TagElement, TagProps, useTags } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
 import { Footer } from "./footer";
@@ -8,7 +8,7 @@ interface LayoutProps extends TagProps {
   onScroll?:(e:any) => void;
   scrollEventThrottle?:number;
 }
-export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
+export const Layout = forwardRef(({ children, edges:_, style, ...rest }:LayoutProps, ref:LegacyRef<HTMLElement>) => {
 
   const [headerRef, setHeaderRef] = useState<HTMLDivElement|null>(null);
   const [footerRef, setFooterRef] = useState<HTMLDivElement|null>(null);
@@ -18,6 +18,7 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
 
   return (
     <Div 
+      ref={ref as any}
       {...rest}
       style={{
         ...layoutTagStyle,
@@ -48,7 +49,7 @@ export const Layout = ({ children, edges:_, style, ...rest }:LayoutProps) => {
       }
     </Div>
   )
-}
+})
 
 const newChildren = ({ children }:{ children:TagElement })
   :{ 

@@ -1,15 +1,14 @@
-# @team-devmonster/react-native-modules
+# @team-devmonster/react-modules
 
 ## This is under devmonster's react & react-native union project.
 
 This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.<br><br>
-`react` => [`@team-devmonster/react-tags`](https://www.npmjs.com/package/@team-devmonster/react-tags)<br>
 General `react-native-modules` load map => [here](https://github.com/team-devmonster/react-native-modules);<br>
 General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);
 
 
 ## all start
-:: react<br>
+### react<br>
 
 :: dependencies<br>
 `$ npm install react-hook-form @hookform/error-message @svgr/webpack`
@@ -18,7 +17,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 `$ npm install @team-devmonster/date@latest @team-devmonster/react-theme@latest @team-devmonster/react-tags@latest @team-devmonster/react-router@latest @team-devmonster/react-form@latest @team-devmonster/react-modal@latest`
 
 
-:: react-native<br>
+### react-native<br>
 
 :: dependencies<br>
 `$ npm install react-native-safe-area-context react-native-screens @react-navigation/native @react-navigation/native-stack react-hook-form @hookform/error-message react-native-svg react-native-svg-transformer @react-native-picker/picker react-native-date-picker react-native-month-year-picker react-native-image-picker react-native-document-picker @react-native-masked-view/masked-view react-native-linear-gradient react-native-reanimated react-native-gesture-handler`
