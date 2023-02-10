@@ -8,7 +8,7 @@ export interface HeaderProps {
   headerLeft?:TagElement;
   headerRight?:TagElement;
   headerBackTitle?:string;
-  backButtonShown?:boolean;
+  headerBackVisible?:boolean;
   headerTitleAlign?:"left" | "center" | undefined;
   headerTitleStyle?:Pick<TagStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
     color?: string | undefined;
@@ -16,7 +16,8 @@ export interface HeaderProps {
   headerShown?: boolean;
   style?: TagStyle;
   statusBarStyle?:StatusBarStyle;
-  contentStyle?:TagStyle
+  contentStyle?:TagStyle;
+  children?:TagElement;
 }
 export const Header = forwardRef((
   { 
@@ -26,11 +27,12 @@ export const Header = forwardRef((
     headerLeft, 
     headerRight, 
     headerBackTitle, 
-    backButtonShown = true,
+    headerBackVisible = true,
     headerShown = true, 
     style, 
     statusBarStyle, 
-    contentStyle
+    contentStyle,
+    children
   }:HeaderProps,
   ref:Ref<HTMLDivElement>
   ) => {
@@ -49,64 +51,68 @@ export const Header = forwardRef((
         position: 'fixed', 
         top: 0, 
         left: 0, 
-        width: '100%', 
-        minHeight: 56,
-        backgroundColor: colorScheme === 'dark' ? '#000000' : '#ffffff',
+        width: '100%'
+      }}>
+      <Div style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20,
-        zIndex: 100,
-        ...headerTagStyle,
-        ...style
+        minHeight: 56,
+        backgroundColor: colorScheme === 'dark' ? '#000000' : '#ffffff',
+        zIndex: 100
       }}>
-      <Div 
-        style={{
-          position: 'relative',
-          flexDirection: 'row',
-          zIndex: 2,
-        }}>
-        {
-          headerLeft ?
-            headerLeft
-          :
-            backButtonShown
-            ?
-              <A back={true}>
-                <Button fill="none" color={headerTagStyle?.backgroundColor || style?.backgroundColor}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={24} height={24} strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                  </svg>
-                </Button>
-              </A>
+        <Div 
+          style={{
+            position: 'relative',
+            flexDirection: 'row',
+            zIndex: 2,
+          }}>
+          {
+            headerLeft ?
+              headerLeft
             :
-              null
-        }
+              headerBackVisible
+              ?
+                <A back={true}>
+                  <Button fill="none" color={headerTagStyle?.backgroundColor || style?.backgroundColor}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={24} height={24} strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                  </Button>
+                </A>
+              :
+                null
+          }
+        </Div>
+        <P style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          top: 0,
+          left: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: colorScheme === 'dark' ? '#ffffff' : '#000000',
+          zIndex: 1,
+          ...(headerTagStyle?.color ? {color: headerTagStyle.color} : null),
+          ...(style?.color ? {color: style.color} : null),
+          ...headerTagStyle,
+          ...style,
+          ...headerTagTitleStyle,
+          ...headerTitleStyle
+        }}>{title}</P>
+        <Div
+          style={{
+            position: 'relative',
+            flexDirection: 'row',
+            zIndex: 2
+          }}>
+          {headerRight}
+        </Div>
       </Div>
-      <P style={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        top: 0,
-        left: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: colorScheme === 'dark' ? '#ffffff' : '#000000',
-        zIndex: 1,
-        ...(headerTagStyle?.color ? {color: headerTagStyle.color} : null),
-        ...(style?.color ? {color: style.color} : null),
-        ...headerTagTitleStyle,
-        ...headerTitleStyle
-      }}>{title}</P>
-      <Div
-        style={{
-          position: 'relative',
-          flexDirection: 'row',
-          zIndex: 2
-        }}>
-        {headerRight}
-      </Div>
+      {children}
     </Div>
   )
 })
