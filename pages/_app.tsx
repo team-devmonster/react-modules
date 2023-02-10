@@ -1,14 +1,12 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { AppTagProvider, AppThemeProvider } from 'App.theme'
+import { AppNextNativeProvider } from 'App.theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AppThemeProvider>
-      <AppTagProvider>
+    <AppNextNativeProvider>
         <Component {...pageProps} />
-      </AppTagProvider>
-    </AppThemeProvider>
+    </AppNextNativeProvider>
   )
 }
 

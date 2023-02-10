@@ -164,3 +164,13 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
     </TagProvider>
   )
 }
+
+export const AppNextNativeProvider = ({children}: {children:React.ReactNode}) => {
+  return (
+    <AppThemeProvider>
+      <AppTagProvider>
+        {children}
+      </AppTagProvider>
+    </AppThemeProvider>
+  )
+}
