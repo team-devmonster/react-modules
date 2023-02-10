@@ -1,8 +1,8 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Div, Button, Img } from "@local_modules/tags";
-import { A, Header, Layout } from "@local_modules/router";
+import { Div, Button, Img } from "@tags";
+import { A, Header, Layout, Footer, FixedLayout } from "@local_modules/router";
 
 import ImgBell from "@image/header/bell.svg";
 import ImgBellDark from "@image/header/bell-dark.svg";
@@ -10,8 +10,6 @@ import ImgSetting from "@image/header/setting.svg";
 import ImgSettingDark from "@image/header/setting-dark.svg";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Footer } from "@local_modules/router";
-import { FixedLayout } from "@local_modules/router";
 
 const RouterEx = () => {
 

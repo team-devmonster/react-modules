@@ -19,7 +19,9 @@
       "@local_modules/*": ["local_modules/*"],
       "@pages/*": ["pages/*"],
       "@env": ["env"],
-      "@image/*": ["public/images/*"]
+      "@image/*": ["public/images/*"],
+      //"@tags":["@team-devmonster/react-tags"],
+      "@tags":["local_modules/tags"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

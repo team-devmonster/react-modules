@@ -73,7 +73,7 @@ export const TagModule = ({ children, style, tag, numberOfLines, ellipsizeMode }
 
   const tagChildren = useMemo(() => makeTagChildren({ children, style, tag, numberOfLines, ellipsizeMode }), [children, style, tag, numberOfLines, ellipsizeMode]);
 
-  return tagChildren;
+  return tagChildren as JSX.Element;
 }
 const makeTagChildren = ({ children, style, tag, numberOfLines, ellipsizeMode }:{ children?:TagElement, style?:TagStyle, tag?:string, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(Array.isArray(children)) {
@@ -129,7 +129,7 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
 
   const fontSize = useMemo(() =>  style?.fontSize || 14, [style?.fontSize])
   const lineHeight = useMemo(() => {
-    if(typeof style?.lineHeight === 'number' && fontSize) {
+    if(typeof style?.lineHeight == 'number' && fontSize) {
       return style.lineHeight/fontSize;
     }
     else {
@@ -154,9 +154,9 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
     <Tag
       style={{
         whiteSpace: 'pre-line',
-        lineHeight,
         ...lineClamp,
-        ...style
+        ...style,
+        lineHeight
       }}>{children}</Tag>
   )
 }

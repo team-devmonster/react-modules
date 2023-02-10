@@ -39,7 +39,7 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
   const tagStyle = tagConfig?.div?.style;
 
   const [
-    textStyle, 
+    textStyle,
     viewStyle
   ]
   = useTagStyle([
@@ -54,7 +54,12 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
         ...flexDefaultStyle,
         ...viewStyle
       }}>
-      { TagModule({ children, style:textStyle, tag:ChildTag, numberOfLines, ellipsizeMode }) }
+      <TagModule
+        tag={ChildTag}
+        style={textStyle}
+        numberOfLines={numberOfLines}
+        ellipsizeMode={ellipsizeMode}
+        >{children}</TagModule>
     </Tag>
   )
 })

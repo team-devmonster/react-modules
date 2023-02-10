@@ -89,15 +89,10 @@ export const Button = forwardRef((
       onClick={!disabled ? onClick : null}
       
       {...rest}>
-      { 
-        TagModule({ 
-          children, 
-          style:{
-            lineHeight: 1,
-            ...textStyle
-          }
-        })
-      }
+      <TagModule
+        style={{
+          ...textStyle
+        }}>{children}</TagModule>
     </Tag>
   )
 })

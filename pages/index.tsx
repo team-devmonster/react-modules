@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Button, Div, P } from "@local_modules/tags";
+import { Button, Div, P } from "@tags";
 import { A } from "@local_modules/router";
 import { Layout } from "@local_modules/router";
 import { Modal } from "@local_modules/modal";

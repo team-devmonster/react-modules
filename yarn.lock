@@ -1227,10 +1227,10 @@
   dependencies:
     "tslib" "^2.4.0"
 
-"@team-devmonster/react-tags@^1.10.8":
-  "integrity" "sha512-lpVsMWFirtDvWfJugUyp/7pxUTPKkMut8Kqbn4em7T5h7GfHPrwNbkCMDctIHrXtofSgdeTNjdFAne80rE3YOw=="
-  "resolved" "https://registry.npmjs.org/@team-devmonster/react-tags/-/react-tags-1.10.8.tgz"
-  "version" "1.10.8"
+"@team-devmonster/react-tags@^1.10.14":
+  "integrity" "sha512-/eC0exa9J+UZdLiSIBZyvXrxzhddpSbb8TOfZZQF5c1mRdZbBmji07f/ATh0VQEg0Y/qufVQ2k6NT5gRw6943A=="
+  "resolved" "https://registry.npmjs.org/@team-devmonster/react-tags/-/react-tags-1.10.14.tgz"
+  "version" "1.10.14"
 
 "@trysound/sax@0.2.0":
   "integrity" "sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA=="

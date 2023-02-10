@@ -1,8 +1,9 @@
+import { forwardRef, LegacyRef, useMemo } from "react";
 import { useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
 
-export const Span = ({style, children, ...rest}:TagProps) => {
+export const Span = forwardRef(({style, children, ...rest}:TagProps, ref:LegacyRef<HTMLSpanElement>) => {
 
   const { tagConfig } = useTags();
   const divTagStyle = tagConfig?.div?.style;
@@ -14,9 +15,23 @@ export const Span = ({style, children, ...rest}:TagProps) => {
   = useTagStyle(
     [], 
     [divTagStyle, spanTagStyle, style]);
+
+  const lineHeight = useMemo(() => {
+    if(typeof newStyle.lineHeight == 'number' && newStyle.fontSize) {
+      return newStyle.lineHeight/newStyle.fontSize;
+    }
+    else {
+      return 1.28;
+    }
+  }, [newStyle.fontSize, newStyle.lineHeight])
   
   return (
-    <span style={newStyle} {...rest}>{children}</span>
+    <span 
+      ref={ref}
+      style={{
+        ...newStyle,
+        lineHeight
+      }} {...rest}>{children}</span>
   )
-}
+})
 Span.displayName = 'Span';

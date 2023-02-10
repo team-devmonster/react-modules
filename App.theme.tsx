@@ -1,6 +1,6 @@
-import { InputConfig } from "@local_modules/tags";
 import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
-import { ButtonProps, TagConfig, TagProvider } from "@team-devmonster/react-tags";
+//import { ButtonProps, TagConfig, TagProvider } from "@team-devmonster/react-tags";
+import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@tags";
 
 const color = {
   light: {
@@ -94,7 +94,8 @@ const theme = (color:Color) => {
   const div:TagConfig = {
     style: {
       color: color.black,
-      fontSize: fontSize.base
+      fontSize: fontSize.base,
+      lineHeight: fontSize.base*1.28
     }
   }
   

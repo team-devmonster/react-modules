@@ -1,13 +1,7 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span, Br } from "@local_modules/tags";
+import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr } from "@tags";
 import { Theme } from "App.theme";
-import { Table } from "@local_modules/tags";
-import { Thead } from "@local_modules/tags";
-import { Tr } from "@local_modules/tags";
-import { Th } from "@local_modules/tags";
-import { Tbody } from "@local_modules/tags";
-import { Td } from "@local_modules/tags";
 
 const TagsEx = () => {
 
@@ -23,8 +17,6 @@ const TagsEx = () => {
         flex: 1, 
         padding: 18 
       }}>
-      <Div style={{ fontSize: fontSize.xl }}><Img alt="logo" src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img></Div>
-      <Div style={{ fontSize: fontSize.xl }}><Img alt="logo" src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img></Div>
       <Div>
         <Button color={color.primary} onClick={() => alert('pressed')}>
           {`2. button => <Button></Button>`}
@@ -49,7 +41,7 @@ const TagsEx = () => {
         <Span style={{ color: color.danger }}>hello Span</Span>
         <Button 
           color={color.primary} 
-          style={{ display: 'inline-flex', height: 40 }}>inline button</Button>
+          style={{ display: 'inline-flex', height: 40, fontSize: 10 }}>inline button</Button>
         hello~!
       </P>
       <P style={{ marginBottom: 20, color: color.primary }}>
