@@ -1,12 +1,10 @@
-import { useState, createContext, useContext, useEffect, useMemo } from "react";
-import { TagStyle, TagProps, TagGroupConfig, TagElement, ColorSchemeName } from "./type";
+import { createContext, useContext, useMemo } from "react";
+import { TagStyle, TagProps, TagGroupConfig, TagElement } from "./type";
 
 
 const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
 
 export function TagProvider({children, tagConfig}:{children:React.ReactNode, tagConfig?:TagGroupConfig}) {
-
-  //useFonts
 
   return (
     <TagContext.Provider value={{ tagConfig }}>
@@ -128,14 +126,7 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
   const Tag:any = tag || 'p';
 
   const fontSize = useMemo(() =>  style?.fontSize || 14, [style?.fontSize])
-  const lineHeight = useMemo(() => {
-    if(typeof style?.lineHeight == 'number' && fontSize) {
-      return style.lineHeight/fontSize;
-    }
-    else {
-      return 1.28;
-    }
-  }, [fontSize, style?.lineHeight])
+  const lineHeight = useMemo(() => typeof style?.lineHeight == 'number' && fontSize ? style.lineHeight/fontSize : 1.28, [style?.lineHeight, fontSize])
 
   const lineClamp = useMemo(() => {
     if(numberOfLines && ellipsizeMode) {
@@ -156,29 +147,8 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
         whiteSpace: 'pre-line',
         ...lineClamp,
         ...style,
+        fontSize,
         lineHeight
       }}>{children}</Tag>
   )
-}
-
-export const useColorScheme = ():ColorSchemeName => {
-
-  const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
-
-  useEffect(() => {
-    const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    setColorScheme(colorScheme);
-
-    const fn = (event:MediaQueryListEvent) => {
-      const newScheme = event.matches ? 'dark' : 'light';
-      setColorScheme(newScheme);
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
-    
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
-    }
-  }, [])
-
-  return colorScheme;
 }

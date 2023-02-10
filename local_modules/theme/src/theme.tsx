@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { ColorSchemeName } from "./utils";
 
 const ThemeContext = createContext(null) as any;
 
@@ -8,34 +7,29 @@ type Color = {
   dark?: {[name:string]:string}
 }
 
-export function ThemeProvider<S extends Color,T extends Function>({children, color, theme}:{children:React.ReactNode, color:S, theme:T}) {
+export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean}) {
 
-  const [colorScheme, setColorScheme] = useState<ColorSchemeName>(null);
-  const themeColors = colorScheme ? color[colorScheme] || color['light'] : color['light'];
+  const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 
   useEffect(() => {
     normalize();
-
-    const colorScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const colorScheme = darkModeEnabled ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' : 'light';
     setColorScheme(colorScheme);
 
     const root = document.documentElement;
-    const themeColors = color[colorScheme] || color['light'];
-
-    for(let key in themeColors) {
-      root.style.setProperty(`--${key}`, themeColors[key]);
+    for(let key in color[colorScheme]) {
+      root.style.setProperty(`--${key}`, color[colorScheme]![key]);
     }
 
     const fn = (event:MediaQueryListEvent) => {
-      const newScheme = event.matches ? 'dark' : 'light';
-      setColorScheme(newScheme);
-
-      const themeColors = color[newScheme] || color['light'];
+      const colorScheme = darkModeEnabled ? event.matches ? 'dark' : 'light' : 'light';
 
       const root = document.documentElement;
-      for(let key in themeColors) {
-        root.style.setProperty(`--${key}`, themeColors[key]);
+      for(let key in color[colorScheme]) {
+        root.style.setProperty(`--${key}`, color[colorScheme]![key]);
       }
+
+      setColorScheme(colorScheme);
     }
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fn);
 
@@ -46,10 +40,11 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
 
   return (
     <div style={{ visibility: colorScheme ? 'visible' : 'hidden' }}>
-      <ThemeContext.Provider 
+      <ThemeContext.Provider
         value={{
-          ...theme(themeColors),
-          colorScheme
+          ...theme(color[colorScheme || 'light']),
+          colorScheme,
+          darkModeEnabled
         }}>
         {children}
       </ThemeContext.Provider>
@@ -57,12 +52,12 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   )
 }
 
-
 type Merge<A,B> = {
   [K in keyof A]: K extends keyof B ? B[K] : A[K]
 } & B;
 type ThemeProps<T> = Merge<T, {
-  colorScheme:'light'|'dark'
+  colorScheme:'light'|'dark',
+  darkModeEnabled:boolean
 }>
 
 export function useTheme<T>() {

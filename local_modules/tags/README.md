@@ -12,7 +12,7 @@ General `react-native-modules` load map => [here](https://github.com/team-devmon
 
 - [o] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 - [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
-- [o] [`react-form`](https://www.npmjs.com/package/@team-devmonster/react-form)
+- [o] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
 
 #### author: devmonster 
 

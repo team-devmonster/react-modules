@@ -35,7 +35,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
 - [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
 - [o] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
-- [o] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-modal)
+- [o] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-modal) // tempt => it will be included to react-router
 - [o] [react-skeletion](https://www.npmjs.com/package/@team-devmonster/react-modal)
 - [ ] [react-fetch]
 - [ ] [react-img-editor]
@@ -46,7 +46,6 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
 - [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
 - [o] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
-- [ ] [react-native-modal]
 - [o] [react-native-skeletion](https://www.npmjs.com/package/@team-devmonster/react-native-modal)
 - [ ] [react-native-fetch]
 - [o] [react-native-img-viewer](https://www.npmjs.com/package/@team-devmonster/react-native-img-viewer) // tempt => it will be changed to react-native-img-editor

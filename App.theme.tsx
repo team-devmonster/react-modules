@@ -1,6 +1,5 @@
 import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
-//import { ButtonProps, TagConfig, TagProvider } from "@team-devmonster/react-tags";
-import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@tags";
+import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@team-devmonster/react-tags";
 
 const color = {
   light: {

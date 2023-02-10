@@ -1,11 +1,11 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr } from "@tags";
+import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr } from "@team-devmonster/react-tags";
 import { Theme } from "App.theme";
 
 const TagsEx = () => {
 
-  const { color, fontSize, shadow, colorScheme } = useTheme<Theme>();
+  const { color, fontSize, shadow } = useTheme<Theme>();
 
   return (
     <Div
@@ -18,7 +18,7 @@ const TagsEx = () => {
         padding: 18 
       }}>
       <Div>
-        <Button color={color.primary} onClick={() => alert('pressed')}>
+        <Button color={color.step900} onClick={() => alert('pressed')}>
           {`2. button => <Button></Button>`}
         </Button>
       </Div>
