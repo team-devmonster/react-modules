@@ -19,12 +19,14 @@ export function useTags() {
   return useContext(TagContext);
 }
 
-export const textPattern = /^(color|font|text|lineHeight)/;
-export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight|maxHeight|position|top|left|right|bottom|opacity|overflow|alignSelf|justifySelf)$/;
+export const textPattern = /^(color|font|text|lineHeight|whiteSpace)/;
+export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight|maxHeight|position|top|left|right|bottom|opacity|overflow|alignSelf|justifySelf|aspectRatio)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
 export const placeholderPattern = /^(placeholder)/;
+export const gapPattern = /(gap|Gap)/;
+export const iconPattern = /(^icon)/;
 
 export const flexDefaultStyle:TagStyle = {
   position: 'relative',
@@ -69,12 +71,11 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
 
 export const TagModule = ({ children, style, tag, numberOfLines, ellipsizeMode }:TagProps) => {
 
-  const id = useMemo(() => String(new Date().getTime()), []);
-  const tagChildren = useMemo(() => makeTagChildren({ id, children, style, tag, numberOfLines, ellipsizeMode }), [children, style, tag, numberOfLines, ellipsizeMode]);
+  const tagChildren = useMemo(() => makeTagChildren({ children, style, tag, numberOfLines, ellipsizeMode }), [children, style, tag, numberOfLines, ellipsizeMode]);
 
   return tagChildren;
 }
-const makeTagChildren = ({ id, children, style, tag, numberOfLines, ellipsizeMode }:{ id:string, children?:TagElement, style?:TagStyle, tag?:string, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
+const makeTagChildren = ({ children, style, tag, numberOfLines, ellipsizeMode }:{ children?:TagElement, style?:TagStyle, tag?:string, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(Array.isArray(children)) {
     const newChildren:TagElement[] = [];
     const textchildren:(JSX.Element|string)[] = [];
@@ -92,7 +93,7 @@ const makeTagChildren = ({ id, children, style, tag, numberOfLines, ellipsizeMod
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${i}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
+              <Text key={`tag_${i}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
             )
             textchildren.length = 0;
           }
@@ -108,7 +109,7 @@ const makeTagChildren = ({ id, children, style, tag, numberOfLines, ellipsizeMod
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
-        <Text key={`tag_${id}_${children.length}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
+        <Text key={`tag_${children.length}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
       );
       textchildren.length = 0;
     }

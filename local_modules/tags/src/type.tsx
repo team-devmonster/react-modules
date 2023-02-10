@@ -14,7 +14,9 @@ export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'border
   fontSize?:number,
   lineHeight?:number,
   borderRadius?:number,
-  placeholderColor?:string
+  placeholderColor?:string,
+  icon?:TagElement,
+  iconColor?:string
 }
 export interface TagGroupConfig {
   // tag - default
@@ -53,6 +55,7 @@ export interface TagConfig {
   hoverStyle?:TagStyle,
 }
 
+export type EllipsizeModeType = "head" | "tail" | "middle" | "clip";
 export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onClick'> {
   tag?:string,
   childTag?:string,
@@ -60,7 +63,7 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onC
   style?:TagStyle,
   hoverStyle?:TagStyle,
   numberOfLines?:number,
-  ellipsizeMode?:"head" | "tail" | "middle" | "clip",
+  ellipsizeMode?:EllipsizeModeType,
   onLayout?:(e:OnLayoutEvent) => void
 }
 export interface ButtonStyle extends TagStyle {
@@ -128,17 +131,20 @@ export interface InputConfig {
   'type=radio'?:InputRadioConfig,
   'type=date'?:InputDateConfig,
   'type=month'?:InputDateConfig,
+  'type=datetime-local'?:InputDateConfig,
   'type=time'?:InputDateConfig,
   'type=file'?:InputFileConfig,
 }
 
 export interface InputCheckboxConfig {
   style?:InputCheckboxStyle,
+  checkedStyle?:InputCheckboxStyle,
   disabledStyle?:InputCheckboxStyle,
   errorStyle?:InputCheckboxStyle
 }
 export interface InputRadioConfig {
   style?:InputRadioStyle,
+  checkedStyle?:InputRadioStyle,
   disabledStyle?:InputRadioStyle,
   errorStyle?:InputRadioStyle
 }
@@ -170,22 +176,26 @@ export interface SelectConfig {
   cancelButtonStyle?:ButtonStyle
 }
 export interface InputCheckboxStyle extends TagStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number
 }
 export interface InputRadioStyle extends TagStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number
 }
 export interface InputDateStyle extends TagStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number
 }
 
 export interface SelectStyle extends InputStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number
@@ -193,7 +203,6 @@ export interface SelectStyle extends InputStyle {
 export interface ErrorTextConfig {
   style?:TagStyle
 }
-
 export interface LabelConfig {
   style?:TagStyle,
   disabledStyle?:TagStyle,

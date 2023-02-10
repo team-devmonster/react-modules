@@ -2,13 +2,11 @@ import { useEffect, useState } from "react"
 import { ModalPortal } from "./portal"
 
 export type ModalProps = {
-  animationType?:any,
   visible?:boolean,
   onRequestClose?:(e?:any) => void,
-  children?:any,
-  style?:any
+  children?:any
 }
-export const Modal = ({ visible = true, onRequestClose, children, style }:ModalProps) => {
+export const Modal = ({ visible = true, onRequestClose, children }:ModalProps) => {
 
   const [prevVisible, setPrevVisible] = useState(visible);
 
@@ -20,8 +18,8 @@ export const Modal = ({ visible = true, onRequestClose, children, style }:ModalP
   }, [visible]);
 
   return (
-    <ModalPortal style={style}>
-      { visible ? children : null }      
+    <ModalPortal>
+      { visible ? children : null }
     </ModalPortal>
   )
 }

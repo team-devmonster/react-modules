@@ -1,4 +1,4 @@
-import { ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-tags"
+import { ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-tags"
 import { FocusEventHandler, KeyboardEventHandler, SyntheticEvent } from "react"
 import { Control, FieldErrorsImpl, Path } from "react-hook-form"
 
@@ -58,7 +58,7 @@ export interface InputRuleProps {
 
 export interface FormValues {[name:string]:any};
 
-export interface InputProps<T extends FormValues = any> extends InputRuleProps, Omit<ButtonProps, 'children'> {
+export interface InputProps<T extends FormValues = any> extends InputRuleProps {
   control:Control<T>,
   name:Path<T>,
   placeholder?:string,
@@ -71,6 +71,8 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   onKeyUp?:KeyboardEventHandler<HTMLInputElement>,
   onEnter?:KeyboardEventHandler<HTMLInputElement>,
   onFocus?:FocusEventHandler<HTMLInputElement>,
+  // input['type=text']
+  keyboardType?:InputKeyboardType,
   // options by types
   cameraText?:string,
   albumText?:string,
@@ -88,7 +90,8 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
 }
 export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|'hidden'|InputDateType;
 export type InputDateType = 'date'|'time'|'month';
-export type ReturnKeyType = "done" | "go" | "next" | "search" | "send"
+export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
+export type InputKeyboardType = 'default'|'email-address'|'number-pad'|'numeric'|'decimal-pad'|'phone-pad'|'url';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
   errors?: Partial<FieldErrorsImpl<T>>,
