@@ -36,6 +36,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ### additional Items
 These items are not contained this library.
+I super recommend use with this plz.
 from [`react-form`](https://www.npmjs.com/package/@team-devmonster/react-form).
 - [o] [Input]
 - [o] [ErrorText]
@@ -44,6 +45,12 @@ from [`react-form`](https://www.npmjs.com/package/@team-devmonster/react-form).
 - [o] [input[type=radio]]
 - [o] [input[type=date]]
 - [o] [input[type=time]]
+
+
+### new Items
+These Used to explicitly declare a `tag`.
+It has the same name and usage as the components used in `react-native`.
+- [o] [LinearGradient](https://docs.expo.dev/versions/latest/sdk/linear-gradient/). `expo-linear-gradient`
 
 
 ## Getting started

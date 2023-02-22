@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr } from "@local_modules/tags";
+import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr, LinearGradient } from "@local_modules/tags";
 import { Theme } from "App.theme";
 
 const TagsEx = () => {
@@ -10,25 +10,25 @@ const TagsEx = () => {
   return (
     <Div
       onLayout={(e) => {
-        console.log(e.nativeEvent.layout);
+        // console.log(e.nativeEvent.layout);
       }}
       style={{
         backgroundColor: color.backgroundColor, 
         flex: 1, 
         padding: 18 
       }}>
-      <LinearGradient
-        // Background Linear Gradient
-        start={{ x: 0, y: 0.5 }} end={{ x: 0, y: 1 }}
-        colors={['#4c669f', '#3b5998', '#6a3119']}
-        style={{ width: 200, height: 200 }}
-      />
-      <LinearGradient start={{ x: 0, y: 0.5 }} end={{ x: 0, y: 1 }} style={{ width: 200, height: 200 }} colors={['#711BD9', '#FF7171']}></LinearGradient>
       <Div>
         <Button color={color.step900} onClick={() => alert('pressed')}>
           {`2. button => <Button></Button>`}
         </Button>
       </Div>
+      <LinearGradient
+        // Background Linear Gradient
+        start={{ x: 0.5, y: 0 }} end={{ x: 1, y: 1 }}
+        colors={['#4c669f', '#6a3119']}
+        style={{ width: 400, height: 200 }}
+      >hello</LinearGradient>
+      <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 200, height: 200 }} colors={['#711BD9', '#FF7171']}></LinearGradient>
       <Div>
         <Img
           style={{

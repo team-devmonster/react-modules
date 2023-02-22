@@ -16,5 +16,6 @@ export * from './src/h3';
 export * from './src/div';
 export * from './src/img';
 export * from './src/p';
+export * from './src/LinearGradient';
 export * from './src/span';
 export * from './src/type';

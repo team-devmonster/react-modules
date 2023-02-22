@@ -8,19 +8,18 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
   useImperativeHandle(ref, () => tagRef.current);
 
   useEffect(() => {
-    
-    const handleResize = () => {
-      if(!tagRef.current) return;
-      // Set window width/height to state
-      const { x, y, width, height  } = tagRef.current?.getBoundingClientRect();
-      onLayout?.({ 
-        nativeEvent: {
-          layout: { width, height, x, y }
-        }
-      });
-    }
-
+    let handleResize:() => void;
     if(onLayout) {
+      handleResize = () => {
+        if(!tagRef.current) return;
+        // Set window width/height to state
+        const { x, y, width, height  } = tagRef.current?.getBoundingClientRect();
+        onLayout?.({ 
+          nativeEvent: {
+            layout: { width, height, x, y }
+          }
+        });
+      }
       // only execute all the code below in client side
       // Handler to call on window resize
       // Add event listener
@@ -30,7 +29,11 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
       handleResize();
     }
     // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      if(handleResize) {
+        window.removeEventListener("resize", handleResize);
+      }
+    }
   }, [onLayout]); // Empty array ensures that effect is only run on mount
 
   const Tag:any = tag || 'div';
