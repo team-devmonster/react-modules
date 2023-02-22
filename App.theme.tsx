@@ -1,5 +1,5 @@
 import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
-import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@team-devmonster/react-tags";
+import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@local_modules/tags";
 
 const color = {
   light: {
@@ -99,6 +99,7 @@ const theme = (color:Color) => {
   }
   
   const button:ButtonProps = {
+    animated: false,
     color: color.white,
     style: {
       cursor: 'pointer',

@@ -6,6 +6,7 @@ import { darken, lighten, getLightOrDark } from "./utils";
 export const Button = forwardRef((
     {
       tag = 'button',
+      animated:inlineAnimated,
       color:inlineColor, 
       fill:_fill, 
       style, 
@@ -21,9 +22,10 @@ export const Button = forwardRef((
     ref:LegacyRef<HTMLButtonElement>
   ) => {
 
-  const Tag:any = tag;
   const { tagConfig } = useTags();
-  
+
+  const Tag:any = tag;
+  const animated = inlineAnimated ?? tagConfig?.button?.animated ?? true;
   const fill = _fill || tagConfig?.button?.fill || 'base';
   const color = useMemo(() => inlineColor || tagConfig?.button?.color || '#FF6420', [inlineColor, tagConfig?.button?.color]);
   const lightOrDark = useMemo(() => getLightOrDark(color), [color]);
@@ -41,10 +43,10 @@ export const Button = forwardRef((
   ], [
     styles.tagStyle,
     style,
-    hover ? styles.tagHoverStyle : undefined,
-    hover ? hoverStyle : undefined,
-    active ? styles.tagActiveStyle : undefined,
-    active ? activeStyle : undefined,
+    animated && hover ? styles.tagHoverStyle : undefined,
+    animated && hover ? hoverStyle : undefined,
+    animated && active ? styles.tagActiveStyle : undefined,
+    animated && active ? activeStyle : undefined,
     disabled ? styles.tagDisabledStyle : undefined,
     disabled ? disabledStyle : undefined
   ]);

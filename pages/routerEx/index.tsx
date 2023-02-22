@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Div, Button, Img } from "@tags";
+import { Div, Button, Img } from "@local_modules/tags";
 import { A, Header, Layout, Footer, FixedLayout } from "@local_modules/router";
 
 import ImgBell from "@image/header/bell.svg";
