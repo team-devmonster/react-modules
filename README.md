@@ -20,7 +20,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 ### react-native start<br>
 
 :: dependencies<br>
-`$ npm install react-native-safe-area-context react-native-screens @react-navigation/native @react-navigation/native-stack react-hook-form @hookform/error-message react-native-svg react-native-svg-transformer @react-native-picker/picker react-native-date-picker react-native-month-year-picker react-native-image-picker react-native-document-picker @react-native-masked-view/masked-view react-native-linear-gradient react-native-reanimated react-native-gesture-handler`
+`$ npm install react-native-safe-area-context react-native-screens @react-navigation/native @react-navigation/native-stack react-hook-form @hookform/error-message react-native-svg react-native-svg-transformer @react-native-picker/picker react-native-date-picker react-native-month-year-picker react-native-image-picker react-native-document-picker @react-native-masked-view/masked-view expo-linear-gradient react-native-reanimated react-native-gesture-handler`
 
 :::: all react-native modules<br>
 `$ npm install @team-devmonster/date@latest @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`

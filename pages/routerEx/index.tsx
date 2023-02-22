@@ -62,25 +62,27 @@ const RouterEx = () => {
           <Button style={{ bottom: 100, right: 100 }}>hover button</Button>
         </FixedLayout>
         
-        <A href='/themeEx'>
-          <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
-        </A>
-        <A href={{
-          pathname: '/routerEx/paramEx',
-          query: {
-            name: 'soohong kim',
-            nickname: 'aldegad',
-            company: 'devmonster'
-          }
-        }}>
-          <Button color={color.danger} style={{ marginBottom: 8 }}>paramEx</Button>
-        </A>
-        <A href='https://www.google.co.kr'>
-          <Button color={color.warning} style={{ marginBottom: 8 }}>google</Button>
-        </A>
-        <A href='https://www.google.co.kr' target="blank">
-          <Button color={color.warning}>google target blank</Button>
-        </A>
+        <Div>
+          <A href='/themeEx'>
+            <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
+          </A>
+          <A href={{
+            pathname: '/routerEx/paramEx',
+            query: {
+              name: 'soohong kim',
+              nickname: 'aldegad',
+              company: 'devmonster'
+            }
+          }}>
+            <Button color={color.danger} style={{ marginBottom: 8 }}>paramEx</Button>
+          </A>
+          <A href='https://www.google.co.kr'>
+            <Button color={color.warning} style={{ marginBottom: 8 }}>google</Button>
+          </A>
+          <A href='https://www.google.co.kr' target="blank">
+            <Button color={color.warning}>google target blank</Button>
+          </A>
+        </Div>
 
         <Footer>
           <Button>tabs1</Button>

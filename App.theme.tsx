@@ -130,6 +130,8 @@ const theme = (color:Color) => {
     }
   }
 
+
+
   return {
     // basic theme
     color, 
@@ -149,7 +151,7 @@ export type Theme = ReturnType<typeof theme>;
 
 export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
   return (
-    <ThemeProvider color={color} theme={theme}>
+    <ThemeProvider color={color} theme={theme} darkModeEnabled={false}>
       {children}
     </ThemeProvider>
   )

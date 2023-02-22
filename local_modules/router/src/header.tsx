@@ -50,7 +50,8 @@ export const Header = forwardRef((
         position: 'fixed', 
         top: 0, 
         left: 0, 
-        width: '100%'
+        width: '100%',
+        zIndex: 100
       }}>
       <Div style={{
         flexDirection: 'row',
@@ -59,8 +60,7 @@ export const Header = forwardRef((
         paddingLeft: 20,
         paddingRight: 20,
         minHeight: 56,
-        backgroundColor: '#ffffff',
-        zIndex: 100
+        backgroundColor: '#ffffff'
       }}>
         <Div 
           style={{
@@ -93,7 +93,7 @@ export const Header = forwardRef((
           left: 0,
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#ffffff',
+          color: '#000000',
           zIndex: 1,
           ...(headerTagStyle?.color ? {color: headerTagStyle.color} : null),
           ...(style?.color ? {color: style.color} : null),

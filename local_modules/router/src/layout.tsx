@@ -1,4 +1,4 @@
-import React, { forwardRef, LegacyRef, useMemo, useState } from "react";
+import React, { forwardRef, LegacyRef, useEffect, useMemo, useState } from "react";
 import { Div, TagElement, TagProps, useTags } from "@team-devmonster/react-tags";
 import { Edge } from "./type";
 import { Footer } from "./footer";
@@ -15,15 +15,25 @@ export const Layout = forwardRef(({ children, edges:_, style, ...rest }:LayoutPr
   const { header, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
+  const contentStyle = useMemo(() => ({ ...layoutTagStyle, ...style }), [layoutTagStyle, style]);
+
+  useEffect(() => {
+    const body = document.body;
+    if(body) {
+      body.style.backgroundColor = contentStyle.backgroundColor as string;
+    }
+  }, [style?.backgroundColor]);
 
   return (
     <Div 
       ref={ref as any}
       {...rest}
       style={{
-        ...layoutTagStyle,
-        ...style,
-        ...(style?.overflow === 'hidden' ? { height: '100vh' } : null)
+        flex: 1,
+        ...(style?.overflow === 'hidden' ? { height: '100vh' } : null),
+        paddingTop: header?.props?.style?.height || headerRef?.offsetHeight,
+        paddingBottom: header?.props?.style?.height || footerRef?.offsetHeight,
+        ...header?.props?.contentStyle
       }}>
       {
         header ?
@@ -34,9 +44,8 @@ export const Layout = forwardRef(({ children, edges:_, style, ...rest }:LayoutPr
       }
       <Div style={{ 
         flex: 1, 
-        paddingTop: header?.props?.style?.height || headerRef?.offsetHeight,
-        paddingBottom: header?.props?.style?.height || footerRef?.offsetHeight,
-        ...header?.props?.contentStyle
+        ...contentStyle,
+        ...style,
       }}>
         {contents}
       </Div>
