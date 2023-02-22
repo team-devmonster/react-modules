@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr } from "@team-devmonster/react-tags";
+import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr } from "@local_modules/tags";
 import { Theme } from "App.theme";
 
 const TagsEx = () => {
@@ -48,9 +48,12 @@ const TagsEx = () => {
         hello?
         <Button color={color.step500}>not inline button. normal button.</Button>
       </P>
-      <P>
-        text with <Br/>hello
-      </P>
+      <P numberOfLines={1}>
+{`text with hello1
+wefe
+sdafsadf
+asdsad
+`}</P>
       <Button 
         color={color.primary}
         fill="outline"

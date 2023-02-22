@@ -138,7 +138,18 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
         WebkitBoxOrient: 'vertical'
       }
     }
-    else return null;
+
+    if(numberOfLines) {
+      return {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        display: '-webkit-box',
+        WebkitLineClamp: numberOfLines,
+        WebkitBoxOrient: 'vertical'
+      }
+    }
+
+    return null;
   }, [numberOfLines, ellipsizeMode]);
 
   return (
