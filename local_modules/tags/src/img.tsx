@@ -22,7 +22,7 @@ export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
       return (
         <img 
           {...rest}
-          alt={alt}
+          alt={alt || 'image'}
           src={src}
           style={{
             objectFit: objectFit || 'contain',

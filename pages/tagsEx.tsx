@@ -17,6 +17,13 @@ const TagsEx = () => {
         flex: 1, 
         padding: 18 
       }}>
+      <LinearGradient
+        // Background Linear Gradient
+        start={{ x: 0, y: 0.5 }} end={{ x: 0, y: 1 }}
+        colors={['#4c669f', '#3b5998', '#6a3119']}
+        style={{ width: 200, height: 200 }}
+      />
+      <LinearGradient start={{ x: 0, y: 0.5 }} end={{ x: 0, y: 1 }} style={{ width: 200, height: 200 }} colors={['#711BD9', '#FF7171']}></LinearGradient>
       <Div>
         <Button color={color.step900} onClick={() => alert('pressed')}>
           {`2. button => <Button></Button>`}
@@ -25,7 +32,7 @@ const TagsEx = () => {
       <Div>
         <Img
           style={{
-            width: '100%',
+            width: 100,
             aspectRatio: 1.2, 
             backgroundColor: color.step500,
             objectFit: 'cover'

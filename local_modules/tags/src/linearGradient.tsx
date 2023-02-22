@@ -2,7 +2,12 @@ import { forwardRef, Ref, useEffect, useImperativeHandle, useRef } from "react";
 import { useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
 import { TagProps } from "./type";
 
-export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, ellipsizeMode, onLayout, ...rest}:TagProps, ref:Ref<HTMLDivElement|null>) => {
+interface LinearGradientProps extends TagProps {
+  start:{x:number, y:number},
+  end:{x:number, y:number},
+  colors:string[]
+}
+export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, ellipsizeMode, onLayout, start, end, colors, ...rest}:LinearGradientProps, ref:Ref<HTMLDivElement|null>) => {
 
   const tagRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => tagRef.current);
@@ -47,7 +52,7 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
   
   return (
     <Tag
-      {...rest} 
+      {...rest}
       ref={tagRef}
       style={{
         ...flexDefaultStyle,

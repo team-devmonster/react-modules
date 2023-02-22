@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from "react";
+import React, { Children, createContext, useContext, useMemo } from "react";
 import { TagStyle, TagProps, TagGroupConfig, TagElement } from "./type";
 
 
@@ -67,62 +67,81 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-export const TagModule = ({ children, style, tag, numberOfLines, ellipsizeMode }:TagProps) => {
-
-  const tagChildren = useMemo(() => makeTagChildren({ children, style, tag, numberOfLines, ellipsizeMode }), [children, style, tag, numberOfLines, ellipsizeMode]);
-
-  return tagChildren as JSX.Element;
+export const TagModule = (props:TagProps) => {
+  return <TagChildren {...props}/>
 }
-const makeTagChildren = ({ children, style, tag, numberOfLines, ellipsizeMode }:{ children?:TagElement, style?:TagStyle, tag?:string, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
-  if(Array.isArray(children)) {
-    const newChildren:TagElement[] = [];
-    const textchildren:(JSX.Element|string)[] = [];
-    children.forEach((child, i) => {
-      if(Array.isArray(child)) {
-        newChildren.push(child);
-      }
-      else if(child) {
-        if(typeof child === 'string' || typeof child === 'number') {
-          textchildren.push(String(child));
-        }
-        else if(child.type?.displayName === 'Br' || child.type?.displayName === 'Span' || child.props?.style?.display === 'inline-flex') {
-          textchildren.push(child);
-        }
-        else {
-          if(textchildren.length) {
-            newChildren.push(
-              <Text key={`tag_${i}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
-            )
-            textchildren.length = 0;
-          }
+const TagChildren = ({ children:rawChildren, ...rest }:{ children?:TagElement, style?:TagStyle, tag?:string, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
+  let textChildren:(JSX.Element|string)[] = [];
+  const children = Children.toArray(rawChildren) as TagElement[];
+  const newChildren = Children.map(children, (child, index) => {
+    if(!child) return null;
+    if(Array.isArray(child)) return child;
 
-          newChildren.push(child);
-        }
+    if(typeof child === 'string' || typeof child === 'number' 
+    || child.type?.displayName === 'Br' || child.type?.displayName === 'Span') {
+      textChildren.push(typeof child === 'number' ? String(child) : child);
+
+      if(index < children.length - 1) {
+        return null;
       }
-      else {
-        newChildren.push(child);
-      }
-    });
-    
-    // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
-    if(textchildren.length) {
-      newChildren.push(
-        <Text key={`tag_${children.length}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
-      );
-      textchildren.length = 0;
+
+      const cloneTextChildren = [...textChildren];
+      textChildren = [];
+      return <GroupText textChildren={cloneTextChildren} {...rest}/>;
     }
-    return newChildren;
+
+    if(child.props?.style?.display === 'inline-flex') {
+      
+      const cloneTextChildren = [...textChildren];
+      textChildren = [];
+      return (
+        <>
+          <GroupText textChildren={cloneTextChildren} {...rest}/>
+          { React.cloneElement(child, { style: { ...child.props.style, display: 'flex' } }) }
+        </>
+      )
+    }
+
+    const cloneTextChildren = [...textChildren];
+    textChildren = [];
+    return (
+      <>
+        <GroupText textChildren={cloneTextChildren} {...rest}/>
+        <GapView child={child}/>
+      </>
+    )
+    
+  })
+  return (
+    <>
+      {newChildren}
+    </>
+  )
+}
+
+const GapView = ({ child }:{ child:JSX.Element }) => {  
+  return child;
+}
+
+const GroupText = ({ tag, textChildren, style, numberOfLines, ellipsizeMode:_ }:{ tag?:any, textChildren:TagElement[], style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
+  if(!textChildren.length) {
+    return null;
   }
-  else if(typeof children === 'string' || typeof children === 'number') {
-    return <Text tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{children}</Text>
-  }
-  else {
-    return children;
-  }
+  
+  return (
+    <Text
+      tag={tag}
+      style={{
+        lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
+        ...style
+      }}
+      ellipsizeMode="tail"
+      numberOfLines={numberOfLines}
+    >{textChildren}</Text>
+  )
 }
 
 const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => {
-
   const Tag:any = tag || 'p';
 
   const fontSize = useMemo(() =>  style?.fontSize || 14, [style?.fontSize])
@@ -153,13 +172,63 @@ const Text = ({tag, style, children, numberOfLines, ellipsizeMode}:TagProps) => 
   }, [numberOfLines, ellipsizeMode]);
 
   return (
-    <Tag
-      style={{
-        whiteSpace: 'pre-line',
-        ...lineClamp,
-        ...style,
-        fontSize,
-        lineHeight
-      }}>{children}</Tag>
-  )
+    <Tag style={{
+      whiteSpace: 'pre-line',
+      ...lineClamp,
+      ...style,
+      fontSize,
+      lineHeight
+    }}>{children}</Tag>
+  );
 }
+
+
+
+
+
+// 예전 코드. 절대 삭제 금지. 삭제하면 나 울음
+/* if(Array.isArray(children)) {
+  const newChildren:TagElement[] = [];
+  const textchildren:(JSX.Element|string)[] = [];
+  children.forEach((child, i) => {
+    if(Array.isArray(child)) {
+      newChildren.push(child);
+    }
+    else if(child) {
+      if(typeof child === 'string' || typeof child === 'number') {
+        textchildren.push(String(child));
+      }
+      else if(child.type?.displayName === 'Br' || child.type?.displayName === 'Span' || child.props?.style?.display === 'inline-flex') {
+        textchildren.push(child);
+      }
+      else {
+        if(textchildren.length) {
+          newChildren.push(
+            <Text key={`tag_${i}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
+          )
+          textchildren.length = 0;
+        }
+
+        newChildren.push(child);
+      }
+    }
+    else {
+      newChildren.push(child);
+    }
+  });
+  
+  // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
+  if(textchildren.length) {
+    newChildren.push(
+      <Text key={`tag_${children.length}`} tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{[...textchildren]}</Text>
+    );
+    textchildren.length = 0;
+  }
+  return newChildren;
+}
+else if(typeof children === 'string' || typeof children === 'number') {
+  return <Text tag={tag} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{children}</Text>
+}
+else {
+  return children;
+} */
