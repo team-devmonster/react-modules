@@ -1,5 +1,5 @@
 import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
-import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@local_modules/tags";
+import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@team-devmonster/react-tags";
 
 const color = {
   light: {
@@ -68,6 +68,7 @@ const theme = (color:Color) => {
   const input:InputConfig = {
     style: {
       position: 'relative',
+      placeholderColor: 'red',
       backgroundColor: color.white,
       borderColor: color.step300,
       color: color.black,

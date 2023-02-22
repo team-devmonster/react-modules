@@ -7,7 +7,7 @@ type Color = {
   dark?: {[name:string]:string}
 }
 
-export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean}) {
+export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true, useCssProperty = false}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean, useCssProperty?:boolean}) {
 
   const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 
@@ -16,17 +16,21 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
     const colorScheme = darkModeEnabled ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' : 'light';
     setColorScheme(colorScheme);
 
-    const root = document.documentElement;
-    for(let key in color[colorScheme]) {
-      root.style.setProperty(`--${key}`, color[colorScheme]![key]);
+    if(useCssProperty) {
+      const root = document.documentElement;
+      for(let key in color[colorScheme]) {
+        root.style.setProperty(`--${key}`, color[colorScheme]![key]);
+      }
     }
 
     const fn = (event:MediaQueryListEvent) => {
       const colorScheme = darkModeEnabled ? event.matches ? 'dark' : 'light' : 'light';
 
-      const root = document.documentElement;
-      for(let key in color[colorScheme]) {
-        root.style.setProperty(`--${key}`, color[colorScheme]![key]);
+      if(useCssProperty) {
+        const root = document.documentElement;
+        for(let key in color[colorScheme]) {
+          root.style.setProperty(`--${key}`, color[colorScheme]![key]);
+        }
       }
 
       setColorScheme(colorScheme);
@@ -82,7 +86,7 @@ function normalize() {
         padding: 0;
       }
       ::placeholder {
-        color: var(--placeholder, #a8a8a8);
+        opacity: 1;
       }
       a {
         color: inherit;
@@ -94,7 +98,6 @@ function normalize() {
           color-scheme: dark;
         }
       }
-
 
       /** entering & exiting animation group */
       .devmonster-fade-enter {

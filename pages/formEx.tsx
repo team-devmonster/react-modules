@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Button, Div } from "@local_modules/tags";
+import { Button, Div } from "@team-devmonster/react-tags";
 import { Layout } from "@local_modules/router";
 import { ErrorText, Input, Label, Select, Textarea, Option } from "@local_modules/form";
 
@@ -51,6 +51,7 @@ const FormEx = () => {
         
         <Label errors={errors} name="password">password</Label>
         <Input 
+          style={{ placeholderColor: '#000000' }}
           control={control} 
           name="password"
           type="password"
