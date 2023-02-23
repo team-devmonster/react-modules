@@ -1,5 +1,5 @@
 import { forwardRef, Ref, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
-import { useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
+import { useTagStyle, textPattern, TagModule, useTags } from "./core";
 import { TagProps } from "./type";
 
 interface LinearGradientProps extends TagProps {
@@ -84,10 +84,10 @@ export const LinearGradient = forwardRef(({style, children, tag, childTag, numbe
   
   return (
     <Tag
+      className="devmonster-flex"
       {...rest}
       ref={tagRef}
       style={{
-        ...flexDefaultStyle,
         ...viewStyle
       }}>
       <TagModule

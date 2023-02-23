@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Button, Div } from "@team-devmonster/react-tags";
+//import { Button, Div } from "@team-devmonster/react-tags";
+import { Button, Div } from "@local_modules/tags";
 import { Layout } from "@local_modules/router";
 import { ErrorText, Input, Label, Select, Textarea, Option } from "@local_modules/form";
 
@@ -144,7 +145,7 @@ const FormEx = () => {
           value="2022-11-27 22:49"
           placeholder="date time"></Input> */}
 
-        <Textarea control={control} name="longText" placeholder="textarea"></Textarea>
+        <Textarea control={control} name="longText" style={{ placeholderColor: 'red' }} placeholder="textarea"></Textarea>
 
         <Input 
           type="time" 

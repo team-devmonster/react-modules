@@ -1,5 +1,5 @@
 import { forwardRef, Ref, useEffect, useImperativeHandle, useRef } from "react";
-import { useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
+import { useTagStyle, textPattern, TagModule, useTags } from "./core";
 import { TagProps } from "./type";
 
 export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, ellipsizeMode, onLayout, ...rest}:TagProps, ref:Ref<HTMLDivElement|null>) => {
@@ -51,10 +51,10 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
   
   return (
     <Tag
+      className="devmonster-flex"
       {...rest} 
       ref={tagRef}
       style={{
-        ...flexDefaultStyle,
         ...viewStyle
       }}>
       <TagModule

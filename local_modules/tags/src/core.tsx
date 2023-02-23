@@ -1,10 +1,73 @@
-import React, { Children, createContext, useContext, useMemo } from "react";
+import React, { Children, createContext, useContext, useEffect, useMemo } from "react";
 import { TagStyle, TagProps, TagGroupConfig, TagElement } from "./type";
 
 
 const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
 
 export function TagProvider({children, tagConfig}:{children:React.ReactNode, tagConfig?:TagGroupConfig}) {
+
+  useEffect(() => {
+    // set default styles
+    const style = document.getElementById('devmonster-react-tags');
+    if(style) return;
+    document.head.insertAdjacentHTML("beforeend", `
+      <style id="devmonster-react-tags">
+        * {
+          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+          border-style: solid;
+          border-width: 0;
+          outline: none;
+        }
+        button {
+          padding: 0;
+        }
+        ::placeholder {
+          opacity: 1;
+        }
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          html {
+            color-scheme: dark;
+          }
+        }
+
+        .devmonster-flex {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+        }
+        .devmonster-button {
+          text-align: left,
+          align-items: stretch,
+          cursor: pointer
+        }
+
+
+        /** entering & exiting animation group */
+        .devmonster-fade-enter {
+          opacity: 0.01;
+        }
+        .devmonster-fade-enter.devmonster-fade-enter-active {
+          opacity: 1;
+          transition: opacity 300ms ease-in;
+        }
+        
+        .devmonster-fade-leave {
+          opacity: 1;
+        }
+        .devmonster-fade-leave.devmonster-fade-leave-active {
+          opacity: 0.01;
+          transition: opacity 300ms ease-in;
+        }
+      </style>
+    `)
+  }, []);
 
   return (
     <TagContext.Provider value={{ tagConfig }}>
@@ -26,11 +89,6 @@ export const placeholderPattern = /^(placeholder)/;
 export const gapPattern = /(gap|Gap)/;
 export const iconPattern = /(^icon)/;
 
-export const flexDefaultStyle:TagStyle = {
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column'
-}
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]) => {
 
   const styles = useMemo(() => makeTagStyle({ patterns, styleStates }), styleStates);

@@ -12,7 +12,6 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 
   useEffect(() => {
-    normalize();
     const colorScheme = darkModeEnabled ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' : 'light';
     setColorScheme(colorScheme);
 
@@ -66,55 +65,4 @@ type ThemeProps<T> = Merge<T, {
 
 export function useTheme<T>() {
   return useContext<ThemeProps<T>>(ThemeContext);
-}
-
-function normalize() {
-  // set default styles
-  const style = document.getElementById('team-devmonster-react-theme');
-  if(style) return;
-  document.head.insertAdjacentHTML("beforeend", `
-    <style id="team-devmonster-react-theme">
-      * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        border-style: solid;
-        border-width: 0;
-        outline: none;
-      }
-      button {
-        padding: 0;
-      }
-      ::placeholder {
-        opacity: 1;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html {
-          color-scheme: dark;
-        }
-      }
-
-      /** entering & exiting animation group */
-      .devmonster-fade-enter {
-        opacity: 0.01;
-      }
-      .devmonster-fade-enter.devmonster-fade-enter-active {
-        opacity: 1;
-        transition: opacity 300ms ease-in;
-      }
-      
-      .devmonster-fade-leave {
-        opacity: 1;
-      }
-      .devmonster-fade-leave.devmonster-fade-leave-active {
-        opacity: 0.01;
-        transition: opacity 300ms ease-in;
-      }
-    </style>
-  `)
 }

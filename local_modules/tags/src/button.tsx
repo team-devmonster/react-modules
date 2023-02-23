@@ -1,5 +1,5 @@
 import { forwardRef, LegacyRef, useMemo, useState } from "react";
-import { useTagStyle, textPattern, flexDefaultStyle, TagModule, useTags } from "./core";
+import { useTagStyle, textPattern, TagModule, useTags } from "./core";
 import { ButtonProps, FillProps, TagGroupConfig } from "./type";
 import { darken, lighten, getLightOrDark } from "./utils";
 
@@ -67,14 +67,11 @@ export const Button = forwardRef((
 
   return (
     <Tag 
+      className="devmonster-flex devmonster-button"
       ref={ref}
       disabled={disabled}
       style={{
-        appearance: 'none',
-        textAlign: 'left',
-        cursor: !disabled ? 'pointer' : 'default',
-        alignItems: 'stretch',
-        ...flexDefaultStyle,
+        cursor: disabled ? 'default' : undefined,
         ...etcStyle
       }}
 

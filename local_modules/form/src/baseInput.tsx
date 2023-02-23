@@ -89,11 +89,11 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             if(style) return;
   
             document.head.insertAdjacentHTML("beforeend", `
-              <style id="team-devmonster-react-form_input-${placeholderColor}">
-                .placeholder-${placeholderColor}::placeholder {
+              <style id="team-devmonster-react-form-input-${placeholderColor}">
+                .team-devmonster-placeholder-${placeholderColor}::placeholder {
                   color: ${inputStyle.placeholderColor};
                 }
-                .placeholder-${inputStyle.placeholderColor}::-ms-input-placeholder {
+                .team-devmonster-placeholder-${inputStyle.placeholderColor}::-ms-input-placeholder {
                   color: ${inputStyle.placeholderColor};
                 }
               </style>
@@ -103,7 +103,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
 
         return (
           <input
-            className={`placeholder-${inputStyle.placeholderColor?.replace('#', '')}`}
+            className={`team-devmonster-placeholder-${inputStyle.placeholderColor?.replace('#', '')}`}
             ref={ref}
             onChange={e => newOnChange(e.target.value)}
             onBlur={onBlur}
