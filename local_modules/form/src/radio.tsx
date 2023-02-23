@@ -62,6 +62,8 @@ export function Radio<T extends FormValues>(
 
         return (
           <Button
+            tag="div"
+            fill="none"
             color={newStyle.backgroundColor}
             style={{
               ...radioDefaultStyle,
