@@ -3,7 +3,7 @@ import { useTags } from "./core";
 import { Div } from "./div";
 import { TagProps } from "./type";
 
-export const P = forwardRef(({style, ...rest}:TagProps, ref:Ref<HTMLParagraphElement>) => {
+export const P = forwardRef(({tag, style, ...rest}:TagProps, ref:Ref<HTMLParagraphElement>) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.p?.style;
@@ -11,7 +11,7 @@ export const P = forwardRef(({style, ...rest}:TagProps, ref:Ref<HTMLParagraphEle
   return (
     <Div 
       ref={ref}
-      tag="p"
+      tag={tag || 'p'}
       childTag="span"
       style={{
         ...tagStyle, 

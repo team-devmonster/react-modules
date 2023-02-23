@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import { Control, Controller, Path as Names } from 'react-hook-form';
 
 import { FormValues, InputProps } from "./type";
-import { TagStyle, useTags, useTagStyle, borderPattern, TagGroupConfig } from '@team-devmonster/react-tags';
+import { TagStyle, useTags, useTagStyle, borderPattern, TagGroupConfig, Button } from '@team-devmonster/react-tags';
+import { formStyles, getIcon } from "./utils";
 export interface CheckboxProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
   control:Control<T>,
   name:Names<T>,
@@ -17,6 +18,7 @@ export function Checkbox<T extends FormValues>({
     style,
     disabledStyle,
     errorStyle,
+    checkedStyle,
     value,
     onClick,
     ...rules
@@ -38,42 +40,64 @@ export function Checkbox<T extends FormValues>({
        }) => {
 
         const [
-          inputStyle
+          newStyle
         ]
         = useTagStyle([
 
         ], [
-          styles.checkboxTagStyle, 
-          disabled ? styles.checkboxTagDisabledStyle : undefined,
-          error ? styles.checkboxTagErrorStyle : undefined,
+          styles.tagStyle, 
+          disabled ? styles.tagDisabledStyle : undefined,
+          error ? styles.tagErrorStyle : undefined,
+          value ? styles.tagCheckedStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
-          error ? errorStyle : undefined
+          error ? errorStyle : undefined,
+          value ? checkedStyle : undefined
         ]);
 
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
+
         return (
-          <input
-            ref={ref}
-            name={name}
-            onClick={(e:any) => {
-              //const newValue = !value;
-              //onChange(newValue);
-              onClick?.(e);
-            }}
-            checked={value||false}
-            onChange={(e) => {
-              const newValue = e.target.checked;
-              onChange(newValue);
-            }}
-            onBlur={onBlur}
-            type="checkbox"
+          <Button
+            fill="none"
+            color={newStyle.backgroundColor}
             style={{
               width: 38,
               height: 38,
-              ...inputStyle
+              justifyContent: 'center',
+              alignItems: 'center',
+              ...newStyle
             }}
             disabled={disabled}
-          />
+            onClick={(e) => {
+              e.stopPropagation();
+              const newValue = !value;
+              onChange(newValue);
+              onClick?.({...e, value: newValue});
+            }}>
+              <input
+                type="checkbox"
+                ref={ref}
+                onBlur={onBlur}
+                style={formStyles.dummyInput}
+              />
+              {
+                icon ? 
+                  icon
+                :
+                  value ?
+                    <svg 
+                      fill="none" 
+                      viewBox="0 0 24 24"
+                      stroke={iconStyle.color || '#FF6420'} 
+                      strokeWidth={2}
+                      width={iconStyle.width || 28}
+                      height={iconStyle.height || 28}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  : null
+              }
+          </Button>
         )
        }}
     />
@@ -103,25 +127,29 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
       .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
   const backgroundErrorColor = inputErrorTagStyle?.backgroundColor;
 
-  const checkboxTagStyle = tagConfig?.input?.["type=checkbox"]?.style;
-  const checkboxTagDisabledStyle = tagConfig?.input?.["type=checkbox"]?.disabledStyle;
-  const checkboxTagErrorStyle = tagConfig?.input?.["type=checkbox"]?.errorStyle;
+  const tagStyle = tagConfig?.input?.["type=checkbox"]?.style;
+  const tagCheckedStyle = tagConfig?.input?.["type=checkbox"]?.checkedStyle;
+  const tagDisabledStyle = tagConfig?.input?.["type=checkbox"]?.disabledStyle;
+  const tagErrorStyle = tagConfig?.input?.["type=checkbox"]?.errorStyle;
 
   return {
-    checkboxTagStyle:  {
+    tagStyle:  {
       ...borderStyle,
       backgroundColor: backgroundColor,
-      ...checkboxTagStyle
+      ...tagStyle
     },
-    checkboxTagDisabledStyle: {
+    tagCheckedStyle: {
+      ...tagCheckedStyle
+    },
+    tagDisabledStyle: {
       ...borderDisabledStyle,
       backgroundColor: backgroundDisabledColor,
-      ...checkboxTagDisabledStyle
+      ...tagDisabledStyle
     },
-    checkboxTagErrorStyle: {
+    tagErrorStyle: {
       ...borderErrorStyle,
       backgroundColor: backgroundErrorColor,
-      ...checkboxTagErrorStyle
+      ...tagErrorStyle
     }
   }
 }

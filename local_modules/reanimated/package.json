@@ -1,7 +1,7 @@
 {
-  "name": "@team-devmonster/react-tags",
-  "version": "1.10.25",
-  "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
+  "name": "@team-devmonster/react-reanimated",
+  "version": "1.3.3",
+  "description": "This is devmonster's react module for make app easily. This is compatible with devmonster's react-native module.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -17,12 +17,9 @@
     "url": "git+https://github.com/team-devmonster/react-modules.git"
   },
   "keywords": [
-    "react-native",
     "react",
     "theme",
-    "tag",
-    "devmoster",
-    "team-devmonster"
+    "react-native"
   ],
   "author": "devmonster",
   "license": "MIT",
