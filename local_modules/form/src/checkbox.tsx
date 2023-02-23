@@ -59,6 +59,7 @@ export function Checkbox<T extends FormValues>({
 
         return (
           <Button
+            tag="div"
             fill="none"
             color={newStyle.backgroundColor}
             style={{
@@ -80,6 +81,7 @@ export function Checkbox<T extends FormValues>({
                 ref={ref}
                 onBlur={onBlur}
                 style={formStyles.dummyInput}
+                name={name}
               />
               {
                 icon ? 

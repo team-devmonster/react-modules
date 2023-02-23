@@ -43,9 +43,9 @@ export function TagProvider({children, tagConfig}:{children:React.ReactNode, tag
           flex-direction: column;
         }
         .devmonster-button {
-          text-align: left,
-          align-items: stretch,
-          cursor: pointer
+          text-align: left;
+          align-items: stretch;
+          cursor: pointer;
         }
 
 

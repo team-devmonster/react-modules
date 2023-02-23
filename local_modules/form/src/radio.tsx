@@ -1,8 +1,9 @@
 import { useMemo } from "react";
-import { Control, Controller, Path as Names } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
-import { FormValues, InputRuleProps } from "./type";
-import { TagStyle, useTags, useTagStyle, TagGroupConfig, borderPattern } from '@team-devmonster/react-tags';
+import { FormValues, InputProps } from "./type";
+import { TagStyle, useTags, useTagStyle, TagGroupConfig, borderPattern, Button } from '@team-devmonster/react-tags';
+import { formStyles, getIcon } from "./utils";
 
 
 const radioDefaultStyle:TagStyle = {
@@ -13,12 +14,7 @@ const radioDefaultStyle:TagStyle = {
   justifyContent: 'center',
   alignItems: 'center'
 }
-export interface RadioProps<T extends FormValues = any> extends InputRuleProps {
-  control:Control<T>,
-  name:Names<T>,
-  style?:TagStyle,
-  disabledStyle?:TagStyle,
-  errorStyle?:TagStyle
+export interface RadioProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
 }
 export function Radio<T extends FormValues>(
   {
@@ -55,27 +51,46 @@ export function Radio<T extends FormValues>(
           styles.tagStyle, 
           disabled ? styles.tagDisabledStyle : undefined,
           error ? styles.tagErrorStyle : undefined,
+          value === fieldValue ? styles.tagCheckedStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
-          error ? errorStyle : undefined
+          error ? errorStyle : undefined,
+          value === fieldValue ? styles.tagCheckedStyle : undefined,
         ]);
 
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
+
         return (
-          <input 
-            ref={ref}
-            onChange={e => {
-              onChange(e.target.value);
-            }}
-            onBlur={onBlur}
-            value={value||undefined}
-            checked={fieldValue === value}
-            type="radio"
+          <Button
+            color={newStyle.backgroundColor}
             style={{
               ...radioDefaultStyle,
               ...newStyle
             }}
-            disabled={disabled}
-            />
+            onClick={() => {
+              onChange(value);
+            }}>
+              <input
+                type="checkbox"
+                ref={ref}
+                onBlur={onBlur}
+                style={formStyles.dummyInput}
+                name={name}
+              />
+              {
+                icon ? icon
+                :
+                  value === fieldValue ?
+                    <div style={{
+                      width: iconStyle.width || 16,
+                      height: iconStyle.height || 16,
+                      borderRadius: 50,
+                      backgroundColor: iconStyle.color || '#FF6420'
+                    }}>
+                    </div>
+                  : null
+              }
+          </Button>
         )
        }}
     />
@@ -105,26 +120,30 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
       .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
   const backgroundErrorColor = inputErrorTagStyle?.backgroundColor;
 
-  const radioTagStyle = tagConfig?.input?.["type=radio"]?.style;
-  const radioTagDisabledStyle = tagConfig?.input?.["type=radio"]?.disabledStyle;
-  const radioTagErrorStyle = tagConfig?.input?.["type=radio"]?.errorStyle;
+  const tagStyle = tagConfig?.input?.["type=radio"]?.style;
+  const tagCheckedStyle = tagConfig?.input?.["type=radio"]?.checkedStyle;
+  const tagDisabledStyle = tagConfig?.input?.["type=radio"]?.disabledStyle;
+  const tagErrorStyle = tagConfig?.input?.["type=radio"]?.errorStyle;
 
   return {
     tagStyle:  {
       ...borderStyle,
       borderRadius: 50,
       backgroundColor: backgroundColor,
-      ...radioTagStyle
+      ...tagStyle
+    },
+    tagCheckedStyle: {
+      ...tagCheckedStyle
     },
     tagDisabledStyle: {
       ...borderDisabledStyle,
       backgroundColor: backgroundDisabledColor,
-      ...radioTagDisabledStyle
+      ...tagDisabledStyle
     },
     tagErrorStyle: {
       ...borderErrorStyle,
       backgroundColor: backgroundErrorColor,
-      ...radioTagErrorStyle
+      ...tagErrorStyle
     }
   }
 }

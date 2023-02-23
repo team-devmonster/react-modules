@@ -34,6 +34,7 @@ export function Label<T extends FormValues>({
 
     return (
       <P 
+      tag="label"
       style={{
         ...labelTagStyle,
         ...style,
@@ -51,6 +52,7 @@ export function Label<T extends FormValues>({
   
   return (
     <P 
+    tag="label"
     style={{
       ...labelTagStyle,
       ...style

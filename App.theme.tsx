@@ -1,6 +1,6 @@
 import { hexToRgb, ThemeProvider, useTheme } from "@local_modules/theme";
-//import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@team-devmonster/react-tags";
-import { ButtonProps, TagConfig, TagProvider, InputConfig } from "@local_modules/tags";
+import { Div, ButtonProps, TagConfig, TagProvider, InputConfig } from "@team-devmonster/react-tags";
+//import { ButtonProps, TagConfig, TagProvider, InputConfig, Div } from "@local_modules/tags";
 
 const color = {
   light: {
@@ -89,6 +89,14 @@ const theme = (color:Color) => {
     },
     errorStyle: {
       borderColor: color.warning
+    }
+  }
+  input['type=checkbox'] = {
+    style: {
+      icon: <Div style={{ width: 20, height: 20, backgroundColor: 'blue' }}></Div>
+    },
+    checkedStyle: {
+      icon: <Div style={{ width: 20, height: 20, backgroundColor: 'red' }}></Div>
     }
   }
 
