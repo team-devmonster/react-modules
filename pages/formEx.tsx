@@ -7,8 +7,10 @@ import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
 import { Layout } from "@local_modules/router";
 import { ErrorText, Input, Label, Select, Textarea, Option } from "@local_modules/form";
+import { Toggle } from "@local_modules/form";
 
 interface FormProps {
+  toogle:boolean,
   id:string, 
   password:string,
   phone:string,
@@ -41,6 +43,10 @@ const FormEx = () => {
 
   return (
     <Layout style={{ padding: 20, backgroundColor: color.white }}>
+      <Toggle  
+        control={control} 
+        name="toogle"
+      />
       <Div style={{ rowGap: 8 }}>
         <Input
           control={control}

@@ -15,8 +15,7 @@ export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'border
   lineHeight?:number,
   borderRadius?:number,
   placeholderColor?:string,
-  icon?:TagElement,
-  iconColor?:string
+  icon?:TagElement
 }
 export interface TagGroupConfig {
   // tag - default
@@ -48,7 +47,8 @@ export interface TagGroupConfig {
   input?: InputConfig
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
-  select?: SelectConfig
+  select?: SelectConfig,
+  toggle?: ToggleConfig,
 }
 export interface TagConfig {
   style?:TagStyle,
@@ -177,30 +177,22 @@ export interface SelectConfig {
   confirmButtonStyle?:ButtonStyle,
   cancelButtonStyle?:ButtonStyle
 }
+export interface ToggleConfig {
+  style?:ToggleStyle,
+  checkedStyle?:ToggleStyle,
+  disabledStyle?:ToggleStyle,
+  errorStyle?:ToggleStyle
+}
 export interface InputCheckboxStyle extends TagStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 export interface InputRadioStyle extends TagStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 export interface InputDateStyle extends TagStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 
 export interface SelectStyle extends InputStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
+}
+export interface ToggleStyle extends InputStyle {
 }
 export interface ErrorTextConfig {
   style?:TagStyle

@@ -1,4 +1,4 @@
-import { forwardRef, LegacyRef, useMemo, useState } from "react";
+import { forwardRef, Ref, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { useTagStyle, textPattern, TagModule, useTags } from "./core";
 import { ButtonProps, FillProps, TagGroupConfig } from "./type";
 import { darken, lighten, getLightOrDark } from "./utils";
@@ -16,11 +16,44 @@ export const Button = forwardRef((
       disabled,
       onClick, 
       children,
+      onLayout,
       // onMouseDown etcs....
       ...rest
     }:ButtonProps,
-    ref:LegacyRef<HTMLButtonElement>
+    ref:Ref<HTMLButtonElement|null>
   ) => {
+
+  const tagRef = useRef<HTMLButtonElement>(null);
+  useImperativeHandle(ref, () => tagRef.current);
+
+  useEffect(() => {
+    let handleResize:() => void;
+    if(onLayout) {
+      handleResize = () => {
+        if(!tagRef.current) return;
+        // Set window width/height to state
+        const { x, y, width, height  } = tagRef.current?.getBoundingClientRect();
+        onLayout?.({ 
+          nativeEvent: {
+            layout: { width, height, x, y }
+          }
+        });
+      }
+      // only execute all the code below in client side
+      // Handler to call on window resize
+      // Add event listener
+      window.addEventListener("resize", handleResize);
+       
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+    }
+    // Remove event listener on cleanup
+    return () => {
+      if(handleResize) {
+        window.removeEventListener("resize", handleResize);
+      }
+    }
+  }, []); // Empty array ensures that effect is only run on mount
 
   const { tagConfig } = useTags();
 
@@ -68,7 +101,7 @@ export const Button = forwardRef((
   return (
     <Tag 
       className="devmonster-flex devmonster-button"
-      ref={ref}
+      ref={tagRef}
       disabled={disabled}
       style={{
         cursor: disabled ? 'default' : undefined,

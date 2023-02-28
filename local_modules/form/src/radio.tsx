@@ -73,7 +73,7 @@ export function Radio<T extends FormValues>(
               onChange(value);
             }}>
               <input
-                type="checkbox"
+                type="radio"
                 ref={ref}
                 onBlur={onBlur}
                 style={formStyles.dummyInput}
