@@ -85,15 +85,15 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
         useEffect(() => {
           if(inputStyle.placeholderColor) {
             const placeholderColor = inputStyle.placeholderColor.replace('#', '');
-            const style = document.getElementById(`team-devmonster-react-form_input-${placeholderColor}`);
+            const style = document.getElementById(`devmonster-react-form-input-${placeholderColor}`);
             if(style) return;
   
             document.head.insertAdjacentHTML("beforeend", `
-              <style id="team-devmonster-react-form-input-${placeholderColor}">
-                .team-devmonster-placeholder-${placeholderColor}::placeholder {
+              <style id="devmonster-react-form-input-${placeholderColor}">
+                .devmonster-placeholder-${placeholderColor}::placeholder {
                   color: ${inputStyle.placeholderColor};
                 }
-                .team-devmonster-placeholder-${inputStyle.placeholderColor}::-ms-input-placeholder {
+                .devmonster-placeholder-${inputStyle.placeholderColor}::-ms-input-placeholder {
                   color: ${inputStyle.placeholderColor};
                 }
               </style>
@@ -103,7 +103,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
 
         return (
           <input
-            className={`team-devmonster-placeholder-${inputStyle.placeholderColor?.replace('#', '')}`}
+            className={`devmonster-placeholder-${inputStyle.placeholderColor?.replace('#', '')}`}
             ref={ref}
             onChange={e => newOnChange(e.target.value)}
             onBlur={onBlur}

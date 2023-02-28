@@ -1,7 +1,6 @@
 import { FormValues, Options, SelectProps } from "./type";
 import { Controller } from 'react-hook-form';
 import { useTags, useTagStyle } from '@team-devmonster/react-tags';
-import { useEffect } from "react";
 import { Option } from "./option";
 
 export function Select<T extends FormValues>({
@@ -64,13 +63,6 @@ export function Select<T extends FormValues>({
             onChange(null);
           }
         }
-
-        useEffect(() => {
-          const root = document.documentElement;
-          if(inputStyle.placeholderColor) {
-            root.style.setProperty('::placeholder', inputStyle.placeholderColor);
-          }
-        }, []);
 
         return (
           <select
