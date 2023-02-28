@@ -15,7 +15,7 @@ export interface TagStyle extends Omit<CSSProperties, 'display'|'border'|'border
   lineHeight?:number,
   borderRadius?:number,
   placeholderColor?:string,
-  icon?:TagElement
+  icon?:TagElement | TagStyle
 }
 export interface TagGroupConfig {
   // tag - default
