@@ -63,17 +63,30 @@ export function Toggle<T extends FormValues>({
 
         const iconBackgroundColor = useRef<string>('#ffffff');
         const iconCheckedBackgroundColor = useRef<string>('#FF6420');
+
+        const iconPosition = useRef(0);
         
         useMemo(() => {
           if(value) {
             contentCheckedBackgroundColor.current = contentStyle.backgroundColor || '#FF6420';
             iconCheckedBackgroundColor.current = iconStyle.color as string || '#FF6420';
+            iconPosition.current = widthRef.current.width - widthRef.current.iconWidth;
           }
           else {
             contentBackgroundColor.current = contentStyle.backgroundColor || '#cccccc';
-            iconBackgroundColor.current = iconStyle.color as string || '#cccccc';
+            iconBackgroundColor.current = iconStyle.color as string || '#ffffff';
+            iconPosition.current = 0;
           }
         }, [value])
+
+        const contentAnimatedStyle = {
+          backgroundColor: value ? contentCheckedBackgroundColor.current : contentBackgroundColor.current
+        }
+        
+        const iconAnimatedStyle = {
+          backgroundColor: value ? iconCheckedBackgroundColor.current : iconBackgroundColor.current,
+          transform: `translateX(${iconPosition.current}px)`
+        }
 
         return (
           <Button
@@ -106,7 +119,9 @@ export function Toggle<T extends FormValues>({
                   width: '100%', 
                   height: 20, 
                   borderRadius: 20,
-                  ...contentStyle
+                  transition: `all 200ms`,
+                  ...contentStyle,
+                  ...contentAnimatedStyle
                 }}></Div>
               {
                 icon ?
@@ -118,8 +133,10 @@ export function Toggle<T extends FormValues>({
                       widthRef.current.iconWidth = width;
                     }}
                     style={{
-                      ...defaultStyle.iconStyle, 
-                      ...iconStyle as any
+                      ...defaultStyle.iconStyle,
+                      ...iconStyle as any,
+                      transition: `all 200ms`,
+                      ...iconAnimatedStyle
                     }}>
                   </Div>
               }
