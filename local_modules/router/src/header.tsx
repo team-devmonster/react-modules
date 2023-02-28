@@ -16,6 +16,7 @@ export interface HeaderProps {
   headerShown?: boolean;
   style?: TagStyle;
   statusBarStyle?:StatusBarStyle;
+  containerStyle?:TagStyle;
   contentStyle?:TagStyle;
   children?:TagElement;
 }
@@ -28,7 +29,8 @@ export const Header = forwardRef((
     headerRight, 
     headerBackTitle, 
     headerBackVisible = true,
-    headerShown = true, 
+    headerShown = true,
+    containerStyle,
     style, 
     statusBarStyle, 
     contentStyle,
@@ -46,12 +48,13 @@ export const Header = forwardRef((
   return (
     <Div 
       ref={ref}
-      style={{ 
-        position: 'fixed', 
-        top: 0, 
-        left: 0, 
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
         width: '100%',
-        zIndex: 100
+        zIndex: 100,
+        ...containerStyle
       }}>
       <Div style={{
         flexDirection: 'row',
@@ -60,7 +63,8 @@ export const Header = forwardRef((
         paddingLeft: 20,
         paddingRight: 20,
         minHeight: 56,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        ...style
       }}>
         <Div 
           style={{
@@ -98,7 +102,6 @@ export const Header = forwardRef((
           ...(headerTagStyle?.color ? {color: headerTagStyle.color} : null),
           ...(style?.color ? {color: style.color} : null),
           ...headerTagStyle,
-          ...style,
           ...headerTagTitleStyle,
           ...headerTitleStyle
         }}>{title}</P>
