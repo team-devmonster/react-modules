@@ -34,7 +34,7 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
         window.removeEventListener("resize", handleResize);
       }
     }
-  }, [onLayout]); // Empty array ensures that effect is only run on mount
+  }, []); // Empty array ensures that effect is only run on mount
 
   const Tag:any = tag || 'div';
   const ChildTag:any = childTag || 'p';
