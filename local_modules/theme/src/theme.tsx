@@ -16,20 +16,14 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
     setColorScheme(colorScheme);
 
     if(useCssProperty) {
-      const root = document.documentElement;
-      for(let key in color[colorScheme]) {
-        root.style.setProperty(`--${key}`, color[colorScheme]![key]);
-      }
+      makeCSSProperties(useCssProperty, color, colorScheme);
     }
 
     const fn = (event:MediaQueryListEvent) => {
       const colorScheme = darkModeEnabled ? event.matches ? 'dark' : 'light' : 'light';
 
       if(useCssProperty) {
-        const root = document.documentElement;
-        for(let key in color[colorScheme]) {
-          root.style.setProperty(`--${key}`, color[colorScheme]![key]);
-        }
+        makeCSSProperties(useCssProperty, color, colorScheme);
       }
 
       setColorScheme(colorScheme);
@@ -65,4 +59,18 @@ type ThemeProps<T> = Merge<T, {
 
 export function useTheme<T>() {
   return useContext<ThemeProps<T>>(ThemeContext);
+}
+
+const makeCSSProperties = (useCssProperty:string[] | boolean, color:any, colorScheme:any) => {
+  const root = document.documentElement;
+  if(Array.isArray(useCssProperty)) {
+    useCssProperty.forEach(key => {
+      root.style.setProperty(`--${key}`, color[colorScheme]![key]);
+    });
+  }
+  else {
+    for(let key in color[colorScheme]) {
+      root.style.setProperty(`--${key}`, color[colorScheme]![key]);
+    }
+  }
 }

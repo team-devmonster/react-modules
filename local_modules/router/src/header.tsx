@@ -64,6 +64,7 @@ export const Header = forwardRef((
         paddingRight: 20,
         minHeight: 56,
         backgroundColor: '#ffffff',
+        ...headerTagStyle,
         ...style
       }}>
         <Div 
@@ -101,7 +102,6 @@ export const Header = forwardRef((
           zIndex: 1,
           ...(headerTagStyle?.color ? {color: headerTagStyle.color} : null),
           ...(style?.color ? {color: style.color} : null),
-          ...headerTagStyle,
           ...headerTagTitleStyle,
           ...headerTitleStyle
         }}>{title}</P>

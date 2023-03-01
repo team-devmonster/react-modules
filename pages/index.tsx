@@ -49,8 +49,9 @@ const Index = () => {
               </Button>
             </A>
             <Button 
+              color={color.step500}
               onClick={() => setVisible(true)}
-              fill="outline">
+              fill="clear">
               react-modal
             </Button>
             <Modal visible={visible} onRequestClose={() => console.log('on request close')}>
