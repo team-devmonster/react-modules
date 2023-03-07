@@ -7,7 +7,7 @@ type Color = {
   dark?: {[name:string]:string}
 }
 
-export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true, useCssProperty = false}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean, useCssProperty?:boolean}) {
+export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true, useCssProperty = false}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean, useCssProperty?:string[] | boolean}) {
 
   const [colorScheme, setColorScheme] = useState<'light'|'dark'>();
 

@@ -2,6 +2,7 @@ import { FormValues, InputProps } from "./type";
 import { Controller } from 'react-hook-form';
 import { useTags, useTagStyle } from '@team-devmonster/react-tags';
 import { useEffect } from "react";
+import { onEnterEvent } from "./utils";
 
 export function Textarea<T extends FormValues>(props:InputProps<T>) 
 {
@@ -110,7 +111,7 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
             onKeyDown={onKeyDown as any}
             onKeyUp={e => {
               onKeyUp?.(e as any);
-              if(e.key === 'Enter') onEnter?.(e as any);
+              onEnterEvent(e, onEnter);
             }}
           ></textarea>
         )

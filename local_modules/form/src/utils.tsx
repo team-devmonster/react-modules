@@ -1,4 +1,5 @@
 import { ColorSchemeName, TagStyle } from '@team-devmonster/react-tags';
+import { KeyboardEventHandler } from 'react';
 
 export const textColor = ({ colorScheme }:{ colorScheme:ColorSchemeName }) => colorScheme === 'dark' ? '#ffffff' : '#1f1f1f';
 
@@ -30,4 +31,8 @@ export const formStyles = {
     zIndex: -1, 
     opacity: 0
   } as any
+}
+
+export const onEnterEvent = (e:React.KeyboardEvent<HTMLTextAreaElement|HTMLInputElement>, onEnter?:KeyboardEventHandler<HTMLInputElement>) => {
+  if(e.key === 'Enter' && !e.shiftKey) onEnter?.(e as any);
 }
