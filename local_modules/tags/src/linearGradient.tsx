@@ -8,10 +8,37 @@ interface LinearGradientProps extends TagProps {
   colors:string[],
   locations?:number[]
 }
-export const LinearGradient = forwardRef(({style, children, tag, childTag, numberOfLines, ellipsizeMode, onLayout, start, end, colors, locations, ...rest}:LinearGradientProps, ref:Ref<HTMLDivElement|null>) => {
+export const LinearGradient = forwardRef(({style, children, tag, childTag, numberOfLines, ellipsizeMode, onLayout, start:_start = { x: 0, y: 0 }, end:_end = {x: 1, y: 1}, colors:_colors = [], locations:_locations = [], ...rest}:LinearGradientProps, ref:Ref<HTMLDivElement|null>) => {
 
   const tagRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
+
+  const [start, setStart] = useState(_start);
+  const [end, setEnd] = useState(_end);
+  const [colors, setColors] = useState(_colors);
+  const [locations, setLocations] = useState(_locations);
+
+  useEffect(() => {
+    if(JSON.stringify(start) !== JSON.stringify(_start)) {
+      setStart(_start);
+    }
+  }, [_start]);
+  useEffect(() => {
+    if(JSON.stringify(end) !== JSON.stringify(_end)) {
+      setEnd(_start);
+    }
+  }, [_end]);
+  useEffect(() => {
+    if(JSON.stringify(colors) !== JSON.stringify(_colors)) {
+      setColors(_colors);
+    }
+  }, [_colors]);
+  useEffect(() => {
+    if(JSON.stringify(locations) !== JSON.stringify(_locations)) {
+      setLocations(_locations);
+    }
+  }, [_locations]);
+
   useImperativeHandle(ref, () => tagRef.current);
 
   useEffect(() => {
@@ -37,7 +64,7 @@ export const LinearGradient = forwardRef(({style, children, tag, childTag, numbe
 
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleResize);
-  }, [onLayout]); // Empty array ensures that effect is only run on mount
+  }, []); // Empty array ensures that effect is only run on mount
 
   const Tag:any = tag || 'div';
   const ChildTag:any = childTag || 'p';
@@ -80,7 +107,7 @@ export const LinearGradient = forwardRef(({style, children, tag, childTag, numbe
     return () => {
       URL.revokeObjectURL(url);
     }
-  }, [start, end, colors, size]);
+  }, [start, end, colors, size.width, size.height]);
   
   return (
     <Tag

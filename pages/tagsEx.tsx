@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@local_modules/theme";
 import { Div, Button, Img, P, Span, Br, Table, Tbody, Td, Th, Thead, Tr, LinearGradient } from "@local_modules/tags";
 import { Theme } from "App.theme";
@@ -6,6 +6,8 @@ import { Theme } from "App.theme";
 const TagsEx = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
+
+  const [test, setTest] = useState(false);
 
   return (
     <Div
@@ -46,7 +48,10 @@ const TagsEx = () => {
         }}>
         hello P
         <Span style={{ color: color.danger }}>hello Span</Span>
-        <Button 
+        <Button
+          onClick={() => {
+            setTest(!test);
+          }} 
           color={color.primary} 
           style={{ display: 'inline-flex', height: 40, fontSize: 10 }}>inline button</Button>
         hello~!
