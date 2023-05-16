@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-form",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "This is devmonster's react module for make app easily. This is compatible with devmonster's react-native modules.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

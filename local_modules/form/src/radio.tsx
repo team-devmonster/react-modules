@@ -22,6 +22,7 @@ export function Radio<T extends FormValues>(
     name, 
     disabled,
     style,
+    checkedStyle,
     disabledStyle,
     errorStyle,
     value,
@@ -55,7 +56,7 @@ export function Radio<T extends FormValues>(
           style,
           disabled ? disabledStyle : undefined,
           error ? errorStyle : undefined,
-          value === fieldValue ? styles.tagCheckedStyle : undefined,
+          value === fieldValue ? checkedStyle : undefined,
         ]);
 
         const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
