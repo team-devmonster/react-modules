@@ -16,8 +16,8 @@ export const Td = ({style, hoverStyle, onClick, ...rest}:ButtonProps) => {
         onClick={onClick}
         fill="none"
         style={{
-          flexDirection: 'row',
-          paddingRight: 1,
+          marginRight: -1,
+          marginBottom: -1,
           ...tagStyle,
           ...style
         }}
