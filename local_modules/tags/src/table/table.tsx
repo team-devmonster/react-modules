@@ -9,6 +9,7 @@ export const Table = ({style, ...rest}:TagProps) => {
   
   return (
     <Div 
+      tag="table"
       style={{
         ...tagStyle,
         ...style

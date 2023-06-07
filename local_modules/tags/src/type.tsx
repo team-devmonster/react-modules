@@ -76,7 +76,7 @@ export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
 // tags props
 export interface ButtonProps extends TagProps {
-  tag?: 'div'|'button'|'a';
+  tag?: 'div'|'button'|'a'|'tr'|'td'|'th';
   animated?:boolean;
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;

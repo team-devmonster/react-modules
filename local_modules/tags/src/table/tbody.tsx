@@ -11,6 +11,7 @@ export const Tbody = forwardRef(({style, ...rest}:TagProps, ref:Ref<HTMLDivEleme
   return (
     <Div 
       ref={ref}
+      tag="tbody"
       style={{
         paddingBottom: 1,
         ...tagStyle,

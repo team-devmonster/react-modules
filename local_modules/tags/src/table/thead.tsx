@@ -9,6 +9,7 @@ export const Thead = ({style, ...rest}:TagProps) => {
   
   return (
     <Div 
+      tag="thead"
       style={{
         ...tagStyle, 
         ...style

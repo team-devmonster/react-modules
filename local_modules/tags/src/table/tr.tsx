@@ -12,7 +12,7 @@ export const Tr = ({style, hoverStyle, onClick, ...rest}:ButtonProps) => {
   return (
     onClick ? 
       <Button
-        tag="div"
+        tag="tr"
         onClick={onClick}
         fill="none"
         style={{
@@ -27,7 +27,8 @@ export const Tr = ({style, hoverStyle, onClick, ...rest}:ButtonProps) => {
         }}
         {...rest}></Button>
     :
-      <Div 
+      <Div
+        tag="tr"
         style={{
           flexDirection: 'row',
           paddingRight: 1,

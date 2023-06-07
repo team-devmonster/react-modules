@@ -9,6 +9,7 @@ export const Th = ({style, ...rest}:TagProps) => {
   
   return (
     <Div
+      tag="th"
       style={{
         marginRight: -1,
         marginBottom: -1,
