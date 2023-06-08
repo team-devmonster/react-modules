@@ -104,7 +104,11 @@ asdsad
       <Table>
         <Thead>
           <Tr onClick={() => alert('clicked')} style={{ display: 'flex', flexDirection: 'row', backgroundColor: color.white }}>
-            <Th style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Th>
+            <Th style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>
+              <Div>
+                부품번호
+              </Div>
+            </Th>
             <Th style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>보관BOX</Th>
             <Th style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품명</Th>
             <Th style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>UNIT</Th>
@@ -120,7 +124,7 @@ asdsad
         </Thead>
         <Tbody>
           <Tr style={{ display: 'flex', flexDirection: 'row' }}>
-            <Td style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Td>
+            <Td onClick={() => alert('hello')} style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품번호</Td>
             <Td style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>보관BOX</Td>
             <Td style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>부품명</Td>
             <Td style={{ padding: 8, borderWidth: 1, borderColor: color.step200 }}>UNIT</Td>

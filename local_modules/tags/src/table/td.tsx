@@ -1,39 +1,65 @@
-import { useTags } from "../core";
+import { paddingPattern, textPattern, useTagStyle, useTags } from "../core";
 import { Div } from "../div";
 import { Button } from "../button";
 import { ButtonProps } from "../type";
 
-export const Td = ({style, hoverStyle, onClick, ...rest}:ButtonProps) => {
+export const Td = ({style, hoverStyle, onClick, children, ...rest}:ButtonProps) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.td?.style;
   const tagHoverStyle = tagConfig?.td?.hoverStyle;
+
+  const [
+    paddingStyle,
+    textStyle,
+    viewStyle
+  ]
+  = useTagStyle([
+    paddingPattern,
+    textPattern,
+  ], [tagStyle, style]);
+
+  const spanStyle:any = {};
+  if(paddingStyle.padding ?? false) spanStyle.margin = paddingStyle.padding;
+  if(paddingStyle.paddingTop ?? false) spanStyle.marginTop = paddingStyle.paddingTop;
+  if(paddingStyle.paddingRight ?? false) spanStyle.marginRight = paddingStyle.paddingRight;
+  if(paddingStyle.paddingLeft ?? false) spanStyle.marginLeft = paddingStyle.paddingLeft;
+  if(paddingStyle.paddingBottom ?? false) spanStyle.marginBottom = paddingStyle.paddingBottom;
   
   return (
     onClick ?
       <Button
         tag="td"
+        childTag="div"
         onClick={onClick}
         fill="none"
         style={{
           marginRight: -1,
           marginBottom: -1,
-          ...tagStyle,
-          ...style
+          ...viewStyle
         }}
         hoverStyle={{
           ...tagHoverStyle,
           ...hoverStyle
         }}
-        {...rest}></Button>
+        {...rest}>
+        <Div style={{...textStyle, ...spanStyle}}>
+          {children}
+        </Div>
+      </Button>
     :
       <Div 
         tag="td"
+        childTag="div"
         style={{
           marginRight: -1,
           marginBottom: -1,
-          ...tagStyle, 
-          ...style
-        }} {...rest}></Div>
+          ...viewStyle
+        }} 
+        {...rest}>
+        <Div style={{...textStyle, ...spanStyle}}>
+          {children}
+        </Div>
+      </Div>
   )
 }

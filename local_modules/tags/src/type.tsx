@@ -65,6 +65,7 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLElement>, 'style'|'onC
   children?:TagElement,
   style?:TagStyle,
   hoverStyle?:TagStyle,
+  childStyle?:TagStyle,
   numberOfLines?:number,
   ellipsizeMode?:EllipsizeModeType,
   onLayout?:(e:OnLayoutEvent) => void

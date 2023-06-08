@@ -16,6 +16,10 @@ export const Button = forwardRef((
       disabled,
       onClick, 
       children,
+      childTag,
+      childStyle,
+      numberOfLines,
+      ellipsizeMode,
       onLayout,
       // onMouseDown etcs....
       ...rest
@@ -123,9 +127,11 @@ export const Button = forwardRef((
       
       {...rest}>
       <TagModule
-        style={{
-          ...textStyle
-        }}>{children}</TagModule>
+        tag={childTag || 'div'}
+        style={{...textStyle, ...childStyle}}
+        numberOfLines={numberOfLines}
+        ellipsizeMode={ellipsizeMode}
+        >{children}</TagModule>
     </Tag>
   )
 })

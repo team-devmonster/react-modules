@@ -84,6 +84,7 @@ export const textPattern = /^(color|font|text|lineHeight|whiteSpace)/;
 export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight|maxHeight|position|top|left|right|bottom|opacity|overflow|alignSelf|justifySelf|aspectRatio)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
+export const paddingPattern = /^(padding)/;
 export const marginPattern = /^(margin)/;
 export const placeholderPattern = /^(placeholder)/;
 export const gapPattern = /(gap|Gap)/;

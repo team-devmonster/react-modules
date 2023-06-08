@@ -2,7 +2,7 @@ import { forwardRef, Ref, useEffect, useImperativeHandle, useRef } from "react";
 import { useTagStyle, textPattern, TagModule, useTags } from "./core";
 import { TagProps } from "./type";
 
-export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, ellipsizeMode, onLayout, ...rest}:TagProps, ref:Ref<HTMLDivElement|null>) => {
+export const Div = forwardRef(({style, children, tag, childTag, childStyle, numberOfLines, ellipsizeMode, onLayout, ...rest}:TagProps, ref:Ref<HTMLDivElement|null>) => {
 
   const tagRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => tagRef.current);
@@ -59,7 +59,7 @@ export const Div = forwardRef(({style, children, tag, childTag, numberOfLines, e
       }}>
       <TagModule
         tag={ChildTag}
-        style={textStyle}
+        style={{...textStyle, ...childStyle}}
         numberOfLines={numberOfLines}
         ellipsizeMode={ellipsizeMode}
         >{children}</TagModule>
