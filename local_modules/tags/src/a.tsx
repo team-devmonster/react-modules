@@ -1,19 +1,8 @@
-import React from "react";
-import Link from "next/link";
-import { Url, UrlObject } from "url";
-import { useRouter } from "next/router";
 
-export interface Aprops {
-  href?: string | UrlObject,
-  as?: string | Url,
-  replace?:boolean,
-  push?:boolean,
-  back?:boolean,
-  reset?:boolean,
-  children?:React.ReactNode,
-  target?:string,
-  download?:string
-}
+import Link from "next/link";
+import { UrlObject } from "url";
+import { useRouter } from "next/router";
+import { Aprops } from "./type";
 
 const urlPattern = /^(mailTo:|tel:|http:|https:)/;
 export const A = ({ href, as, replace, push:_, back, reset:__, children, target, download }:Aprops):JSX.Element => {

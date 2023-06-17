@@ -1,9 +1,19 @@
 import { paddingPattern, textPattern, useTagStyle, useTags } from "../core";
 import { Div } from "../div";
 import { Button } from "../button";
-import { ButtonProps } from "../type";
+import { ThTdProps } from "../type";
+import { A } from "../a";
 
-export const Td = ({style, hoverStyle, onClick, children, ...rest}:ButtonProps) => {
+export const Td = ({
+    // normal props
+    style, children, 
+    // button props
+    hoverStyle, onClick,
+    //a props
+    href, as, replace, push, back, reset, target, download,
+    // etc
+    ...rest
+  }:ThTdProps) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.td?.style;
@@ -57,9 +67,26 @@ export const Td = ({style, hoverStyle, onClick, children, ...rest}:ButtonProps) 
           ...viewStyle
         }} 
         {...rest}>
-        <Div style={{...textStyle, ...spanStyle}}>
-          {children}
-        </Div>
+        {
+          href ?
+          <A 
+            href={href}
+            as={as}
+            replace={replace}
+            push={push}
+            back={back}
+            reset={reset} 
+            target={target} 
+            download={download}>
+            <Div style={{...textStyle, ...spanStyle}}>
+              {children}
+            </Div>
+          </A>
+          :
+          <Div style={{...textStyle, ...spanStyle}}>
+            {children}
+          </Div>
+        }
       </Div>
   )
 }

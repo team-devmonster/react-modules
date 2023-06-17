@@ -1,4 +1,5 @@
 import { HTMLAttributes, CSSProperties } from "react"
+import { Url, UrlObject } from "url";
 
 
 export type ColorSchemeName = 'light'|'dark'|undefined;
@@ -76,6 +77,17 @@ export interface ButtonStyle extends TagStyle {
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
 // tags props
+export interface Aprops {
+  href?: string | UrlObject,
+  as?: string | Url,
+  replace?:boolean,
+  push?:boolean,
+  back?:boolean,
+  reset?:boolean,
+  children?:TagElement,
+  target?:string,
+  download?:string
+}
 export interface ButtonProps extends TagProps {
   tag?: 'div'|'button'|'a'|'tr'|'td'|'th';
   animated?:boolean;
@@ -88,6 +100,10 @@ export interface ButtonProps extends TagProps {
   onClick?: ((event: any) => void) | null | undefined;
   disabled?:boolean;
   children?:TagElement
+}
+
+export interface ThTdProps extends ButtonProps, Aprops {
+
 }
 
 // tags config

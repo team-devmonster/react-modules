@@ -1,8 +1,16 @@
+import { A } from "../a";
 import { paddingPattern, textPattern, useTagStyle, useTags } from "../core";
 import { Div } from "../div";
-import { TagProps } from "../type";
+import { ThTdProps } from "../type";
 
-export const Th = ({style, children, ...rest}:TagProps) => {
+export const Th = ({
+    // normal props
+    style, children, 
+    //a props
+    href, as, replace, push, back, reset, target, download,
+    // etc
+    ...rest
+  }:ThTdProps) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.th?.style;
@@ -34,9 +42,26 @@ export const Th = ({style, children, ...rest}:TagProps) => {
         ...viewStyle
       }} 
       {...rest}>
-      <Div style={{...textStyle, ...spanStyle}}>
-        {children}
-      </Div>
+      {
+        href ?
+        <A 
+          href={href}
+          as={as}
+          replace={replace}
+          push={push}
+          back={back}
+          reset={reset} 
+          target={target} 
+          download={download}>
+          <Div style={{...textStyle, ...spanStyle}}>
+            {children}
+          </Div>
+        </A>
+        :
+        <Div style={{...textStyle, ...spanStyle}}>
+          {children}
+        </Div>
+      }
     </Div>
   )
 }

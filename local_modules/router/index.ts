@@ -1,4 +1,3 @@
-export * from './src/a';
 export * from './src/fixedLayout';
 export * from './src/footer';
 export * from './src/header';

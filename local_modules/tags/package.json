@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-tags",
-  "version": "1.10.49",
+  "version": "1.10.51",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -32,6 +32,7 @@
   "homepage": "https://github.com/team-devmonster/react-modules#readme",
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "next": ">=12"
   }
 }
