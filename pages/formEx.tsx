@@ -92,6 +92,7 @@ const FormEx = () => {
           style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }} 
           onClick={() => setValue('agree1', !watch('agree1'))}>
           <Input
+            style={{ pointerEvents: 'none' }}
             control={control}
             name="agree1"
             type="checkbox"
