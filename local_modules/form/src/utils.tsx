@@ -29,7 +29,8 @@ export const formStyles = {
     width: 1, 
     height: 1, 
     zIndex: -1, 
-    opacity: 0
+    opacity: 0,
+    PointerEvent: 'none'
   } as any
 }
 

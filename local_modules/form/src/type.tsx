@@ -73,6 +73,7 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps {
   onFocus?:FocusEventHandler<HTMLInputElement>,
   // input['type=text']
   onClick?: ((event: any) => void) | null | undefined;
+  onChange?: (v:any) => void;
   keyboardType?:InputKeyboardType,
   // options by types
   cameraText?:string,

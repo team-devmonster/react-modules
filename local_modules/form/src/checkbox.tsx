@@ -21,6 +21,7 @@ export function Checkbox<T extends FormValues>({
     checkedStyle,
     value,
     onClick,
+    onChange:onOuterChange,
     ...rules
   }:CheckboxProps<T>) 
 {
@@ -59,6 +60,7 @@ export function Checkbox<T extends FormValues>({
 
         useEffect(() => {
           onChange(value);
+          onOuterChange?.(value);
         }, [value]);
 
         return (
@@ -77,6 +79,7 @@ export function Checkbox<T extends FormValues>({
             onClick={(e) => {
               e.stopPropagation();
               const newValue = !value;
+              onChange(newValue);
               onClick?.({...e, value: newValue});
             }}>
               <input
