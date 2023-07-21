@@ -59,7 +59,7 @@ export function Checkbox<T extends FormValues>({
         const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
 
         useEffect(() => {
-          onChange(value);
+          onChange({ target: { value } });
           onOuterChange?.(value);
         }, [value]);
 
@@ -79,8 +79,8 @@ export function Checkbox<T extends FormValues>({
             onClick={(e) => {
               e.stopPropagation();
               const newValue = !value;
-              onChange(newValue);
-              onClick?.({...e, value: newValue});
+              onChange({ target: { value:newValue } });
+              onClick?.({...e, value:newValue});
             }}>
               <input
                 type="checkbox"
