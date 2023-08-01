@@ -37,8 +37,6 @@ export const Th = ({
       tag="th"
       childTag="div"
       style={{
-        marginRight: -1,
-        marginBottom: -1,
         ...viewStyle
       }} 
       {...rest}>
@@ -53,12 +51,12 @@ export const Th = ({
           reset={reset} 
           target={target} 
           download={download}>
-          <Div style={{...textStyle, ...spanStyle}}>
+          <Div style={{position: 'static', ...textStyle, ...spanStyle}}>
             {children}
           </Div>
         </A>
         :
-        <Div style={{...textStyle, ...spanStyle}}>
+        <Div style={{position: 'static', ...textStyle, ...spanStyle}}>
           {children}
         </Div>
       }

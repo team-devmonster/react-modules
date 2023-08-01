@@ -96,7 +96,7 @@ const FormEx = () => {
             control={control}
             name="agree1"
             type="checkbox"
-            required="place agree privacy usage"></Input>
+            required={`place agree privacy\nusage`}></Input>
           <Label style={{ flex: 1 }}>privacy usage</Label>
           <Button tag="a" color={color.primary} fill="outline">view</Button>
         </Button>

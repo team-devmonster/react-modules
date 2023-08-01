@@ -44,8 +44,6 @@ export const Td = ({
         onClick={onClick}
         fill="none"
         style={{
-          marginRight: -1,
-          marginBottom: -1,
           ...viewStyle
         }}
         hoverStyle={{
@@ -53,7 +51,7 @@ export const Td = ({
           ...hoverStyle
         }}
         {...rest}>
-        <Div style={{...textStyle, ...spanStyle}}>
+        <Div style={{position: 'static', ...textStyle, ...spanStyle}}>
           {children}
         </Div>
       </Button>
@@ -62,8 +60,6 @@ export const Td = ({
         tag="td"
         childTag="div"
         style={{
-          marginRight: -1,
-          marginBottom: -1,
           ...viewStyle
         }} 
         {...rest}>
@@ -78,12 +74,12 @@ export const Td = ({
             reset={reset} 
             target={target} 
             download={download}>
-            <Div style={{...textStyle, ...spanStyle}}>
+            <Div style={{position: 'static', ...textStyle, ...spanStyle}}>
               {children}
             </Div>
           </A>
           :
-          <Div style={{...textStyle, ...spanStyle}}>
+          <Div style={{position: 'static', ...textStyle, ...spanStyle}}>
             {children}
           </Div>
         }
