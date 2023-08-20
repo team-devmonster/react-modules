@@ -72,6 +72,28 @@ export const compareTime = ({ date, date2 = new Date(), type = 'ko' }:CompareTim
     return def_time;
   }
 }
+
+interface DateModificationOptions {
+  years?: number;
+  months?: number;
+  days?: number;
+}
+
+export const modifyDate = (dateString: string, options: DateModificationOptions): string => {
+  const { years = 0, months = 0, days = 0 } = options;
+  const date = new Date(dateString);
+  date.setFullYear(date.getFullYear() + years);
+  date.setMonth(date.getMonth() + months);
+  date.setDate(date.getDate() + days);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+
 export const toXX = (num:number) => {
   return num < 10 ? `0${num}` : num;
 }

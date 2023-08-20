@@ -106,6 +106,7 @@ export interface LabelProps<T extends FormValues> extends TagProps {
 
 export interface OptionProps {
   value:any,
+  disabled?:boolean,
   children: string
 }
 

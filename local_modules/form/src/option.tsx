@@ -3,9 +3,10 @@ import { OptionProps } from "./type";
 
 export function Option({ 
   value,
-  children
+  children,
+  disabled
 }:OptionProps):JSX.Element {
   return (
-    <option value={value}>{children}</option>
+    <option value={value} disabled={disabled}>{children}</option>
   )
 }
