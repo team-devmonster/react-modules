@@ -93,6 +93,31 @@ export const modifyDate = (dateString: string, options: DateModificationOptions)
   return `${year}-${month}-${day}`;
 }
 
+export const formatDateRange = ({ startDateStr, endDateStr, type = 'YYYY-MM-DD' }:{ startDateStr:string, endDateStr:string, type:'YYYY-MM-DD'|'YYYY.MM.DD' }) => {
+  let special = '-';
+  if(type === 'YYYY-MM-DD') {
+    special = '-';
+  }
+  else {
+    special = '.';
+  }
+  const startDate = new Date(startDateStr);
+  const endDate = new Date(endDateStr);
+
+  const formatStartDate = `${startDate.getFullYear()}${special}${String(startDate.getMonth() + 1).padStart(2, '0')}${special}${String(startDate.getDate()).padStart(2, '0')}`;
+
+  let formatEndDate;
+
+  // 시작일과 종료일의 년도가 다르면 종료일의 년도를 포함
+  if (startDate.getFullYear() !== endDate.getFullYear()) {
+      formatEndDate = `${endDate.getFullYear()}${special}${String(endDate.getMonth() + 1).padStart(2, '0')}${special}${String(endDate.getDate()).padStart(2, '0')}`;
+  } else {
+      formatEndDate = `${String(endDate.getMonth() + 1).padStart(2, '0')}${special}${String(endDate.getDate()).padStart(2, '0')}`;
+  }
+
+  return `${formatStartDate} ~ ${formatEndDate}`;
+}
+
 
 export const toXX = (num:number) => {
   return num < 10 ? `0${num}` : num;
