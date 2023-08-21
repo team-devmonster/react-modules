@@ -93,16 +93,17 @@ export const modifyDate = (dateString: string, options: DateModificationOptions)
   return `${year}-${month}-${day}`;
 }
 
-export const formatDateRange = ({ startDateStr, endDateStr, type = 'YYYY-MM-DD' }:{ startDateStr:string, endDateStr:string, type:'YYYY-MM-DD'|'YYYY.MM.DD' }) => {
+export const modifyDateRange = ({ startDateStr, endDateStr, type = 'YYYY-MM-DD' }:{ startDateStr:string, endDateStr:string, type:'YYYY-MM-DD'|'YYYY.MM.DD' }) => {
   let special = '-';
-  if(type === 'YYYY-MM-DD') {
-    special = '-';
+  if (type === 'YYYY.MM.DD') {
+      special = '.';
   }
-  else {
-    special = '.';
-  }
+
   const startDate = new Date(startDateStr);
   const endDate = new Date(endDateStr);
+
+  const nights = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  const days = nights + 1;
 
   const formatStartDate = `${startDate.getFullYear()}${special}${String(startDate.getMonth() + 1).padStart(2, '0')}${special}${String(startDate.getDate()).padStart(2, '0')}`;
 
@@ -115,7 +116,7 @@ export const formatDateRange = ({ startDateStr, endDateStr, type = 'YYYY-MM-DD' 
       formatEndDate = `${String(endDate.getMonth() + 1).padStart(2, '0')}${special}${String(endDate.getDate()).padStart(2, '0')}`;
   }
 
-  return `${formatStartDate} ~ ${formatEndDate}`;
+  return `${formatStartDate} ~ ${formatEndDate} (${nights}박 ${days}일)`;
 }
 
 
