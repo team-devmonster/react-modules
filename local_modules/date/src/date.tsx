@@ -2,7 +2,7 @@ export type TodayProps = {
   year?:number,
   month?:number,
   date?:number,
-  type?:'YYYY-MM-DD'|'YYYY-MM-DD hh:mm:ss'
+  type?:'YYYY-MM-DD'|'YYYY-MM-DD hh:mm'|'YYYY-MM-DD hh:mm:ss'
 }
 export const today = (opts?:TodayProps) => {
   const { year, month, date, type } = opts || {};
@@ -14,6 +14,8 @@ export const today = (opts?:TodayProps) => {
   switch(type) {
     case 'YYYY-MM-DD hh:mm:ss':
       return `${now.getFullYear()}-${toXX(now.getMonth() + 1)}-${toXX(now.getDate())} ${toXX(now.getHours())}:${toXX(now.getMinutes())}:${toXX(now.getSeconds())}`;
+    case 'YYYY-MM-DD hh:mm':
+      return `${now.getFullYear()}-${toXX(now.getMonth() + 1)}-${toXX(now.getDate())} ${toXX(now.getHours())}:${toXX(now.getMinutes())}`;
     default: // 'YYYY-MM-DD'
       return `${now.getFullYear()}-${toXX(now.getMonth() + 1)}-${toXX(now.getDate())}`;
   }
