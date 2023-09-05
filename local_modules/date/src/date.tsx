@@ -79,10 +79,12 @@ interface DateModificationOptions {
   years?: number;
   months?: number;
   days?: number;
+  type?:'YYYY-MM-DD'|'YYYY.MM.DD'
 }
 
-export const modifyDate = (dateString: string, options: DateModificationOptions): string => {
-  const { years = 0, months = 0, days = 0 } = options;
+export const modifyDate = (dateString: string = '', options: DateModificationOptions): string => {
+  if(!dateString) return '';
+  const { years = 0, months = 0, days = 0, type = 'YYYY-MM-DD' } = options;
   const date = new Date(dateString);
   date.setFullYear(date.getFullYear() + years);
   date.setMonth(date.getMonth() + months);
@@ -92,7 +94,12 @@ export const modifyDate = (dateString: string, options: DateModificationOptions)
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
 
-  return `${year}-${month}-${day}`;
+  if(type === 'YYYY-MM-DD') {
+    return `${year}-${month}-${day}`;
+  }
+  else {
+    return `${year}.${month}.${day}`;
+  }
 }
 
 export const modifyDateRange = ({ startDateStr, endDateStr, type = 'YYYY-MM-DD' }:{ startDateStr:string, endDateStr:string, type:'YYYY-MM-DD'|'YYYY.MM.DD' }) => {
