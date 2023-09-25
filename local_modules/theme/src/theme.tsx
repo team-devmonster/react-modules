@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const ThemeContext = createContext(null) as any;
 
@@ -35,14 +35,16 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
     }
   }, [])
 
+  const themeValue = useMemo(() => ({
+    ...theme(color[colorScheme || 'light']),
+    colorScheme,
+    darkModeEnabled
+  }), [colorScheme]);
+
   return (
     <div style={{ visibility: colorScheme ? 'visible' : 'hidden' }}>
       <ThemeContext.Provider
-        value={{
-          ...theme(color[colorScheme || 'light']),
-          colorScheme,
-          darkModeEnabled
-        }}>
+        value={themeValue}>
         {children}
       </ThemeContext.Provider>
     </div>
