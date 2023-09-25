@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext(null) as any;
 
@@ -33,18 +33,22 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
     return () => {
       window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', fn);
     }
-  }, [])
+  }, []);
 
-  const themeValue = useMemo(() => ({
+  /* const themeValue = useMemo(() => ({
     ...theme(color[colorScheme || 'light']),
     colorScheme,
     darkModeEnabled
-  }), [colorScheme]);
+  }), [colorScheme]); */
 
   return (
     <div style={{ visibility: colorScheme ? 'visible' : 'hidden' }}>
       <ThemeContext.Provider
-        value={themeValue}>
+        value={{
+          ...theme(color[colorScheme || 'light']),
+          colorScheme,
+          darkModeEnabled
+        }}>
         {children}
       </ThemeContext.Provider>
     </div>
