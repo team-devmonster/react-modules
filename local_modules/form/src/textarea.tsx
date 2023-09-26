@@ -1,7 +1,7 @@
 import { FormValues, InputProps } from "./type";
 import { Controller } from 'react-hook-form';
 import { useTags, useTagStyle } from '@team-devmonster/react-tags';
-import { useEffect } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 import { onEnterEvent } from "./utils";
 
 export function Textarea<T extends FormValues>(props:InputProps<T>) 
@@ -28,6 +28,8 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
   const inputTagStyle = tagConfig?.input?.style;
   const inputTagDisabledStyle = tagConfig?.input?.disabledStyle;
   const inputTagErrorStyle = tagConfig?.input?.errorStyle;
+
+  const textareaRef:MutableRefObject<HTMLTextAreaElement|null> = useRef<HTMLTextAreaElement>(null);
     
   return (
     <Controller
@@ -97,10 +99,29 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
           }
         }, [inputStyle.placeholderColor]);
 
+        useEffect(() => {
+          // minHeight을 바꿔줘야 resize가 되는 상황이 있다.
+          const outputsize = () => {
+            textareaRef.current!.style.minHeight = textareaRef.current!.style.height;
+          }
+          const $observer = new ResizeObserver(outputsize);
+          if(textareaRef.current) {
+            $observer.observe(textareaRef.current);
+          }
+          return () => {
+            if(textareaRef.current) {
+              $observer?.unobserve(textareaRef.current);
+            }
+          }
+        }, [textareaRef.current]);
+
         return (
           <textarea
             className={`devmonster-placeholder-${inputStyle.placeholderColor?.replace('#', '')}`}
-            ref={ref}
+            ref={_ref => { 
+              ref(_ref);
+              textareaRef.current = _ref;
+            }}
             onChange={e => newOnChange(e.target.value)}
             onBlur={onBlur}
             value={newValue}
