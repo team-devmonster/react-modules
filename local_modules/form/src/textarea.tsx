@@ -102,7 +102,9 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
         useEffect(() => {
           // minHeight을 바꿔줘야 resize가 되는 상황이 있다.
           const outputsize = () => {
-            textareaRef.current!.style.minHeight = textareaRef.current!.style.height;
+            if(textareaRef.current) {
+              textareaRef.current.style.minHeight = textareaRef.current.style.height;
+            }
           }
           const $observer = new ResizeObserver(outputsize);
           if(textareaRef.current) {
