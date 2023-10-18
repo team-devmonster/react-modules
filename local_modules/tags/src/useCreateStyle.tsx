@@ -6,8 +6,9 @@ type UseCreateStyleProps = {
   [name:string]:TagStyle
 }
 export const useCreateStyle = (styleGroup:UseCreateStyleProps, deps?:any[]) => {
-  const { colorScheme } = useTheme();
+  const theme = useTheme();
+  
   return useMemo(() => (
     styleGroup
-  ), [colorScheme, ...deps || []]);
+  ), [theme?.colorScheme, ...deps || []]);
 }
