@@ -78,6 +78,14 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             }
             rules.maxLength = rules.maxLength || 13;
             break;
+          case 'price':
+            let price = (value as string)?.replace(/\D+/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            newValue = price;
+            newOnChange = (v:any) => {
+              let num = v.replace(/\D+/g, '');
+              onChange(num);
+            }
+            break;
           /* case 'password':
             break; */
         }

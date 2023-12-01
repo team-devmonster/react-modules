@@ -90,7 +90,7 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps {
   accept?:string,
   multiple?:boolean
 }
-export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|'hidden'|'color'|InputDateType;
+export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|'hidden'|'color'|'price'|InputDateType;
 export type InputDateType = 'date'|'time'|'month'|'datetime-local';
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type InputKeyboardType = 'default'|'email-address'|'number-pad'|'numeric'|'decimal-pad'|'phone-pad'|'url';
