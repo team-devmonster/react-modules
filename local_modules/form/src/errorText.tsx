@@ -1,7 +1,7 @@
 import { FieldErrors, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-import { Div, iconPattern, TagStyle, useTags, useTagStyle } from '@team-devmonster/react-tags';
+import { Div, iconPattern, TagElement, TagStyle, useTags, useTagStyle } from '@team-devmonster/react-tags';
 
 import { FormValues } from './type';
 
@@ -47,7 +47,7 @@ export function ErrorText<T extends FormValues>(
           }}>
             {
               iconStyle?.icon ?
-              iconStyle.icon
+              (iconStyle.icon as TagElement)
               : null
             }
             {msg}
