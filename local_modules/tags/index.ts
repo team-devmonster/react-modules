@@ -24,3 +24,4 @@ export * from './src/menu';
 export * from './src/nav';
 export * from './src/span';
 export * from './src/type';
+export * from './src/row';
