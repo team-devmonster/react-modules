@@ -1,6 +1,6 @@
 import { forwardRef, Ref } from 'react';
-import { Button, Div, P, TagElement, TagStyle, useTags } from '@team-devmonster/react-tags';
-import { A } from './a';
+import { Button, Div, P, TagElement, TagStyle, useTags, A } from '@team-devmonster/react-tags';
+// import { A } from './a';
 import { StatusBarStyle } from './type';
 
 export interface HeaderProps {
