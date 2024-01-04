@@ -133,7 +133,7 @@ export function ImageViewer(
           // padding: (calcWidth as number) > 768 ? '0 2rem' : '',
         }}
       >
-        {imgs.map((img, i) => (
+        {images.map((_, i) => (
           <div
             key={i}
             onClick={() => setIndex(i)}
@@ -142,7 +142,13 @@ export function ImageViewer(
               width: '1rem',
               height: '1rem',
               borderRadius: '50%',
-              backgroundColor: '#b2b2b2',
+              backgroundColor: isLoop
+                ? i + 1 === index
+                  ? 'white'
+                  : '#b2b2b2'
+                : i === index
+                ? 'white'
+                : '#b2b2b2',
             }}
           ></div>
         ))}
