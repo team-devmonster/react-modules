@@ -6,53 +6,28 @@ export type SlideProps = {
     uri: string | StaticImageData;
   }[];
   containerWidth?: number | '100%';
-  // containerHeigth?: number | '100vh';
-  // imageWidth: number | string;
-  // imageHeight: number | 'auto';
   startIndex: number;
   isLoop?: boolean;
+  animate?: boolean;
+  moveRight: () => void;
+  moveLeft: () => void;
 };
 
-export function ImageSlide(props: SlideProps) {
+export default function ImageSlide(props: SlideProps) {
   const {
     images,
     containerWidth = '100%',
-    // imageWidth,
     startIndex = 0,
-    isLoop = false,
+    animate = true,
+    moveRight,
+    moveLeft,
   } = props;
 
-  const [index, setIndex] = useState<number>(startIndex);
+
   const [calcWidth, setCalcWidth] = useState<number>();
-  const [isDragging, setIsDragging] = useState<boolean>(false);
   const [mouseStartX, setMouseStartX] = useState<number>(0);
   const [calculatedX, setCalculatedX] = useState(0);
-
-  useEffect(() => {
-    const windowWidth = typeof window !== 'undefined' && window.innerWidth;
-    const cal = (windowWidth as number) * 0.8;
-    setCalcWidth(cal);
-  }, []);
-
-  const moveRight = (): void => {
-    if (index !== images.length - 1) {
-      setIndex((prev) => prev + 1);
-    } else {
-      if (isLoop) {
-        setIndex(0);
-      }
-    }
-  };
-
-  const moveLeft = (): void => {
-    if (index !== 0) {
-      setIndex((prev) => prev - 1);
-    } else {
-      if (isLoop) {
-        setIndex(images.length - 1);
-      }
-    }
-  };
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -88,6 +63,11 @@ export function ImageSlide(props: SlideProps) {
     setMouseStartX(0);
     setIsDragging(false);
   };
+  useEffect(() => {
+    const windowWidth = typeof window !== 'undefined' && window.innerWidth;
+    const cal = (windowWidth as number) * 0.8;
+    setCalcWidth(cal);
+  }, []);
 
   return (
     <div>
@@ -103,11 +83,13 @@ export function ImageSlide(props: SlideProps) {
             display: 'flex',
             width: `${images.length * 100}%`,
             height: '100%',
-            transition: 'transform 0.5s',
+            transition: `transform ${animate ? 0.5 : 0}s`,
             transform:
               typeof containerWidth === 'number'
-                ? `translateX(-${index * containerWidth + calculatedX}px)`
-                : `translateX(-${index * 100}vw) translateX(${
+                ? `translateX(-${
+                    startIndex * containerWidth + calculatedX
+                  }px) translateX(${isDragging ? calculatedX : 0}px)`
+                : `translateX(-${startIndex * 100}vw) translateX(${
                     isDragging ? calculatedX : 0
                   }px)`,
           }}
@@ -123,6 +105,7 @@ export function ImageSlide(props: SlideProps) {
               // priority={true}
               style={{
                 cursor: isDragging ? 'grabbing' : 'grab',
+                // zIndex: 30,
                 maxWidth: 1200,
                 minWidth: 368,
                 width: calcWidth,
