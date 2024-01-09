@@ -24,6 +24,7 @@ export function Skeleton({ style, children }: SkeletonProps) {
   `;
     injectStyle(keyframesStyle);
   }, []);
+  if (children) return <div style={{...style}}>{children}</div>
 
-  return <div style={{ ...tagStyle.skeleton, ...style }}>{children}</div>;
+  return <div style={{ ...tagStyle.skeleton, ...style }}></div>;
 }
