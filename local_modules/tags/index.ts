@@ -26,3 +26,4 @@ export * from './src/span';
 export * from './src/type';
 export * from './src/row';
 export * from './src/skeleton';
+export * from './src/skeletonItem';
