@@ -99,3 +99,14 @@ export const useColorScheme = () => {
 
   return colorScheme;
 }
+
+export const injectStyle = (style: string): void => {
+  const styleElement = document.createElement('style');
+  let styleSheet = null;
+
+  document.head.appendChild(styleElement);
+
+  styleSheet = styleElement.sheet as CSSStyleSheet;
+
+  styleSheet.insertRule(style, styleSheet.cssRules.length);
+};
