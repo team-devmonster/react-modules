@@ -4,13 +4,17 @@ export const ToastComponent = ({
   message,
   style,
   contentStyle,
+  position = 'bottom',
 }: {
   message: string;
   style?: CSSProperties;
   contentStyle?: CSSProperties;
+  position?: 'top' | 'bottom';
 }) => {
   const [opacity, setOpacity] = useState(0);
-  const [translateY, setTranslateY] = useState(20);
+  const [translateY, setTranslateY] = useState(
+    position === 'bottom' ? 20 : -20
+  );
 
   const toastDefaltStyle: CSSProperties = {
     width: '380px',
@@ -24,7 +28,7 @@ export const ToastComponent = ({
     opacity: opacity,
     visibility: opacity === 0 ? 'hidden' : 'visible',
     transform: `translateY(${translateY}px)`,
-    transition: 'opacity 0.6s ease, transform 0.5s ease', // 애니메이션 트랜지션 설정
+    transition: 'opacity 0.5s ease, transform 0.5s ease',
     ...style,
   };
 
@@ -36,7 +40,6 @@ export const ToastComponent = ({
 
     return () => {
       setOpacity(0);
-      setTranslateY(20);
     };
   }, []);
 
